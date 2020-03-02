@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Filter
+comment1.params=
+comment1.target=Filter()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Filter\r\n
+comment2.params=min\ max
+comment2.target=java.util.ArrayList\ getInRange(int,\ int)
+comment3.params=min\ max\ borough
+comment3.target=java.util.ArrayList\ getInArea(int,\ int,\ java.lang.String)
+comment3.text=\r\n\ Gets\ an\ ArrayList\ of\ listing\ from\ a\ borough\ thats\ within\ \r\n\ @param\ min\ minimum\ value\ for\ price\r\n\ @param\ max\ maximum\ value\ for\ price\r\n\ @param\ borough\ the\ specific\ borough\r\n\ @return\ an\ ArrayList\r\n
+comment4.params=
+comment4.target=int\ getMax()
+comment4.text=\r\n\ Gets\ the\ highest\ number\ of\ listings\ in\ one\ area\r\n\ @return\ the\ highest\ number\r\n
+numComments=5
