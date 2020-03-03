@@ -119,7 +119,7 @@ public class ApplicationWindow extends Application
         stage.setScene(scene);
         stage.setMinHeight(centerPanel.getHeight());
         stage.setMinWidth(centerPanel.getWidth());
-        stage.setMaximized(true);
+     //   stage.setMaximized(true);
         stage.setResizable(false);
         // Show the Stage (window)
         stage.show();
