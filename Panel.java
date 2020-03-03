@@ -11,8 +11,25 @@ import javafx.scene.layout.*;
 public abstract class Panel
 {
     private Filter filter;
+    private HashMap<String, Borough> list;
+    
+    public Panel () {
+        filter = new Filter();
+    }
 
     public Pane getPanel(int minPrice, int maxPrice){
+        return null;
+    }
+
+    protected void loadBoroughs() {
+        list = new HashMap<>();
+        list.put("", new Borough ("", "", 10, 10, 10));
+    }
+
+    protected Borough matchBoroughs(String name) {
+        if (list.get(name) != null) {
+            return list.get(name);
+        }
         return null;
     }
 

@@ -20,6 +20,7 @@ public class Filter
      */
     public Filter()
     {
+        dataLoader = new AirbnbDataLoader();
         listings = dataLoader.load();
         listingsIT = listings.iterator();
     }
