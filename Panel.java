@@ -16,10 +16,6 @@ public abstract class Panel
         return null;
     }
 
-    /**
-     * Gets the highest number of listings in one area
-     * @return the highest number
-     */
     protected HashMap<String, Integer> boroughToPropertyNo (int minPrice, int maxPrice) {
         HashMap <String, Integer> boroughs = new HashMap<>();
         Iterator<AirbnbListing> it = filter.getInRange(minPrice, maxPrice).iterator();
