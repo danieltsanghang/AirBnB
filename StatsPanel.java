@@ -19,7 +19,9 @@ public class StatsPanel extends Panel
 
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
+        HashMap<String, Integer> boroughStatistics = statisticsForBoroughs();
+        Set<String> statsList = boroughStatistics.keySet();
         
-        return null;
+        
     }
 }
