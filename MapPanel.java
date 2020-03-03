@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
@@ -24,20 +25,11 @@ public class MapPanel extends Panel
         super();
     }
 
-    private Color getFillColor(int number, int max) {
-        int redValue = number / max * 255;
-        int blueValue = number / max * 200;
-        return Color.rgb(redValue, 255, blueValue);
-    }
-
-    public void printTest() {
-        HashMap<String, Integer> boroughs = boroughToPropertyNo(0, 10000000);
-        Set<String> boroughsList = boroughs.keySet();
-        Iterator<String> boroughsIT = boroughsList.iterator();
-
-        while (boroughsIT.hasNext()) {
-            System.out.println(boroughsIT.next());
-        }
+    private Color getFillColor(double number, double max) {
+        double redValue = (max - number) / max * 255;
+        double blueValue = 0.2164 * redValue + 200;
+        System.out.println((int) redValue + " " + 255 + " " + (int)blueValue);
+        return Color.rgb((int) redValue, 255, (int)blueValue);
     }
 
     @Override
@@ -46,7 +38,7 @@ public class MapPanel extends Panel
         Set<String> boroughsList = boroughs.keySet();
         Iterator<String> boroughsIT = boroughsList.iterator();
         
-        GridPane gridpane = new GridPane();
+        Pane root = new Pane();
 
         int max = Collections.max(boroughs.values());
 
@@ -55,10 +47,22 @@ public class MapPanel extends Panel
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
             Borough current = matchBoroughs(boroughName);
+
+            Color color = getFillColor(boroughs.get(boroughName), max);
+
             Circle circle = new Circle(current.getRadius());
-            circle.relocate(current.getX(), current.getY());
-            circle.setFill(getFillColor(boroughs.get(boroughName), max));
+            circle.setFill(color);
+
+            Text name = new Text(current.getAbbrevName());
+            name.setFont(new Font(20));
+            name.setBoundsType(TextBoundsType.VISUAL);
+
+            StackPane stack = new StackPane();
+            stack.relocate(current.getX(), current.getY());
+            stack.getChildren().addAll(circle, name);
+
+            root.getChildren().add(stack);
         }
-        return gridpane;
+        return root;
     }
 }

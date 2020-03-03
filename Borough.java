@@ -19,13 +19,13 @@ public class Borough
     /**
      * Constructor for objects of class Borough
      */
-    public Borough(String name, String abbrevName, int xPos, int yPos, int radius)
+    public Borough(String name, String abbrevName, int xPos, int yPos, int diameter)
     {
         this.name = name;
         this.abbrevName = abbrevName;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.radius = radius;
+        this.radius = diameter / 2;
     }
 
     public String getAbbrevName() {
