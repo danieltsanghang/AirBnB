@@ -116,7 +116,8 @@ public class ApplicationWindow extends Application
         
         //root.setCenter();
         // JavaFX must have a Scene (window content) inside a Stage (window)
-        Scene scene = new Scene(root, 300,100);
+        Scene scene = new Scene(root);
+        stage.setMaximized(true);
         stage.setTitle("Application Window");
         stage.setScene(scene);
 
