@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Panel
+comment1.params=min\ max
+comment1.target=Panel\ getPanel(int,\ int)
+numComments=2
