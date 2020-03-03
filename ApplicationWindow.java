@@ -102,8 +102,12 @@ public class ApplicationWindow extends Application
 
         root.setTop(menuBar);
         root.setBottom(bottomPane);
+        /*
         WelcomePanel welcome = new WelcomePanel();
         centerPanel = welcome.getPanel(0,0);
+        */
+        MapPanel map = new MapPanel();
+        centerPanel = map.getPanel(0, 1000);
         root.setCenter(centerPanel);
         //root.setCenter(imageView);
 

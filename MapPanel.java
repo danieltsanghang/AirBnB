@@ -10,6 +10,10 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.*;
+import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
@@ -44,25 +48,48 @@ public class MapPanel extends Panel
 
         loadBoroughs();
 
+        double scale = 0.7;
+
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
             Borough current = matchBoroughs(boroughName);
 
             Color color = getFillColor(boroughs.get(boroughName), max);
 
-            Circle circle = new Circle(current.getRadius());
+            Circle circle = new Circle(current.getRadius(scale));
             circle.setFill(color);
 
             Text name = new Text(current.getAbbrevName());
-            name.setFont(new Font(20));
+            name.setFont(new Font(20 * scale));
             name.setBoundsType(TextBoundsType.VISUAL);
 
             StackPane stack = new StackPane();
-            stack.relocate(current.getX(), current.getY());
+            stack.relocate(current.getX(scale), current.getY(scale));
             stack.getChildren().addAll(circle, name);
+
+            MouseGestures mg = new MouseGestures();
+            mg.makePressable(stack);
 
             root.getChildren().add(stack);
         }
         return root;
+    }
+
+    private static class MouseGestures {
+
+        public void makePressable(Node node) {
+            node.setOnMousePressed(mousePressEventHandler);
+        }
+
+        EventHandler<MouseEvent> mousePressEventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                StackPane stack = (StackPane) t.getSource();
+                Text abbrevName = (Text) stack.getChildren().get(1);
+                //String name = matchBoroughToAbbrev(abbrevName.getText());
+                System.out.println(abbrevName.getText());
+
+            }
+        };
     }
 }

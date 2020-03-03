@@ -20,7 +20,7 @@ import java.io.BufferedReader;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class WelcomePanel extends Pane
+public class WelcomePanel extends Panel
 {
     private Image image;
     private BorderPane welcomePane = new BorderPane(); 
@@ -45,7 +45,7 @@ public class WelcomePanel extends Pane
      * Constructor for objects of class WelcomePanel
      */
     
-     public Pane getPanel(int minPrice, int maxPrice){ //why does price exist here -d
+    public Pane getPanel(int minPrice, int maxPrice){ //why does price exist here -d
         return welcomePane;
     }
 
