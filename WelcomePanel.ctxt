@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=WelcomePanel
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ WelcomePanel\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ WelcomePanel\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=WelcomePanel()
 comment2.params=minPrice\ maxPrice
 comment2.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
-comment2.text=\r\n\ Constructor\ for\ objects\ of\ class\ WelcomePanel\r\n
-numComments=3
+comment2.text=\n\ Constructor\ for\ objects\ of\ class\ WelcomePanel\n
+comment3.params=
+comment3.target=double\ height()
+comment4.params=
+comment4.target=double\ width()
+numComments=5

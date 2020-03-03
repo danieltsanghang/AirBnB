@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuBar;
+
 
 
 
@@ -52,6 +54,7 @@ public class ApplicationWindow extends Application
         Button forwardButton = new Button("FORWARD");
         ComboBox minComboBox = new ComboBox();
         ComboBox maxComboBox = new ComboBox();
+        MenuBar menuBar = new MenuBar();
 
         //combo
         minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
@@ -64,9 +67,14 @@ public class ApplicationWindow extends Application
             {
                 public void handle(ActionEvent event) {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                Integer initialValue = minPrice;
-
                 minPrice =  Integer.valueOf(output);
+                if (maxPrice!=null && isPriceCorrect())
+                {
+                    MapPanel map = new MapPanel();
+                    Pane centerPanel = map.getPanel(minPrice,maxPrice);
+                    root.setCenter(centerPanel);
+                }
+                
                 if (maxPrice!=null && minPrice.intValue()>= maxPrice.intValue())
                 {
                     showAbout();
@@ -115,14 +123,15 @@ public class ApplicationWindow extends Application
         topGridPane.add(minComboBox, 1, 0);
         topGridPane.add(priceToLabel, 2, 0);
         topGridPane.add(maxComboBox, 3, 0);
-        menuBar.setRight(topGridPane);
+        
+        //menuBar.getMenus().add(topGridPane);
         bottomPane.setLeft(backButton);
         bottomPane.setRight(forwardButton);
 
-        root.setTop(menuBar);
+        root.setTop(topGridPane);
         root.setBottom(bottomPane);
         WelcomePanel welcome = new WelcomePanel();
-        centerPanel = welcome.getPanel(0,0);
+        Pane centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
         //root.setCenter(imageView);
 
