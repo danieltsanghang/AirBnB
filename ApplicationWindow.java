@@ -14,6 +14,10 @@ import javafx.beans.value.ChangeListener;
 import java.io.FileInputStream; 
 import java.io.InputStream;
 import java.io.FileNotFoundException; 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+
 
 /**
  * Write a description of JavaFX class ApplicationWindow here.
@@ -26,8 +30,8 @@ public class ApplicationWindow extends Application
     // We keep track of the count, and label displaying the count:
     private int count = 0;
     private BorderPane root= new  BorderPane();
-    private int minPrice;
-    private int maxPrice;
+    private Integer minPrice;
+    private Integer maxPrice;
     private static Panel centerPanel;
     
     /**
@@ -49,11 +53,10 @@ public class ApplicationWindow extends Application
         ComboBox minComboBox = new ComboBox();
         ComboBox maxComboBox = new ComboBox();
         
-        //ChoiceDialog d = new ChoiceDialog(); 
+        //combo 
         minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
-        // Set the Limit of visible months to 5
         minComboBox.setVisibleRowCount(3);
-        maxComboBox.getItems().addAll( "50", "100", "150", "200", "250", "300");
+        maxComboBox.getItems().addAll( "0", "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         maxComboBox.setVisibleRowCount(3);
         
@@ -62,7 +65,14 @@ public class ApplicationWindow extends Application
             @Override public void handle(ActionEvent e)
             {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                minPrice =  Integer.parseInt(output);
+                Integer initialValue = minPrice;
+                
+                minPrice =  Integer.valueOf(output);
+                if (maxPrice!=null && minPrice.intValue()>= maxPrice.intValue())
+                {
+                    showAbout();
+                    minComboBox.valueProperty().set(null);
+                }    
                 
             }
         });
@@ -71,8 +81,18 @@ public class ApplicationWindow extends Application
         {
             @Override public void handle(ActionEvent e)
             {
-                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                minPrice =  Integer.parseInt(output);
+                String output = maxComboBox.getSelectionModel().getSelectedItem().toString();
+                maxPrice =  Integer.valueOf(output);
+                /*if (minPrice!=null && isPeiceCorrect())
+                {
+                    
+                }*/
+                
+                if (minPrice!=null && minPrice>= maxPrice)
+                {
+                    showAbout();
+                    maxComboBox.valueProperty().set(null);
+                } 
                 
             }
         });
@@ -123,16 +143,47 @@ public class ApplicationWindow extends Application
         // Show the Stage (window)
         stage.show();
     }
-
+    
     /**
-     * This will be executed when the button is clicked
-     * It increments the count by 1*/
+     * This will check whether there is false input of prices
+     */
+    
+    private boolean isPriceCorrect()
+    {
+        if (minPrice.intValue()>= maxPrice.intValue())
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * This will show a dialog if the input price is not correct
+     */
+    
+    private void showAbout()
+    {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("About ImageViewer");
+    alert.setHeaderText(null);  // Alerts have an optional header.
+    alert.setContentText("Please select the correct input \n Minimum price must be lower than Maximum Price");
+    alert.showAndWait();
+    }
+    
+    /**
+     * This will be executed when the backbutton is clicked
+     */
    
     private void backButtonClick(ActionEvent event)
     {
         // Counts number of button clicks and shows the result on a label
        
     }
+    
+    /**
+     * This will be executed when the backbutton is clicked
+     */
+    
     private void forwardButtonClick(ActionEvent event)
     {
         // Counts number of button clicks and shows the result on a label
