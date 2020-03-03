@@ -1,3 +1,4 @@
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,6 +62,7 @@ public class ApplicationWindow extends Application
 
         minComboBox.setOnAction(new EventHandler<ActionEvent>()
             {
+                public void handle(ActionEvent event) {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
                 Integer initialValue = minPrice;
 
@@ -76,6 +78,7 @@ public class ApplicationWindow extends Application
 
         maxComboBox.setOnAction(new EventHandler<ActionEvent>()
             {
+                public void handle(ActionEvent event) {
                 String output = maxComboBox.getSelectionModel().getSelectedItem().toString();
                 maxPrice =  Integer.valueOf(output);
                 /*if (minPrice!=null && isPeiceCorrect())
