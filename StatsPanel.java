@@ -5,6 +5,8 @@
  * @version (a version number or a date)
  */
 
+import javafx.scene.layout.*;
+
 public class StatsPanel extends Panel
 {
     /**
@@ -16,7 +18,7 @@ public class StatsPanel extends Panel
     }
 
     @Override
-    public Panel getPanel(int min, int max) {
+    public Pane getPanel(int minPrice, int maxPrice) {
         
         return null;
     }
