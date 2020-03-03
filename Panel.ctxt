@@ -1,8 +1,9 @@
 #BlueJ class context
 comment0.target=Panel
-comment1.params=minPrice\ maxPrice
-comment1.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
+comment1.params=
+comment1.target=Panel()
 comment2.params=minPrice\ maxPrice
-comment2.target=java.util.HashMap\ boroughToPropertyNo(int,\ int)
-comment2.text=\n\ Gets\ the\ highest\ number\ of\ listings\ in\ one\ area\n\ @return\ the\ highest\ number\n
-numComments=3
+comment2.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
+comment3.params=minPrice\ maxPrice
+comment3.target=java.util.HashMap\ boroughToPropertyNo(int,\ int)
+numComments=4
