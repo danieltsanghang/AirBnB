@@ -14,21 +14,28 @@ import java.util.HashMap;
 public class Filter
 {
     private AirbnbDataLoader dataLoader;
+    private ArrayList<AirbnbListing> listings;
+    private Iterator<AirbnbListing> listingsIT;
 
     /**
      * Constructor for objects of class Filter
      */
     public Filter()
     {
-
+        listings = dataLoader.load();
+        listingsIT = listings.iterator();
     }
 
+    /**
+     * Gets an ArrayList of listing that's within the price range
+     * @param min minimum value for price
+     * @param max maximum value for price
+     * @return an Arraylist
+     */
     public ArrayList<AirbnbListing> getInRange(int min, int max) {
         ArrayList<AirbnbListing> listing = new ArrayList<>();
-        ArrayList<AirbnbListing> all = dataLoader.load();
-        Iterator<AirbnbListing> it = all.iterator();
-        while (it.hasNext()) {
-            AirbnbListing current = it.next();
+        while (listingsIT.hasNext()) {
+            AirbnbListing current = listingsIT.next();
             int currentPrice = current.getPrice();
             if (currentPrice > min && currentPrice < max) {
                 listing.add(current);
@@ -38,7 +45,7 @@ public class Filter
     }
 
     /**
-     * Gets an ArrayList of listing from a borough thats within 
+     * Gets an ArrayList of listing from a borough that's within the price range
      * @param min minimum value for price
      * @param max maximum value for price
      * @param borough the specific borough
@@ -64,10 +71,8 @@ public class Filter
      */
     public int getMax() {
         HashMap <String, Integer> boroughs = new HashMap<>();
-        ArrayList<AirbnbListing> all = dataLoader.load();
-        Iterator<AirbnbListing> it = all.iterator();
-        while(it.hasNext()) {
-            AirbnbListing current = it.next();
+        while(listingsIT.hasNext()) {
+            AirbnbListing current = listingsIT.next();
             String currentBorough = current.getNeighbourhood();
             if (!boroughs.containsKey(currentBorough)) {
                 boroughs.put(currentBorough, 1);
