@@ -1,5 +1,4 @@
 
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,9 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ComboBox;
 import javafx.beans.value.ChangeListener;
-import java.io.FileInputStream;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;  
+import java.io.FileInputStream; 
 import java.io.InputStream;
 import java.io.FileNotFoundException; 
 
@@ -31,6 +28,7 @@ public class ApplicationWindow extends Application
     private BorderPane root= new  BorderPane();
     private int minPrice;
     private int maxPrice;
+    private static Panel centerPanel;
     
     /**
      * The start method is the main entry point for every JavaFX application. 
@@ -40,13 +38,7 @@ public class ApplicationWindow extends Application
      * @param  stage the primary stage for this application.
      */
     @Override
-    public void start(Stage stage)throws FileNotFoundException {         
-        //Creating an image 
-        //Image image = new Image(new FileInputStream("path of the image")); 
-        //ImageView imageView = new ImageView(image);
-        //Setting the position of the image 
-        //imageView.setX(50); 
-        //imageView.setY(25); 
+    public void start(Stage stage)throws FileNotFoundException {  
         
         Label priceFromLabel = new Label("From");
         priceFromLabel.setStyle("-fx-background-color: #00ffff;");
@@ -84,6 +76,7 @@ public class ApplicationWindow extends Application
                 
             }
         });
+        
         GridPane topGridPane = new GridPane();
         topGridPane.setStyle("-fx-background-color: #336699;");
         topGridPane.setPrefSize(100, 10);
@@ -117,6 +110,8 @@ public class ApplicationWindow extends Application
         
         root.setTop(topGridPane);
         root.setBottom(bottomGridPane);
+        centerPanel = new WelcomePanel();
+        root.setCenter(centerPanel.getPanel(0,0));
         //root.setCenter(imageView);
         
         //root.setCenter();

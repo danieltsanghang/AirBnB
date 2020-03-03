@@ -12,7 +12,7 @@ public abstract class Panel
 {
     private Filter filter;
 
-    public Pane getPanel(int minPrice, int maxPrice){
+     public Pane getPanel(int minPrice, int maxPrice){
         return null;
     }
 
