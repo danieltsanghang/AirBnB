@@ -1,7 +1,3 @@
-import java.util.Iterator;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
@@ -24,16 +20,18 @@ import java.io.BufferedReader;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class WelcomePanel extends Panel
+public class WelcomePanel extends Pane
 {
+    private Image image;
     private BorderPane welcomePane = new BorderPane(); 
     //Creating an image 
     public WelcomePanel()
     {   
         File file = new File("welcomepanel_try.png");
-        Image image = new Image(file.toURI().toString());
+        image = new Image(file.toURI().toString());
         ImageView imageView = new ImageView(image);
         welcomePane.setCenter(imageView);
+        this.setMinSize(image.getWidth(),image.getHeight());
     }
     /*URL url = getClass().getResource("welcomepanel_try.png");
     Image image = new Image(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -47,9 +45,17 @@ public class WelcomePanel extends Panel
      * Constructor for objects of class WelcomePanel
      */
     
-     public Pane getPanel(int minPrice, int maxPrice){
+     public Pane getPanel(int minPrice, int maxPrice){ //why does price exist here -d
         return welcomePane;
     }
 
+    public double height()
+    {
+        return image.getHeight();
+    }
     
+    public double width()
+    {
+        return image.getWidth();
+    }
 }
