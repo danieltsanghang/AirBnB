@@ -1,6 +1,6 @@
 #BlueJ package file
-dependency1.from=AirbnbDataLoader
-dependency1.to=AirbnbListing
+dependency1.from=Filter
+dependency1.to=AirbnbDataLoader
 dependency1.type=UsesDependency
 dependency2.from=MapPanel
 dependency2.to=Borough
@@ -43,8 +43,8 @@ target1.name=Panel
 target1.showInterface=false
 target1.type=AbstractTarget
 target1.width=80
-target1.x=680
-target1.y=210
+target1.x=100
+target1.y=10
 target2.height=50
 target2.name=MapPanel
 target2.showInterface=false
