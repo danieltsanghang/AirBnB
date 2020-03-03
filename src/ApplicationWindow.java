@@ -49,6 +49,7 @@ public class ApplicationWindow extends Application
         ComboBox maxComboBox = new ComboBox();
 
         //ChoiceDialog d = new ChoiceDialog();
+        //aslkdjfh
         minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         minComboBox.setVisibleRowCount(3);
