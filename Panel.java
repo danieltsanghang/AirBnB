@@ -17,45 +17,46 @@ public abstract class Panel
         filter = new Filter();
     }
 
-     public Pane getPanel(int minPrice, int maxPrice){
+    public Pane getPanel(int minPrice, int maxPrice){
         return null;
     }
 
     protected void loadBoroughs() {
         list = new HashMap<>();
-        list.put("Enfield",new Borough("Enfield","ENFI",10,10,10));
-        list.put("Westminster",new Borough("Westminster","WSTM",10,10,10));
-        list.put("Hillingdon",new Borough("Hillingdon","HILL",10,10,10));
-        list.put("Havering",new Borough("Havering","HAVE",10,10,10));
-        list.put("Wandsworth",new Borough("Wandsworth","WAND",10,10,10));
-        list.put("Lewisham",new Borough("Lewisham","LEWI",10,10,10));
-        list.put("Tower Hamlets",new Borough("Tower Hamlets","TOWH",10,10,10));
-        list.put("Hounslow",new Borough("Hounslow","HOUN",10,10,10));
-        list.put("Redbridge",new Borough("Redbridge","REDB",10,10,10));
-        list.put("Southwark",new Borough("Southwark","STHW",10,10,10));
-        list.put("Camden",new Borough("Camden","CAMD",10,10,10));
-        list.put("Bromley",new Borough("Bromley","BROM",10,10,10));
-        list.put("Lambeth",new Borough("Lambeth","LAMB",10,10,10));
-        list.put("Kensington and Chelsea",new Borough("Kensington and Chelsea","KENS",10,10,10));
-        list.put("Islington",new Borough("Islington","ISLI",10,10,10));
-        list.put("Barnet",new Borough("Barnet","BARN",10,10,10));
-        list.put("Richmond upon Thames",new Borough("Richmond upon Thames","RICH",10,10,10));
-        list.put("Kingston upon Thames",new Borough("Kingston upon Thames","KING",10,10,10));
-        list.put("Harrow",new Borough("Harrow","HRRW",10,10,10));
-        list.put("Sutton",new Borough("Sutton","SUTT",10,10,10));
-        list.put("Haringey",new Borough("Haringey","HRGY",10,10,10));
-        list.put("Brent",new Borough("Brent","BREN",10,10,10));
-        list.put("Bexley",new Borough("Bexley","BEXL",10,10,10));
-        list.put("Hackney",new Borough("Hackney","HACK",10,10,10));
-        list.put("Greenwich",new Borough("Greenwich","GWCH",10,10,10));
-        list.put("Hammersmith and Fulham",new Borough("Hammersmith and Fulham","HAMM",10,10,10));
-        list.put("Waltham Forest",new Borough("Waltham Forest","WALT",10,10,10));
-        list.put("Merton",new Borough("Merton","MERT",10,10,10));
-        list.put("Croydon",new Borough("Croydon","CROY",10,10,10));
-        list.put("Newham",new Borough("Newham","NEWH",10,10,10));
-        list.put("Ealing",new Borough("Ealing","EALI",10,10,10));
-        list.put("City of London",new Borough("City of London","CITY",10,10,10));
-        list.put("Barking and Dagenham",new Borough("Barking and Dagenham","BARK",10,10,10));
+        list.put("Barking and Dagenham", new Borough ("Barking and Dagenham","BARK",1246,365,162));
+        list.put("Barnet", new Borough ("Barnet","BARN",675,96,213));
+        list.put("Bexley", new Borough ("Bexley","BEXL",1322,514,199));
+        list.put("Brent", new Borough ("Brent","BREN",627,313,139));
+        list.put("Bromley", new Borough ("Bromley","BROM",1129,698,349));
+        list.put("Camden", new Borough ("Camden","CAMD",782,350,102));
+        list.put("City of London", new Borough ("City of London","CITY",951,448,59));
+        list.put("Croydon", new Borough ("Croydon","CROY",898,742,213));
+        list.put("Ealing" ,new Borough ("Ealing","EALI",498,431,177));
+        list.put("Enfield", new Borough ("Enfield","ENFI",900,27,218));
+        list.put("Greenwich", new Borough ("Greenwich","GWCH",1126,491,170));
+        list.put("Hackney", new Borough ("Hackney","HACK",984,359,89));
+        list.put("Hammersmith and Fulham", new Borough ("Hammersmith and Fulham","HAMM",670,526,129));
+        list.put("Haringey", new Borough ("Haringey","HRGY",886,260,111));
+        list.put("Harrow", new Borough ("Harrow","HRRW",439,136,218));
+        list.put("Havering", new Borough ("Havering","HAVE",1361,136,304));
+        list.put("Hillingdon", new Borough ("Hillingdon","HILL",255,309,250));
+        list.put("Hounslow", new Borough ("Hounslow","HOUN",375,581,158));
+        list.put("Islington", new Borough ("Islington","ISLI",898,389,63));
+        list.put("Kensington and Chelsea", new Borough ("Kensington and Chelsea","KENS",756,452,81));
+        list.put("Kingston upon Thames", new Borough ("Kingston upon Thames","KING",609,810,126));
+        list.put("Lambeth", new Borough ("Lambeth","LAMB",904,623,110));
+        list.put("Lewisham", new Borough ("Lewisham","LEWS",1033,623,113));
+        list.put("Merton", new Borough ("Merton","MERT",714,679,165));
+        list.put("Newham", new Borough ("Newham","NEWH",1101,365,127));
+        list.put("Redbridge", new Borough ("Redbridge","REDB",1131,155,219));
+        list.put("Richmond upon Thames", new Borough ("Richmond upon Thames","RICH",534,629,173));
+        list.put("Southwark", new Borough ("Southwark","STHW",955,515,99));
+        list.put("Sutton", new Borough ("Sutton","SUTT",738,858,152));
+        list.put("Tower Hamlets", new Borough ("Tower Hamlets","TOWH",1040,460,80));
+        list.put("Waltham Forest", new Borough ("Waltham Forest","WALT",1033,256,93));
+        list.put("Wandsworth", new Borough ("Wandsworth","WAND",803,585,97));
+        list.put("Westminster", new Borough ("Westminster","WSTM",842,484,97));
+
     }
 
     protected Borough matchBoroughs(String name) {
