@@ -1,9 +1,10 @@
 #BlueJ class context
 comment0.target=MapPanel
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MapPanel\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=MapPanel()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ MapPanel\r\n
-comment2.params=min\ max
-comment2.target=Panel\ getPanel(int,\ int)
-numComments=3
+comment2.params=number\ max
+comment2.target=java.awt.Color\ getFillColor(int,\ int)
+comment3.params=minPrice\ maxPrice
+comment3.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
+numComments=4

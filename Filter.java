@@ -8,8 +8,6 @@
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Collections;
-import java.util.HashMap;
 
 public class Filter
 {
@@ -53,8 +51,7 @@ public class Filter
      */
     public ArrayList<AirbnbListing> getInArea(int min, int max, String borough) {
         ArrayList<AirbnbListing> listing = new ArrayList<>();
-        ArrayList<AirbnbListing> inRange = getInRange(min, max);
-        Iterator<AirbnbListing> it = inRange.iterator();
+        Iterator<AirbnbListing> it = getInRange(min, max).iterator();
         while (it.hasNext()) {
             AirbnbListing current = it.next();
             String currentBorough = current.getNeighbourhood();
@@ -63,26 +60,5 @@ public class Filter
             }
         }
         return listing;
-    }
-
-    /**
-     * Gets the highest number of listings in one area
-     * @return the highest number
-     */
-    public int getMax() {
-        HashMap <String, Integer> boroughs = new HashMap<>();
-        while(listingsIT.hasNext()) {
-            AirbnbListing current = listingsIT.next();
-            String currentBorough = current.getNeighbourhood();
-            if (!boroughs.containsKey(currentBorough)) {
-                boroughs.put(currentBorough, 1);
-            }
-            else {
-                int inc = boroughs.get(currentBorough) + 1;
-                boroughs.replace(currentBorough, inc);
-            }
-        }
-
-        return Collections.max(boroughs.values());
     }
 }
