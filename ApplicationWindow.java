@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,15 +10,9 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ComboBox;
 import javafx.beans.value.ChangeListener;
-import java.io.FileInputStream;
+import java.io.FileInputStream; 
 import java.io.InputStream;
-import java.io.FileNotFoundException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.MenuBar;
-
-
-
+import java.io.FileNotFoundException; 
 
 /**
  * Write a description of JavaFX class ApplicationWindow here.
@@ -32,19 +25,19 @@ public class ApplicationWindow extends Application
     // We keep track of the count, and label displaying the count:
     private int count = 0;
     private BorderPane root= new  BorderPane();
-    private Integer minPrice;
-    private Integer maxPrice;
-    private static Panel centerPanel;
+    private int minPrice;
+    private int maxPrice;
+    private static Pane centerPanel;
 
     /**
-     * The start method is the main entry point for every JavaFX application.
-     * It is called after the init() method has returned and after
+     * The start method is the main entry point for every JavaFX application. 
+     * It is called after the init() method has returned and after 
      * the system is ready for the application to begin running.
      *
      * @param  stage the primary stage for this application.
      */
     @Override
-    public void start(Stage stage)throws FileNotFoundException {
+    public void start(Stage stage)throws FileNotFoundException {  
 
         Label priceFromLabel = new Label("From");
         priceFromLabel.setStyle("-fx-background-color: #00ffff;");
@@ -54,55 +47,35 @@ public class ApplicationWindow extends Application
         Button forwardButton = new Button("FORWARD");
         ComboBox minComboBox = new ComboBox();
         ComboBox maxComboBox = new ComboBox();
-        MenuBar menuBar = new MenuBar();
 
-        //combo
+        //ChoiceDialog d = new ChoiceDialog(); 
         minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
+        // Set the Limit of visible months to 5
         minComboBox.setVisibleRowCount(3);
-        maxComboBox.getItems().addAll( "0", "50", "100", "150", "200", "250", "300");
+        maxComboBox.getItems().addAll( "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         maxComboBox.setVisibleRowCount(3);
 
         minComboBox.setOnAction(new EventHandler<ActionEvent>()
             {
-                public void handle(ActionEvent event) {
-                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                minPrice =  Integer.valueOf(output);
-                if (maxPrice!=null && isPriceCorrect())
+                @Override public void handle(ActionEvent e)
                 {
-                    MapPanel map = new MapPanel();
-                    Pane centerPanel = map.getPanel(minPrice,maxPrice);
-                    root.setCenter(centerPanel);
-                }
-                
-                if (maxPrice!=null && minPrice.intValue()>= maxPrice.intValue())
-                {
-                    showAbout();
-                    minComboBox.valueProperty().set(null);
-                }
+                    String output = minComboBox.getSelectionModel().getSelectedItem().toString();
+                    minPrice =  Integer.parseInt(output);
 
-            }
-        });
+                }
+            });
 
         maxComboBox.setOnAction(new EventHandler<ActionEvent>()
             {
-                public void handle(ActionEvent event) {
-                String output = maxComboBox.getSelectionModel().getSelectedItem().toString();
-                maxPrice =  Integer.valueOf(output);
-                /*if (minPrice!=null && isPeiceCorrect())
+                @Override public void handle(ActionEvent e)
                 {
+                    String output = minComboBox.getSelectionModel().getSelectedItem().toString();
+                    minPrice =  Integer.parseInt(output);
 
-                }*/
-
-                if (minPrice!=null && minPrice>= maxPrice)
-                {
-                    showAbout();
-                    maxComboBox.valueProperty().set(null);
                 }
-
-            }
-        });
-
+            });
+        BorderPane menuBar = new BorderPane();
         GridPane topGridPane = new GridPane();
         topGridPane.setPadding(new Insets(7, 7, 7, 7));
         topGridPane.setHgap(10);
@@ -123,15 +96,18 @@ public class ApplicationWindow extends Application
         topGridPane.add(minComboBox, 1, 0);
         topGridPane.add(priceToLabel, 2, 0);
         topGridPane.add(maxComboBox, 3, 0);
-        
-        //menuBar.getMenus().add(topGridPane);
+        menuBar.setRight(topGridPane);
         bottomPane.setLeft(backButton);
         bottomPane.setRight(forwardButton);
 
-        root.setTop(topGridPane);
+        root.setTop(menuBar);
         root.setBottom(bottomPane);
+        /*
         WelcomePanel welcome = new WelcomePanel();
-        Pane centerPanel = welcome.getPanel(0,0);
+        centerPanel = welcome.getPanel(0,0);
+        */
+        MapPanel map = new MapPanel();
+        centerPanel = map.getPanel(0, 1000);
         root.setCenter(centerPanel);
         //root.setCenter(imageView);
 
@@ -143,51 +119,21 @@ public class ApplicationWindow extends Application
         stage.setScene(scene);
         stage.setMinHeight(centerPanel.getHeight());
         stage.setMinWidth(centerPanel.getWidth());
-        stage.setMaximized(true);
+     //   stage.setMaximized(true);
         stage.setResizable(false);
         // Show the Stage (window)
         stage.show();
     }
 
     /**
-     * This will check whether there is false input of prices
-     */
-
-    private boolean isPriceCorrect()
-    {
-        if (minPrice.intValue()>= maxPrice.intValue())
-        {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * This will show a dialog if the input price is not correct
-     */
-
-    private void showAbout()
-    {
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("About ImageViewer");
-    alert.setHeaderText(null);  // Alerts have an optional header.
-    alert.setContentText("Please select the correct input \n Minimum price must be lower than Maximum Price");
-    alert.showAndWait();
-    }
-
-    /**
-     * This will be executed when the backbutton is clicked
-     */
+     * This will be executed when the button is clicked
+     * It increments the count by 1*/
 
     private void backButtonClick(ActionEvent event)
     {
         // Counts number of button clicks and shows the result on a label
 
     }
-
-    /**
-     * This will be executed when the backbutton is clicked
-     */
 
     private void forwardButtonClick(ActionEvent event)
     {
