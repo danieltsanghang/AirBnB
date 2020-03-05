@@ -65,6 +65,9 @@ public class ApplicationWindow extends Application
         Button backButton = new Button("BACK");
         Button forwardButton = new Button("FORWARD");
 
+        panels = new ArrayList<>();
+        panels.add(map);
+        panels.add(stats);
 
         //ChoiceDialog d = new ChoiceDialog();
 
@@ -75,31 +78,32 @@ public class ApplicationWindow extends Application
         // Set the Limit of visible months to 5
         maxComboBox.setVisibleRowCount(3);
 
-        minComboBox.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override public void handle(ActionEvent e)
-            {
-                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                minPrice =  Integer.parseInt(output);
-                minSelected = true;
+        minComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if(t1 != null)  {
+                    int min = Integer.parseInt(t1);
+                    minPrice = min;
+                    if (maxSelected && maxPrice > minPrice) {
+                        centerPanel = map.getPanel(minPrice,maxPrice);
+                    }
+                    minSelected = true;
+                }
+                else {
+                    centerPanel = welcome.getPanel(0,0);
+                }
+                root.setCenter(centerPanel);
             }
         });
-
-// have compiling errors
-//        maxComboBox.setOnAction(new EventHandler<ActionEvent>()
-//        {
-//            @Override public void handle(ActionEvent e)
-//            {
-//                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-//                minPrice =  Integer.parseInt(output);
-//            }
-//        });
 
         maxComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 if(t1 != null)  {
                     int max = Integer.parseInt(t1);
-                    centerPanel = map.getPanel(0, max);
+                    maxPrice = max;
+                    if (minSelected && maxPrice > minPrice) {
+                        centerPanel = map.getPanel(minPrice,maxPrice);
+                    }
+                    maxSelected = true;
                 }
                 else    {
                     centerPanel = welcome.getPanel(0,0);
@@ -137,9 +141,7 @@ public class ApplicationWindow extends Application
         root.setBottom(bottomPane);
         centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
-        //root.setCenter(imageView);
 
-        //root.setCenter();
         // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(root);
 
@@ -162,10 +164,8 @@ public class ApplicationWindow extends Application
     {
         // last center panel
         if (minSelected && maxSelected) {
-            panels.add(map);
-            panels.add(stats);
-            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
-            count = (count + 1) % 3;
+            count = (count - 1) % 2;
+            root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
 
@@ -173,10 +173,8 @@ public class ApplicationWindow extends Application
     {
         //next center panel
         if (minSelected && maxSelected) {
-            panels.add(map);
-            panels.add(stats);
-            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
-            count = (count + 1) % 3;
+            count = (count + 1) % 2;
+            root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
 
