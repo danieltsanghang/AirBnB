@@ -6,9 +6,10 @@
  */
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Collections;
 import javafx.scene.layout.*;
 
-public abstract class Panel
+public abstract class Panel extends Pane
 {
     private Filter filter;
     private HashMap<String, Borough> list;
@@ -69,6 +70,8 @@ public abstract class Panel
     protected HashMap<String, Integer> boroughToPropertyNo (int minPrice, int maxPrice) {
         HashMap <String, Integer> boroughs = new HashMap<>();
         Iterator<AirbnbListing> it = filter.getInRange(minPrice, maxPrice).iterator();
+        int counter = 0;
+
         while(it.hasNext()) {
             AirbnbListing current = it.next();
             String currentBorough = current.getNeighbourhood();
@@ -79,7 +82,18 @@ public abstract class Panel
                 int inc = boroughs.get(currentBorough) + 1;
                 boroughs.replace(currentBorough, inc);
             }
+            counter++;
         }
+
+        System.out.println("borough iterated times => " + counter);
+        System.out.print("borough hashmap's size=> "); System.out.println(boroughs.size());
+        System.out.print("borough.values()'s size => "); System.out.println(boroughs.values().size());
+        Iterator<Integer> testIT = boroughs.values().iterator();
+        System.out.print("borough.values().iterator() is null => "); System.out.println(testIT == null);
+        while (testIT.hasNext()) {
+            System.out.print(testIT.next() + " ");
+        }
+        System.out.println();
         return boroughs;
     }
 }

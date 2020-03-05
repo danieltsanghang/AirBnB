@@ -10,18 +10,17 @@ import java.io.File;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class WelcomePanel extends Pane
+public class WelcomePanel extends Panel
 {
     private Image image;
-    private BorderPane welcomePane = new BorderPane();
+    private ImageView imageView;
+
     //Creating an image
     public WelcomePanel()
     {
         File file = new File("welcomepanel_try.png");
         image = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(image);
-        welcomePane.setCenter(imageView);
-        this.setMinSize(image.getWidth(),image.getHeight());
+        imageView = new ImageView(image);
     }
     /*URL url = getClass().getResource("welcomepanel_try.png");
     Image image = new Image(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -35,7 +34,10 @@ public class WelcomePanel extends Pane
      * Constructor for objects of class WelcomePanel
      */
 
-    public Pane getPanel(int minPrice, int maxPrice){ //why does price exist here -d
+    public Pane getPanel(int minPrice, int maxPrice){
+        BorderPane welcomePane = new BorderPane();
+        welcomePane.setCenter(imageView);
+        this.setMinSize(image.getWidth(),image.getHeight());
         return welcomePane;
     }
 }
