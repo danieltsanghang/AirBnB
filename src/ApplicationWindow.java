@@ -49,6 +49,7 @@ public class ApplicationWindow extends Application
 
     private ArrayList<Panel> panels;
 
+
     /**
      * The start method is the main entry point for every JavaFX application.
      * It is called after the init() method has returned and after
@@ -180,11 +181,22 @@ public class ApplicationWindow extends Application
         }
     }
 
-     public void popUpWindow(Pane pane, String name)  {
+    static public void popUpWindow(listingBorough pane, String name)  {
         Stage newWindow = new Stage();
-        Scene scene = new Scene(pane);
-        newWindow.setTitle(name);
+        Scene scene = new Scene(pane.getPane());
+        newWindow.setTitle("Properties of " + name );
         newWindow.setScene(scene);
+        newWindow.show();
+
+        //test
+//        Stage window = new Stage();
+//        BorderPane pane2 = new BorderPane();
+//        Label testlabel = new Label("Test");
+//        pane2.setCenter(testlabel);
+//        Scene scene1 = new Scene(pane2);
+//        window.setTitle("name");
+//        window.setScene(scene1);
+//        window.show();
 
     }
 

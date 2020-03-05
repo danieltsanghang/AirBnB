@@ -28,14 +28,13 @@ import java.util.Iterator;
 public class listingBorough extends Pane{
 
 private BorderPane container = new BorderPane();
-private Scene scene = new Scene(container);
+//private Scene scene = new Scene(container);
 private ArrayList<Pane> listings = new ArrayList();
 private String name;
 private String abbrevName;
 
-        public listingBorough(String name, String abbrevName) {
+        public listingBorough(String name) {
             this.name = name;
-            this.abbrevName = abbrevName;
 
             Label sortLabel = new Label("Sort by:");
             ComboBox sortBox = new ComboBox();
@@ -55,7 +54,7 @@ private String abbrevName;
         }
 
         public Pane getPane()   {
-            return this;
+            return container;
         }
 
         public String getName() {
