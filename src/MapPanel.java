@@ -63,13 +63,14 @@ public class MapPanel extends Panel
             Circle circle = new Circle(current.getRadius(scale));
             circle.setFill(color);
 
-            Text name = new Text(current.getAbbrevName());
-            name.setFont(new Font(20 * scale));
-            name.setBoundsType(TextBoundsType.VISUAL);
+            Text abbrevName = new Text(current.getAbbrevName());
+            Text name = new Text(current.getName());
+            abbrevName.setFont(new Font(20 * scale));
+            abbrevName.setBoundsType(TextBoundsType.VISUAL);
 
             StackPane stack = new StackPane();
             stack.relocate(current.getX(scale), current.getY(scale));
-            stack.getChildren().addAll(circle, name);
+            stack.getChildren().addAll(circle, abbrevName);
 
             MouseGestures mg = new MouseGestures();
             mg.makePressable(stack);
@@ -89,9 +90,9 @@ public class MapPanel extends Panel
             @Override
             public void handle(MouseEvent t) {
                 StackPane stack = (StackPane) t.getSource();
-                Text abbrevName = (Text) stack.getChildren().get(1);
+                Text name = (Text) stack.getChildren().get(1);
                 //String name = matchBoroughToAbbrev(abbrevName.getText());
-                System.out.println(abbrevName.getText());
+                System.out.println(name.getText());
 
             }
         };
