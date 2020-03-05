@@ -4,11 +4,7 @@
     <option name="SCOPE_TYPE" value="10" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c22705-8acb-4158-a884-c11af069a0cf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApplicationWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApplicationWindow.java" afterDir="false" />
-    </list>
+    <list default="true" id="26c22705-8acb-4158-a884-c11af069a0cf" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +38,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -55,8 +51,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="ApplicationWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ApplicationWindow" />
+    <configuration name="tester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tester" />
       <module name="Assignment 4" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -64,7 +60,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ApplicationWindow" />
+        <item itemvalue="Application.tester" />
       </list>
     </recent_temporary>
   </component>
@@ -95,6 +91,7 @@
       <workItem from="1583263960736" duration="26000" />
       <workItem from="1583264544356" duration="30000" />
       <workItem from="1583264938844" duration="4708000" />
+      <workItem from="1583406977073" duration="267000" />
     </task>
     <servers />
   </component>
@@ -113,13 +110,15 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="496" y="197" width="811" height="669" key="#Project_Structure" timestamp="1583256471893">
-      <screen x="0" y="23" width="1792" height="1017" />
+    <state x="-100" y="-1175" width="811" height="669" key="#Project_Structure" timestamp="1583407168341">
+      <screen x="-1052" y="-1417" width="3440" height="1417" />
     </state>
+    <state x="-100" y="-1175" key="#Project_Structure/0.23.1440.877/-1052.-1417.3440.1417@-1052.-1417.3440.1417" timestamp="1583407168341" />
     <state x="496" y="197" width="811" height="669" key="#Project_Structure/0.23.1792.1017@0.23.1792.1017" timestamp="1583256471893" />
-    <state x="386" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583263509274">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-360" y="-1181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583407245506">
+      <screen x="-1052" y="-1417" width="3440" height="1417" />
     </state>
+    <state x="-360" y="-1181" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877/-1052.-1417.3440.1417@-1052.-1417.3440.1417" timestamp="1583407245506" />
     <state x="360" y="193" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1022@0.23.1792.1022" timestamp="1583259014769" />
     <state x="386" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1600.880/0.0.1920.1040@0.0.1920.1040" timestamp="1583263509274" />
     <state x="678" y="304" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1583262765527">
@@ -127,9 +126,10 @@
     </state>
     <state x="633" y="322" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1792.1022@0.23.1792.1022" timestamp="1583259013970" />
     <state x="678" y="304" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.0.1600.880/0.0.1920.1040@0.0.1920.1040" timestamp="1583262765527" />
-    <state x="757" y="426" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583264955569">
-      <screen x="0" y="23" width="1792" height="1017" />
+    <state x="401" y="-855" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583407175322">
+      <screen x="-1052" y="-1417" width="3440" height="1417" />
     </state>
+    <state x="401" y="-855" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1440.877/-1052.-1417.3440.1417@-1052.-1417.3440.1417" timestamp="1583407175322" />
     <state x="757" y="426" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1792.1017@0.23.1792.1017" timestamp="1583264955569" />
     <state x="811" y="412" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/1920.0.1600.880/0.0.1920.1040@0.0.1920.1040" timestamp="1583263503423" />
     <state x="641" y="394" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583327409673">
