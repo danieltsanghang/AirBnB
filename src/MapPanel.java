@@ -96,7 +96,7 @@ public class MapPanel extends Panel
                 Text name = (Text) stack.getChildren().get(1);
                 Text abbrevName = (Text) stack.getChildren().get(2);
                 //String name = matchBoroughToAbbrev(abbrevName.getText());
-                System.out.println(abbrevName.getText());
+                System.out.println(name.getText());
                 listingBorough pane = new listingBorough(name.getText());
                 test(pane);
             }

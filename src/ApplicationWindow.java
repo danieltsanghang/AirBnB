@@ -37,8 +37,8 @@ public class ApplicationWindow extends Application
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
 
-    private int minPrice;
-    private int maxPrice;
+    private static int minPrice;
+    private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
 
@@ -182,21 +182,14 @@ public class ApplicationWindow extends Application
     }
 
     static public void popUpWindow(listingBorough pane, String name)  {
+        pane.setMax(maxPrice);
+        pane.setMin(minPrice);
         Stage newWindow = new Stage();
         Scene scene = new Scene(pane.getPane());
         newWindow.setTitle("Properties of " + name );
         newWindow.setScene(scene);
+        newWindow.setMaxHeight(600);
         newWindow.show();
-
-        //test
-//        Stage window = new Stage();
-//        BorderPane pane2 = new BorderPane();
-//        Label testlabel = new Label("Test");
-//        pane2.setCenter(testlabel);
-//        Scene scene1 = new Scene(pane2);
-//        window.setTitle("name");
-//        window.setScene(scene1);
-//        window.show();
 
     }
 

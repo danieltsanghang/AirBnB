@@ -3,6 +3,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.geometry.Insets;
@@ -28,13 +29,25 @@ import java.util.Iterator;
 public class listingBorough extends Pane{
 
 private BorderPane container = new BorderPane();
-//private Scene scene = new Scene(container);
-private ArrayList<Pane> listings = new ArrayList();
+private ArrayList<Pane> matchedListings = new ArrayList();
 private String name;
-private String abbrevName;
+private int min;
+private int max;
 
-        public listingBorough(String name) {
+    public listingBorough(String name) {
             this.name = name;
+        AirbnbDataLoader data = new AirbnbDataLoader();
+        ArrayList<AirbnbListing> listings = data.load();
+            for (AirbnbListing property : listings) {
+                int price = property.getPrice();
+                System.out.println(min + max); // doesnt work YET
+                if (property.getNeighbourhood().equals(name)
+// doesnt work YET  && min < price && price < max
+                        ) {
+                    matchedListings.add(this.toBoxes(property));
+                }
+            }
+
 
             Label sortLabel = new Label("Sort by:");
             ComboBox sortBox = new ComboBox();
@@ -49,10 +62,35 @@ private String abbrevName;
 
             ScrollPane main = new ScrollPane();
             VBox vbox = new VBox();
+            for (Pane pane : matchedListings)   {
+                vbox.getChildren().add(pane);
+            }
+            vbox.setPadding(new Insets(5,5,5,5));
             main.setContent(vbox);
             container.setCenter(main);
         }
 
+        private Pane toBoxes(AirbnbListing listing) {
+            GridPane box = new GridPane();
+            Label hostName= new Label();
+            Label price= new Label();
+            Label reviews= new Label();
+            Label minStay= new Label();
+            hostName.setText("Host:" + listing.getHost_name());
+            price.setText("$ " + listing.getPrice());
+            reviews.setText("Number of reviews: " + listing.getNumberOfReviews());
+            minStay.setText("Minimum nights: " + listing.getMinimumNights());
+            hostName.setAlignment(Pos.CENTER_LEFT);
+            price.setAlignment(Pos.CENTER_RIGHT);
+            box.add(hostName,0,0);
+            box.add(price,1,0);
+            box.add(reviews,0,1);
+            box.add(minStay,1,1);
+
+            box.setVgap(7);
+            box.setHgap(20);
+            return box;
+        }
         public Pane getPane()   {
             return container;
         }
@@ -60,4 +98,12 @@ private String abbrevName;
         public String getName() {
             return name;
         }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
 }
