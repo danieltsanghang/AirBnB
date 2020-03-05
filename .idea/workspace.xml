@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="26c22705-8acb-4158-a884-c11af069a0cf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApplicationWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ApplicationWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MapPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MapPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Panel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +93,7 @@
       <workItem from="1583263960736" duration="26000" />
       <workItem from="1583264544356" duration="30000" />
       <workItem from="1583264938844" duration="4708000" />
-      <workItem from="1583407498820" duration="5761000" />
+      <workItem from="1583407498820" duration="5931000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1583264648895</created>
