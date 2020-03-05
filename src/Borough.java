@@ -28,20 +28,24 @@ public class Borough
         this.radius = diameter / 2;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getAbbrevName() {
         return abbrevName;
     }
 
-    public int getX() {
-        return xPos;
+    public double getX(double scale) {
+        return xPos * scale;
     }
 
-    public int getY() {
-        return yPos;
+    public double getY(double scale) {
+        return yPos * scale;
     }
 
-    public int getRadius() {
-        return radius;
+    public double getRadius(double scale) {
+        return radius * scale;
     }
 
 }
