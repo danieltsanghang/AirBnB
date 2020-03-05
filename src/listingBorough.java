@@ -33,7 +33,7 @@ private ArrayList<Pane> listings = new ArrayList();
 private String name;
 private String abbrevName;
 
-        public listingBorough(String name, String abbrevName, int minPrice, int maxPrice) {
+        public listingBorough(String name, String abbrevName) {
             this.name = name;
             this.abbrevName = abbrevName;
 
@@ -54,5 +54,11 @@ private String abbrevName;
             container.setCenter(main);
         }
 
+        public Pane getPane()   {
+            return this;
+        }
 
+        public String getName() {
+            return name;
+        }
 }
