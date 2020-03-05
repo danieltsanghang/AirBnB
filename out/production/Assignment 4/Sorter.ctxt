@@ -2,11 +2,7 @@
 comment0.target=Sorter
 comment1.params=
 comment1.target=Sorter()
-<<<<<<< Updated upstream
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Sorter\r\n
-=======
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Sorter\n
->>>>>>> Stashed changes
 comment2.params=toSort
 comment2.target=java.util.ArrayList\ sortByNumberOfReviews(java.util.ArrayList)
 comment3.params=toSort

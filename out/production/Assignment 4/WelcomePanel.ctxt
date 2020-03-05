@@ -6,12 +6,4 @@ comment1.target=WelcomePanel()
 comment2.params=minPrice\ maxPrice
 comment2.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
 comment2.text=\n\ Constructor\ for\ objects\ of\ class\ WelcomePanel\n
-<<<<<<< Updated upstream
-comment3.params=
-comment3.target=double\ height()
-comment4.params=
-comment4.target=double\ width()
-numComments=5
-=======
 numComments=3
->>>>>>> Stashed changes
