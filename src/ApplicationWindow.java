@@ -181,16 +181,32 @@ public class ApplicationWindow extends Application
         }
     }
 
-    static public void popUpWindow(listingBorough pane, String name)  {
-        pane.setMax(maxPrice);
-        pane.setMin(minPrice);
+    static public void popUpList(listingBorough pane, String name)  {
         Stage newWindow = new Stage();
         Scene scene = new Scene(pane.getPane());
         newWindow.setTitle("Properties of " + name );
         newWindow.setScene(scene);
         newWindow.setMaxHeight(600);
+        newWindow.setMinWidth(300);
         newWindow.show();
-
+        pane.button();
     }
 
+    static public void popUpProperty (Pane pane, String propertyName)    {
+        Stage newWindow = new Stage();
+        Scene scene = new Scene(pane);
+        newWindow.setTitle(propertyName);
+        newWindow.setScene(scene);
+        newWindow.setMaxHeight(600);
+        newWindow.setMinWidth(300);
+        newWindow.show();
+    }
+
+    static public int getMinPrice()    {
+        return minPrice;
+    }
+
+    static public int getMaxPrice() {
+        return maxPrice;
+    }
 }
