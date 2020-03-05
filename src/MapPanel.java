@@ -23,6 +23,13 @@ public class MapPanel extends Panel
     /**
      * Constructor for objects of class MapPanel
      */
+
+    private int max;
+    private HashMap<String, Integer> boroughs;
+    private Set<String> boroughsList;
+    private Iterator<String> boroughsIT;
+
+
     public MapPanel()
     {
         super();
@@ -31,22 +38,22 @@ public class MapPanel extends Panel
     private Color getFillColor(double number, double max) {
         double redValue = (max - number) / max * 255;
         double blueValue = 0.2164 * redValue + 200;
-        System.out.println((int) redValue + " " + 255 + " " + (int)blueValue);
+        //System.out.println((int) redValue + " " + 255 + " " + (int)blueValue);
         return Color.rgb((int) redValue, 255, (int)blueValue);
     }
 
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
-        HashMap<String, Integer> boroughs = boroughToPropertyNo(minPrice, maxPrice);
-        Set<String> boroughsList = boroughs.keySet();
-        Iterator<String> boroughsIT = boroughsList.iterator();
-
         Pane root = new Pane();
 
-        int max = Collections.max(boroughs.values());
+        boroughs = boroughToPropertyNo(minPrice, maxPrice);
+        boroughsList = boroughs.keySet();
+        boroughsIT = boroughsList.iterator();
+        max = Collections.max(boroughs.values());
 
         loadBoroughs();
-        Double scale = 0.6;
+        double scale = 0.6;
+
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
             Borough current = matchBoroughs(boroughName);

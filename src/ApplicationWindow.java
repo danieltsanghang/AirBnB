@@ -48,8 +48,6 @@ public class ApplicationWindow extends Application
 
     private ArrayList<Panel> panels;
 
-
-
     /**
      * The start method is the main entry point for every JavaFX application.
      * It is called after the init() method has returned and after
@@ -100,7 +98,8 @@ public class ApplicationWindow extends Application
         maxComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 if(t1 != null)  {
-                    centerPanel = map.getPanel(0, 1000);
+                    int max = Integer.parseInt(t1);
+                    centerPanel = map.getPanel(0, max);
                 }
                 else    {
                     centerPanel = welcome.getPanel(0,0);
@@ -163,6 +162,8 @@ public class ApplicationWindow extends Application
     {
         // last center panel
         if (minSelected && maxSelected) {
+            panels.add(map);
+            panels.add(stats);
             centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
             count = (count + 1) % 3;
         }
@@ -172,6 +173,8 @@ public class ApplicationWindow extends Application
     {
         //next center panel
         if (minSelected && maxSelected) {
+            panels.add(map);
+            panels.add(stats);
             centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
             count = (count + 1) % 3;
         }
