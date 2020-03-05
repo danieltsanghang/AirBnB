@@ -107,5 +107,4 @@ public class StatsPanel extends Panel
         }
         return toReturn;
     }
-
 }

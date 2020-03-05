@@ -176,7 +176,7 @@ public class ApplicationWindow extends Application
             panels.add(map);
             panels.add(stats);
             centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
-            count = (count - 1) % 3;
+            count = (count + 1) % 3;
         }
     }
 
