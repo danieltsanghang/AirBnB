@@ -52,7 +52,8 @@ public class MapPanel extends Panel
         max = Collections.max(boroughs.values());
 
         loadBoroughs();
-        double scale = 0.6;
+
+        double scale = 0.55;
 
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
@@ -91,9 +92,11 @@ public class MapPanel extends Panel
             public void handle(MouseEvent t) {
                 StackPane stack = (StackPane) t.getSource();
                 Text name = (Text) stack.getChildren().get(1);
+                Text abbrevName = (Text) stack.getChildren().get(1);
                 //String name = matchBoroughToAbbrev(abbrevName.getText());
                 System.out.println(name.getText());
-
+                listingBorough pane = new listingBorough(name.getText(), abbrevName.getText());
+                ApplicationWindow.popUpWindow(pane);
             }
         };
     }

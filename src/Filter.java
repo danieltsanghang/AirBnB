@@ -34,18 +34,13 @@ public class Filter
     public ArrayList<AirbnbListing> getInRange(int min, int max) {
         ArrayList<AirbnbListing> listing = new ArrayList<>();
         listingsIT = listings.iterator();
-        int counter = 0;
-
         while (listingsIT.hasNext()) {
             AirbnbListing current = listingsIT.next();
             int currentPrice = current.getPrice();
             if (currentPrice > min && currentPrice < max) {
                 listing.add(current);
             }
-            counter++;
         }
-        System.out.println("Listings iterated times => " + counter);
-        System.out.println("Listing arraylist's size => " + listing.size());
         return listing;
     }
 
