@@ -37,8 +37,8 @@ public class ApplicationWindow extends Application
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
 
-    private int minPrice;
-    private int maxPrice;
+    private static int minPrice;
+    private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
 
@@ -48,6 +48,7 @@ public class ApplicationWindow extends Application
     private Panel welcome = new WelcomePanel();
 
     private ArrayList<Panel> panels;
+
 
     /**
      * The start method is the main entry point for every JavaFX application.
@@ -180,11 +181,15 @@ public class ApplicationWindow extends Application
         }
     }
 
-     public void popUpWindow(Pane pane, String name)  {
+    static public void popUpWindow(listingBorough pane, String name)  {
+        pane.setMax(maxPrice);
+        pane.setMin(minPrice);
         Stage newWindow = new Stage();
-        Scene scene = new Scene(pane);
-        newWindow.setTitle(name);
+        Scene scene = new Scene(pane.getPane());
+        newWindow.setTitle("Properties of " + name );
         newWindow.setScene(scene);
+        newWindow.setMaxHeight(600);
+        newWindow.show();
 
     }
 
