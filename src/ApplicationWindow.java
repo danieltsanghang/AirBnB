@@ -48,8 +48,6 @@ public class ApplicationWindow extends Application
 
     private ArrayList<Panel> panels;
 
-
-
     /**
      * The start method is the main entry point for every JavaFX application.
      * It is called after the init() method has returned and after
@@ -163,6 +161,8 @@ public class ApplicationWindow extends Application
     {
         // last center panel
         if (minSelected && maxSelected) {
+            panels.add(map);
+            panels.add(stats);
             centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
             count = (count + 1) % 3;
         }
@@ -172,8 +172,10 @@ public class ApplicationWindow extends Application
     {
         //next center panel
         if (minSelected && maxSelected) {
+            panels.add(map);
+            panels.add(stats);
             centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
-            count = (count + 1) % 3;
+            count = (count - 1) % 3;
         }
     }
 
