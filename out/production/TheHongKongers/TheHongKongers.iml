@@ -7,11 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< Updated upstream:out/production/TheHongKongers/TheHongKongers.iml
     <orderEntry type="library" name="+libs" level="project" />
-=======
-    <orderEntry type="library" name="commons-lang3-3.7" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
->>>>>>> Stashed changes:Assignment 4.iml
   </component>
 </module>
