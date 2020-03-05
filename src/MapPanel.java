@@ -92,9 +92,11 @@ public class MapPanel extends Panel
             public void handle(MouseEvent t) {
                 StackPane stack = (StackPane) t.getSource();
                 Text name = (Text) stack.getChildren().get(1);
+                Text abbrevName = (Text) stack.getChildren().get(1);
                 //String name = matchBoroughToAbbrev(abbrevName.getText());
                 System.out.println(name.getText());
-
+                listingBorough pane = new listingBorough(name.getText(), abbrevName.getText());
+                ApplicationWindow.popUpWindow(pane);
             }
         };
     }
