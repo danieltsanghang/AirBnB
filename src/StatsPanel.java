@@ -80,13 +80,14 @@ public class StatsPanel extends Panel
         return NUMBER_OF_ENTIRE_HOME_APARTMENTS;
     }
 
-    public int boroughCost()
+    public String boroughCost()
     {
         int min = 0;
         int max = 1000000;
         HashMap<String, Integer> boroughs = boroughToPropertyNo(min, max);
         Set<String> boroughsList = boroughs.keySet();
         Iterator<String> boroughsIT = boroughsList.iterator();
+        String toReturn = "";
         int i = 0;
         while(boroughsIT.hasNext()){
             String boroughName = boroughsIT.next();
@@ -101,9 +102,10 @@ public class StatsPanel extends Panel
             }
             if(toCompare/i > boroughCost){
                 boroughCost = toCompare/i;
+                toReturn = boroughName;
             }
         }
-
+        return toReturn;
     }
 
 }
