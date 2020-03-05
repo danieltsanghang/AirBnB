@@ -5,6 +5,8 @@
  * @version (a version number or a date)
  */
 
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ import java.util.Iterator;
 import java.util.Set;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class StatsPanel extends Panel
 {
@@ -36,6 +41,37 @@ public class StatsPanel extends Panel
         Pane root = new Pane();
         Label myLabel = new Label("This is definitely a functional statistics panel.");
         root.getChildren().addAll(myLabel);
+
+        Cell leftCell = new Cell();
+        cell.
+
+        GridPane leftPane = new GridPane();
+        leftPane.setHgap(0);
+        leftPane.setVgap(0);
+        leftPane.setPadding(new Insets(10, 10, 10, 10));
+
+        // General Statistics title
+        Text title = new Text("General Statistics");
+        title.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 25));
+        leftPane.add(title, 2, 0);
+
+        // Average number of reviews/prop
+        Text averageReview = new Text("Average Reviews per property: " + getAverageReviews());
+        averageReview.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        leftPane.add(averageReview, 1, 1);
+
+        // Total number of properties in London airbnb
+        Text totalNumberOfProperties = new Text("Total number of properties on airbnb in London: " + getTotalNumber());
+        totalNumberOfProperties.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        leftPane.add(totalNumberOfProperties, 1, 2);
+
+        // Number of entire homes and apartments
+        Text totalNumberOfHomesAndAppts = new Text("Total number of homes and apartments: " + getNumberOfEntireHomes());
+        totalNumberOfHomesAndAppts.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        leftPane.add(totalNumberOfHomesAndAppts, 1, 2);
+
+
+
         return root;
     }
 
@@ -84,6 +120,9 @@ public class StatsPanel extends Panel
         return NUMBER_OF_ENTIRE_HOME_APARTMENTS;
     }
 
+    /*
+    Method returns the borough with the most expensive average cost (taking into account
+     */
     public String boroughCost()
     {
         int min = 0;
@@ -102,7 +141,7 @@ public class StatsPanel extends Panel
                 boroughCost = toCompare;
                 AirbnbListing airbnb = listings.get(i);
                 i++;
-                toCompare += airbnb.getPrice();
+                toCompare += airbnb.getPrice() * airbnb.getMinimumNights();
             }
             if(toCompare/i > boroughCost){
                 boroughCost = toCompare/i;
