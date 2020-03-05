@@ -98,7 +98,8 @@ public class ApplicationWindow extends Application
         maxComboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
                 if(t1 != null)  {
-                    centerPanel = map.getPanel(0, 1000);
+                    int max = Integer.parseInt(t1);
+                    centerPanel = map.getPanel(0, max);
                 }
                 else    {
                     centerPanel = welcome.getPanel(0,0);
