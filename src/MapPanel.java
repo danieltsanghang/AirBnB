@@ -46,6 +46,7 @@ public class MapPanel extends Panel
         int max = Collections.max(boroughs.values());
 
         loadBoroughs();
+        double scale = 0.6;
 
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
@@ -53,15 +54,15 @@ public class MapPanel extends Panel
 
             Color color = getFillColor(boroughs.get(boroughName), max);
 
-            Circle circle = new Circle(current.getRadius());
+            Circle circle = new Circle(current.getRadius(scale));
             circle.setFill(color);
 
             Text name = new Text(current.getAbbrevName());
-            name.setFont(new Font(20));
+            name.setFont(new Font(20*scale));
             name.setBoundsType(TextBoundsType.VISUAL);
 
             StackPane stack = new StackPane();
-            stack.relocate(current.getX(), current.getY());
+            stack.relocate(current.getX(scale), current.getY(scale));
             stack.getChildren().addAll(circle, name);
 
             MouseGestures mg = new MouseGestures();
