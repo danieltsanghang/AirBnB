@@ -4,10 +4,7 @@
     <option name="SCOPE_TYPE" value="10" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c22705-8acb-4158-a884-c11af069a0cf" name="Default Changelist" comment="testing">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StatsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StatsPanel.java" afterDir="false" />
-    </list>
+    <list default="true" id="26c22705-8acb-4158-a884-c11af069a0cf" name="Default Changelist" comment="testing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
