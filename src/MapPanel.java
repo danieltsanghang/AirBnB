@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+import javafx.event.EventHandler;
+import javafx.scene.*;
+import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
@@ -61,8 +64,29 @@ public class MapPanel extends Panel
             stack.relocate(current.getX(), current.getY());
             stack.getChildren().addAll(circle, name);
 
+            MouseGestures mg = new MouseGestures();
+            mg.makePressable(stack);
+
             root.getChildren().add(stack);
         }
         return root;
+    }
+
+    private static class MouseGestures {
+
+        public void makePressable(Node node) {
+            node.setOnMousePressed(mousePressEventHandler);
+        }
+
+        EventHandler<MouseEvent> mousePressEventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                StackPane stack = (StackPane) t.getSource();
+                Text abbrevName = (Text) stack.getChildren().get(1);
+                //String name = matchBoroughToAbbrev(abbrevName.getText());
+                System.out.println(abbrevName.getText());
+
+            }
+        };
     }
 }

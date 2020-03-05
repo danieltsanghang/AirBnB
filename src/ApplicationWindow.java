@@ -35,17 +35,19 @@ public class ApplicationWindow extends Application
     private BorderPane root= new  BorderPane();
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
+
     private int minPrice;
     private int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
 
-    private BorderPane root= new  BorderPane();
-
-    private int count = 0;
     private static Pane centerPanel;
-    private MapPanel map = new MapPanel();
-    private WelcomePanel welcome = new WelcomePanel();
+    private Panel map = new MapPanel();
+    private Panel stats = new StatsPanel();
+    private Panel welcome = new WelcomePanel();
+
+    private ArrayList<Panel> panels;
+
 
 
     /**
@@ -161,7 +163,7 @@ public class ApplicationWindow extends Application
     {
         // last center panel
         if (minSelected && maxSelected) {
-            centerPanel = Panels.get(count).getPanel(minPrice, maxPrice);
+            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
             count = (count + 1) % 3;
         }
     }
@@ -170,7 +172,7 @@ public class ApplicationWindow extends Application
     {
         //next center panel
         if (minSelected && maxSelected) {
-            centerPanel = Panels.get(count).getPanel(minPrice, maxPrice);
+            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
             count = (count + 1) % 3;
         }
     }
