@@ -1,5 +1,7 @@
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
@@ -10,9 +12,12 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ComboBox;
 import javafx.beans.value.ChangeListener;
+
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Write a description of JavaFX class ApplicationWindow here.
@@ -25,9 +30,14 @@ public class ApplicationWindow extends Application
     // We keep track of the count, and label displaying the count:
     private int count = 0;
     private BorderPane root= new  BorderPane();
+    private ComboBox minComboBox = new ComboBox();
+    private ComboBox maxComboBox = new ComboBox();
     private int minPrice;
     private int maxPrice;
     private static Pane centerPanel;
+    private MapPanel map = new MapPanel();
+    private WelcomePanel welcome = new WelcomePanel();
+
 
     /**
      * The start method is the main entry point for every JavaFX application.
@@ -45,15 +55,14 @@ public class ApplicationWindow extends Application
         priceToLabel.setStyle("-fx-background-color: #00ffff;");
         Button backButton = new Button("BACK");
         Button forwardButton = new Button("FORWARD");
-        ComboBox minComboBox = new ComboBox();
-        ComboBox maxComboBox = new ComboBox();
+
 
         //ChoiceDialog d = new ChoiceDialog();
-        //aslkdjfh
-        minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
+
+        minComboBox.getItems().addAll(null, "0", "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         minComboBox.setVisibleRowCount(3);
-        maxComboBox.getItems().addAll( "50", "100", "150", "200", "250", "300");
+        maxComboBox.getItems().addAll( null, "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         maxComboBox.setVisibleRowCount(3);
 
@@ -67,15 +76,28 @@ public class ApplicationWindow extends Application
             }
         });
 
-        maxComboBox.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override public void handle(ActionEvent e)
-            {
-                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
-                minPrice =  Integer.parseInt(output);
+// have compiling errors
+//        maxComboBox.setOnAction(new EventHandler<ActionEvent>()
+//        {
+//            @Override public void handle(ActionEvent e)
+//            {
+//                String output = minComboBox.getSelectionModel().getSelectedItem().toString();
+//                minPrice =  Integer.parseInt(output);
+//            }
+//        });
 
+        maxComboBox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if(t1 != null)  {
+                    centerPanel = map.getPanel(0, 1000);
+                }
+                else    {
+                    centerPanel = welcome.getPanel(0,0);
+                }
+                root.setCenter(centerPanel);
             }
         });
+
         BorderPane menuBar = new BorderPane();
         GridPane topGridPane = new GridPane();
         topGridPane.setPadding(new Insets(7, 7, 7, 7));
@@ -103,7 +125,6 @@ public class ApplicationWindow extends Application
 
         root.setTop(menuBar);
         root.setBottom(bottomPane);
-        WelcomePanel welcome = new WelcomePanel();
         centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
         //root.setCenter(imageView);
@@ -116,11 +137,12 @@ public class ApplicationWindow extends Application
         stage.setScene(scene);
         stage.setMinHeight(centerPanel.getHeight());
         stage.setMinWidth(centerPanel.getWidth());
-        stage.setMaximized(true);
+       // stage.setMaximized(true);
         stage.setResizable(false);
         // Show the Stage (window)
         stage.show();
     }
+
 
     /**
      * This will be executed when the button is clicked
@@ -137,4 +159,5 @@ public class ApplicationWindow extends Application
         // Counts number of button clicks and shows the result on a label
 
     }
+
 }
