@@ -46,9 +46,9 @@ public class MapPanel extends Panel
         int max = Collections.max(boroughs.values());
 
         loadBoroughs();
-
-        double scale = 0.7;
-
+        
+        double scale = 0.6;
+        
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
             Borough current = matchBoroughs(boroughName);
