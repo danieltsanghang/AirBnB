@@ -14,6 +14,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.FileNotFoundException;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Write a description of JavaFX class ApplicationWindow here.
  *
@@ -23,11 +26,25 @@ import java.io.FileNotFoundException;
 public class ApplicationWindow extends Application
 {
     // We keep track of the count, and label displaying the count:
-    private int count = 0;
-    private BorderPane root= new  BorderPane();
     private int minPrice;
     private int maxPrice;
+    private boolean minSelected;
+    private boolean maxSelected;
+
+    private BorderPane root= new  BorderPane();
+
+    private int count = 0;
     private static Pane centerPanel;
+    private ArrayList<Panel> Panels;
+    private Panel mapPanel;
+    private Panel statsPanel;
+
+    public ApplicationWindow () {
+        Panel mapPanel = new MapPanel();
+        Panel statsPanel = new StatsPanel();
+        //Panels.add(mapPanel);
+        //Panels.add(statsPanel);
+    }
 
     /**
      * The start method is the main entry point for every JavaFX application.
@@ -49,7 +66,6 @@ public class ApplicationWindow extends Application
         ComboBox maxComboBox = new ComboBox();
 
         //ChoiceDialog d = new ChoiceDialog();
-        //aslkdjfh
         minComboBox.getItems().addAll("0", "50", "100", "150", "200", "250", "300");
         // Set the Limit of visible months to 5
         minComboBox.setVisibleRowCount(3);
@@ -63,7 +79,7 @@ public class ApplicationWindow extends Application
             {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
                 minPrice =  Integer.parseInt(output);
-
+                minSelected = true;
             }
         });
 
@@ -73,9 +89,10 @@ public class ApplicationWindow extends Application
             {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
                 minPrice =  Integer.parseInt(output);
-
+                maxSelected = true;
             }
         });
+
         BorderPane menuBar = new BorderPane();
         GridPane topGridPane = new GridPane();
         topGridPane.setPadding(new Insets(7, 7, 7, 7));
@@ -103,7 +120,7 @@ public class ApplicationWindow extends Application
 
         root.setTop(menuBar);
         root.setBottom(bottomPane);
-        WelcomePanel welcome = new WelcomePanel();
+        Panel welcome = new WelcomePanel();
         centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
         //root.setCenter(imageView);
@@ -128,13 +145,19 @@ public class ApplicationWindow extends Application
 
     private void backButtonClick(ActionEvent event)
     {
-        // Counts number of button clicks and shows the result on a label
-
+        // last center panel
+        if (minSelected && maxSelected) {
+            centerPanel = Panels.get(count).getPanel(minPrice, maxPrice);
+            count = (count + 1) % 3;
+        }
     }
 
     private void forwardButtonClick(ActionEvent event)
     {
-        // Counts number of button clicks and shows the result on a label
-
+        //next center panel
+        if (minSelected && maxSelected) {
+            centerPanel = Panels.get(count).getPanel(minPrice, maxPrice);
+            count = (count + 1) % 3;
+        }
     }
 }
