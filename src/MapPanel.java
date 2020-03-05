@@ -53,7 +53,7 @@ public class MapPanel extends Panel
 
         loadBoroughs();
 
-        double scale = 0.7;
+        double scale = 0.55;
 
         while (boroughsIT.hasNext()) {
             String boroughName = boroughsIT.next();
