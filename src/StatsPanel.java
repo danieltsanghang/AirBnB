@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import javafx.scene.layout.Pane;
+import javafx.scene.control.*;
 
 public class StatsPanel extends Panel
 {
@@ -31,8 +33,10 @@ public class StatsPanel extends Panel
 
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
-
-        return null;
+        Pane root = new Pane();
+        Label myLabel = new Label("This is definitely a functional statistics panel.");
+        root.getChildren().addAll(myLabel);
+        return root;
     }
 
     public ArrayList loadListings()
