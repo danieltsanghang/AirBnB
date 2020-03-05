@@ -22,4 +22,14 @@ public class StatsPanel extends Panel
 
         return null;
     }
+
+    /**
+     *
+     */
+    public int getAveragePrice()
+    {
+
+        return 42;
+    }
+
 }
