@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 import javafx.scene.layout.*;
 
-public abstract class Panel
+public abstract class Panel extends Pane
 {
     private Filter filter;
     private HashMap<String, Borough> list;

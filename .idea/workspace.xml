@@ -96,6 +96,14 @@
       <workItem from="1583264938844" duration="4708000" />
       <workItem from="1583406977073" duration="1314000" />
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1583264648895</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583264648895</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +177,7 @@
     <state width="3398" height="408" key="GridCell.Tab.0.left" timestamp="1583407814844">
       <screen x="-1052" y="-1417" width="3440" height="1417" />
     </state>
+    <state width="3397" height="413" key="GridCell.Tab.0.left/0.0.1600.900/-102.-1440.3440.1440@-102.-1440.3440.1440" timestamp="1583408154155" />
     <state width="1750" height="269" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1583267496773" />
     <state width="3398" height="408" key="GridCell.Tab.0.left/0.23.1440.877/-1052.-1417.3440.1417@-1052.-1417.3440.1417" timestamp="1583407814844" />
     <state width="1750" height="269" key="GridCell.Tab.0.left/0.23.1792.1017@0.23.1792.1017" timestamp="1583327922372" />
@@ -225,6 +234,10 @@
       <screen x="0" y="23" width="1792" height="1017" />
     </state>
     <state x="365" y="246" key="run.anything.popup/0.23.1792.1017@0.23.1792.1017" timestamp="1583257171355" />
+    <state x="1281" y="-1115" width="672" height="678" key="search.everywhere.popup" timestamp="1583407640606">
+      <screen x="-102" y="-1440" width="3440" height="1440" />
+    </state>
+    <state x="1281" y="-1115" width="672" height="678" key="search.everywhere.popup/0.0.1600.900/-102.-1440.3440.1440@-102.-1440.3440.1440" timestamp="1583407640606" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/The_HongKongers$ApplicationWindow.ic" NAME="ApplicationWindow Coverage Results" MODIFIED="1583267496500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

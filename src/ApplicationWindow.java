@@ -19,6 +19,9 @@ import java.io.InputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Write a description of JavaFX class ApplicationWindow here.
  *
@@ -32,11 +35,19 @@ public class ApplicationWindow extends Application
     private BorderPane root= new  BorderPane();
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
+
     private int minPrice;
     private int maxPrice;
+    private boolean minSelected;
+    private boolean maxSelected;
+
     private static Pane centerPanel;
-    private MapPanel map = new MapPanel();
-    private WelcomePanel welcome = new WelcomePanel();
+    private Panel map = new MapPanel();
+    private Panel stats = new StatsPanel();
+    private Panel welcome = new WelcomePanel();
+
+    private ArrayList<Panel> panels;
+
 
 
     /**
@@ -72,7 +83,7 @@ public class ApplicationWindow extends Application
             {
                 String output = minComboBox.getSelectionModel().getSelectedItem().toString();
                 minPrice =  Integer.parseInt(output);
-
+                minSelected = true;
             }
         });
 
@@ -150,14 +161,20 @@ public class ApplicationWindow extends Application
 
     private void backButtonClick(ActionEvent event)
     {
-        // Counts number of button clicks and shows the result on a label
-
+        // last center panel
+        if (minSelected && maxSelected) {
+            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
+            count = (count + 1) % 3;
+        }
     }
 
     private void forwardButtonClick(ActionEvent event)
     {
-        // Counts number of button clicks and shows the result on a label
-
+        //next center panel
+        if (minSelected && maxSelected) {
+            centerPanel = panels.get(count).getPanel(minPrice, maxPrice);
+            count = (count + 1) % 3;
+        }
     }
 
 }
