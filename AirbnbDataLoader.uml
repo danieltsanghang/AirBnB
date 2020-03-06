@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>AirbnbDataLoader</OriginalElement>
+  <nodes>
+    <node x="682.154367760618" y="565.0">MapPanel</node>
+    <node x="530.154367760618" y="565.0">WelcomePanel</node>
+    <node x="736.8463320463322" y="79.0">javafx.scene.Node</node>
+    <node x="783.0963320463322" y="0.0">javafx.event.EventTarget</node>
+    <node x="380.15436776061796" y="565.0">StatsPanel</node>
+    <node x="217.21686776061796" y="188.0">AirbnbDataLoader</node>
+    <node x="302.94746858117253" y="675.2081220822248">javafx.application.Application</node>
+    <node x="441.0945807008309" y="416.0">Panel</node>
+    <node x="799.5963320463322" y="188.0">javafx.scene.layout.Region</node>
+    <node x="474.40436776061796" y="674.0">ApplicationWindow</node>
+    <node x="488.7820807008309" y="267.0">Borough</node>
+    <node x="342.71686776061796" y="267.0">Filter</node>
+    <node x="484.90436776061796" y="783.0">listingBorough</node>
+    <node x="495.59633204633224" y="188.0">javafx.beans.DefaultProperty</node>
+    <node x="0.0" y="188.0">Sorter</node>
+    <node x="193.0" y="79.0">AirbnbListing</node>
+    <node x="645.0963320463322" y="0.0">com.sun.javafx.beans.IDProperty</node>
+    <node x="726.2851190476191" y="267.0">javafx.scene.layout.Pane</node>
+    <node x="668.5963320463322" y="188.0">javafx.css.Styleable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="javafx.scene.Node" target="javafx.css.Styleable">
+      <point x="9.5" y="14.5" />
+      <point x="784.3463320463322" y="168.0" />
+      <point x="761.0963320463322" y="168.0" />
+      <point x="37.0" y="-14.5" />
+    </edge>
+    <edge source="javafx.scene.Node" target="com.sun.javafx.beans.IDProperty">
+      <point x="-19.0" y="-14.5" />
+      <point x="755.8463320463322" y="54.0" />
+      <point x="704.0963320463322" y="54.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Panel" target="AirbnbListing">
+      <point x="-15.5625" y="-14.5" />
+      <point x="467.0320807008309" y="376.0" />
+      <point x="443.21686776061796" y="376.0" />
+      <point x="443.21686776061796" y="128.0" />
+      <point x="325.6818181818182" y="128.0" />
+      <point x="63.18181818181819" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="javafx.scene.layout.Pane">
+      <point x="58.450000000000045" y="-14.5" />
+      <point x="616.3543677606181" y="644.0" />
+      <point x="798.216867760618" y="644.0" />
+      <point x="798.216867760618" y="396.0" />
+      <point x="773.7851190476191" y="396.0" />
+      <point x="9.5" y="14.5" />
+    </edge>
+    <edge source="Panel" target="Borough">
+      <point x="-5.1875" y="-14.5" />
+      <point x="477.4070807008309" y="316.0" />
+      <point x="500.9070807008309" y="316.0" />
+      <point x="-36.375" y="14.5" />
+    </edge>
+    <edge source="StatsPanel" target="javafx.scene.layout.Pane">
+      <point x="33.71428571428572" y="-14.5" />
+      <point x="472.8686534749037" y="525.0" />
+      <point x="653.1049973674975" y="525.0" />
+      <point x="653.1049973674975" y="366.0" />
+      <point x="742.1184523809525" y="366.0" />
+      <point x="-22.16666666666663" y="14.5" />
+    </edge>
+    <edge source="WelcomePanel" target="Panel">
+      <point x="-33.0" y="-14.5" />
+      <point x="563.154367760618" y="495.0" />
+      <point x="494.45172355797365" y="495.0" />
+      <point x="11.857142857142833" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="WelcomePanel">
+      <point x="8.350000000000023" y="-14.5" />
+      <point x="566.2543677606179" y="614.0" />
+      <point x="596.154367760618" y="614.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="listingBorough" target="AirbnbDataLoader">
+      <point x="-21.899999999999977" y="-14.5" />
+      <point x="536.0043677606179" y="733.0" />
+      <point x="169.9026164151166" y="733.0" />
+      <point x="169.9026164151166" y="545.0" />
+      <point x="262.75" y="545.0" />
+      <point x="262.75" y="242.0" />
+      <point x="265.21686776061796" y="242.0" />
+      <point x="-32.0" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="StatsPanel">
+      <point x="-41.75" y="-14.5" />
+      <point x="516.154367760618" y="634.0" />
+      <point x="439.15436776061796" y="634.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="listingBorough">
+      <point x="41.75" y="14.5" />
+      <point x="599.654367760618" y="723.0" />
+      <point x="565.204367760618" y="723.0" />
+      <point x="7.2999999999999545" y="-14.5" />
+    </edge>
+    <edge source="MapPanel" target="listingBorough">
+      <point x="34.66666666666663" y="14.5" />
+      <point x="768.8210344272845" y="733.0" />
+      <point x="579.8043677606179" y="733.0" />
+      <point x="21.899999999999977" y="-14.5" />
+    </edge>
+    <edge source="StatsPanel" target="Panel">
+      <point x="16.857142857142833" y="-14.5" />
+      <point x="456.0115106177608" y="545.0" />
+      <point x="458.8802949865451" y="545.0" />
+      <point x="-23.714285714285722" y="14.5" />
+    </edge>
+    <edge source="javafx.scene.layout.Pane" target="javafx.scene.layout.Region">
+      <point x="19.0" y="-14.5" />
+      <point x="783.2851190476191" y="242.0" />
+      <point x="844.5963320463322" y="242.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Panel" target="Filter">
+      <point x="-25.9375" y="-14.5" />
+      <point x="456.6570807008309" y="386.0" />
+      <point x="417.71686776061796" y="386.0" />
+      <point x="30.0" y="14.5" />
+    </edge>
+    <edge source="WelcomePanel" target="javafx.scene.layout.Pane">
+      <point x="33.0" y="-14.5" />
+      <point x="629.154367760618" y="545.0" />
+      <point x="687.8184523809524" y="545.0" />
+      <point x="687.8184523809524" y="386.0" />
+      <point x="754.7851190476191" y="386.0" />
+      <point x="-9.5" y="14.5" />
+    </edge>
+    <edge source="MapPanel" target="javafx.scene.layout.Pane">
+      <point x="41.60000000000002" y="-14.5" />
+      <point x="775.7543677606179" y="545.0" />
+      <point x="767.3158681408681" y="545.0" />
+      <point x="3.1666666666666288" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="javafx.application.Application">
+      <point x="-75.14999999999998" y="-14.5" />
+      <point x="482.754367760618" y="654.0" />
+      <point x="242.9026164151166" y="654.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="listingBorough" target="AirbnbListing">
+      <point x="-65.69999999999993" y="-14.5" />
+      <point x="492.204367760618" y="763.0" />
+      <point x="100.5" y="763.0" />
+      <point x="100.5" y="138.0" />
+      <point x="211.95454545454544" y="138.0" />
+      <point x="-50.54545454545456" y="14.5" />
+    </edge>
+    <edge source="javafx.scene.Node" target="javafx.event.EventTarget">
+      <point x="19.0" y="-14.5" />
+      <point x="793.8463320463322" y="54.0" />
+      <point x="845.5963320463322" y="54.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="MapPanel">
+      <point x="25.049999999999955" y="-14.5" />
+      <point x="582.954367760618" y="624.0" />
+      <point x="699.4877010939513" y="624.0" />
+      <point x="-34.66666666666663" y="14.5" />
+    </edge>
+    <edge source="Filter" target="AirbnbDataLoader">
+      <point x="-18.0" y="-14.5" />
+      <point x="369.71686776061796" y="242.0" />
+      <point x="361.21686776061796" y="242.0" />
+      <point x="64.0" y="14.5" />
+    </edge>
+    <edge source="listingBorough" target="ApplicationWindow">
+      <point x="-7.2999999999999545" y="-14.5" />
+      <point x="550.6043677606181" y="723.0" />
+      <point x="516.154367760618" y="723.0" />
+      <point x="-41.75" y="14.5" />
+    </edge>
+    <edge source="Sorter" target="AirbnbListing">
+      <point x="0.0" y="-14.5" />
+      <point x="45.0" y="128.0" />
+      <point x="199.3181818181818" y="128.0" />
+      <point x="-63.18181818181819" y="14.5" />
+    </edge>
+    <edge source="StatsPanel" target="AirbnbDataLoader">
+      <point x="-33.71428571428572" y="-14.5" />
+      <point x="405.44008204633224" y="505.0" />
+      <point x="279.56425134550136" y="505.0" />
+      <point x="279.56425134550136" y="242.0" />
+      <point x="297.21686776061796" y="242.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.css.Styleable" target="javafx.scene.Node">
+      <point x="-37.0" y="-14.5" />
+      <point x="687.0963320463322" y="148.0" />
+      <point x="746.3463320463322" y="148.0" />
+      <point x="-28.5" y="14.5" />
+    </edge>
+    <edge source="Filter" target="AirbnbListing">
+      <point x="0.0" y="-14.5" />
+      <point x="387.71686776061796" y="158.0" />
+      <point x="287.77272727272725" y="158.0" />
+      <point x="25.27272727272728" y="14.5" />
+    </edge>
+    <edge source="MapPanel" target="Borough">
+      <point x="0.0" y="-14.5" />
+      <point x="734.154367760618" y="465.0" />
+      <point x="615.8445807008309" y="465.0" />
+      <point x="615.8445807008309" y="336.0" />
+      <point x="573.6570807008309" y="336.0" />
+      <point x="36.375" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="AirbnbListing">
+      <point x="-58.44999999999993" y="-14.5" />
+      <point x="499.454367760618" y="644.0" />
+      <point x="315.90261641511654" y="644.0" />
+      <point x="315.90261641511654" y="525.0" />
+      <point x="195.71686776061796" y="525.0" />
+      <point x="195.71686776061796" y="158.0" />
+      <point x="237.22727272727272" y="158.0" />
+      <point x="-25.27272727272728" y="14.5" />
+    </edge>
+    <edge source="Panel" target="javafx.scene.layout.Pane">
+      <point x="36.3125" y="-14.5" />
+      <point x="518.9070807008309" y="356.0" />
+      <point x="735.7851190476191" y="356.0" />
+      <point x="-28.5" y="14.5" />
+    </edge>
+    <edge source="StatsPanel" target="AirbnbListing">
+      <point x="-50.571428571428584" y="-14.5" />
+      <point x="388.58293918918935" y="515.0" />
+      <point x="206.71686776061796" y="515.0" />
+      <point x="206.71686776061796" y="168.0" />
+      <point x="249.86363636363637" y="168.0" />
+      <point x="-12.636363636363626" y="14.5" />
+    </edge>
+    <edge source="MapPanel" target="Panel">
+      <point x="-20.799999999999955" y="-14.5" />
+      <point x="713.3543677606181" y="475.0" />
+      <point x="518.1660092722594" y="475.0" />
+      <point x="35.571428571428555" y="14.5" />
+    </edge>
+    <edge source="javafx.scene.layout.Pane" target="javafx.beans.DefaultProperty">
+      <point x="-19.0" y="-14.5" />
+      <point x="745.2851190476191" y="242.0" />
+      <point x="572.0963320463322" y="242.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MapPanel" target="ApplicationWindow">
+      <point x="0.0" y="14.5" />
+      <point x="734.154367760618" y="634.0" />
+      <point x="599.654367760618" y="634.0" />
+      <point x="41.75" y="-14.5" />
+    </edge>
+    <edge source="listingBorough" target="javafx.scene.layout.Pane">
+      <point x="51.10000000000002" y="-14.5" />
+      <point x="609.0043677606179" y="753.0" />
+      <point x="826.5502010939513" y="753.0" />
+      <point x="826.5502010939513" y="366.0" />
+      <point x="792.7851190476191" y="366.0" />
+      <point x="28.5" y="14.5" />
+    </edge>
+    <edge source="AirbnbDataLoader" target="AirbnbListing">
+      <point x="40.0" y="-14.5" />
+      <point x="337.21686776061796" y="168.0" />
+      <point x="275.1363636363636" y="168.0" />
+      <point x="12.636363636363626" y="14.5" />
+    </edge>
+    <edge source="javafx.scene.layout.Region" target="javafx.scene.Node">
+      <point x="0.0" y="-14.5" />
+      <point x="844.5963320463322" y="168.0" />
+      <point x="803.3463320463322" y="168.0" />
+      <point x="28.5" y="14.5" />
+    </edge>
+    <edge source="ApplicationWindow" target="Panel">
+      <point x="-25.049999999999955" y="-14.5" />
+      <point x="532.8543677606181" y="624.0" />
+      <point x="508.65436776061796" y="624.0" />
+      <point x="508.65436776061796" y="515.0" />
+      <point x="470.737437843688" y="515.0" />
+      <point x="-11.85714285714289" y="14.5" />
+    </edge>
+    <edge source="StatsPanel" target="Filter">
+      <point x="-16.85714285714286" y="-14.5" />
+      <point x="422.2972249034751" y="495.0" />
+      <point x="371.7429514742015" y="495.0" />
+      <point x="371.7429514742015" y="396.0" />
+      <point x="357.71686776061796" y="396.0" />
+      <point x="-30.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.21588134765625" x="460.7426334019376" y="443.7100547161287" />
+  <SelectedNodes>
+    <node>javafx.application.Application</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
