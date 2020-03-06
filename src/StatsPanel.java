@@ -6,6 +6,7 @@
  */
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
@@ -24,11 +25,17 @@ public class StatsPanel extends Panel
     /**
      * Constructor for objects of class MapPanel
      */
-    public AirbnbDataLoader Data;
-    public Filter filter;
+    private AirbnbDataLoader data;
+    private Filter filter;
+    private AirbnbListing AirbnbListing;
     public int boroughCost = 0;
+    private int NUMBER_OF_ENTIRE_HOME_APARTMENTS = 0;
 
-    int NUMBER_OF_REVIEWS = 0;
+    public int NUMBER_OF_REVIEWS = 0;
+    private ArrayList<AirbnbListing> listings;
+    private Iterator<AirbnbListing> airbnbIT;
+    private Iterator<AirbnbListing> homeListings;
+    private Iterator<AirbnbListing> boroughListings;
 
 
     public StatsPanel()
@@ -38,11 +45,31 @@ public class StatsPanel extends Panel
 
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
+        data = new AirbnbDataLoader();
+        filter = new Filter();
+        listings = data.load();
+        airbnbIT = listings.iterator();
+        homeListings = listings.iterator();
 
-        FlowPane leftTopP = new FlowPane();
-        leftTopP.setHgap(0);
-        leftTopP.setVgap(0);
-        leftTopP.setPadding(new Insets(10, 10, 10, 10));
+        BorderPane mainPane = new BorderPane();
+
+        GridPane plsWork = new GridPane();
+
+        VBox leftTopP = new VBox();
+        leftTopP.setPadding(new Insets(10));
+        leftTopP.setSpacing(69);
+
+        VBox rightTopP = new VBox();
+        rightTopP.setPadding(new Insets(10));
+        rightTopP.setSpacing(69);
+
+        VBox leftBottomP = new VBox();
+        leftBottomP.setPadding(new Insets(10));
+        leftBottomP.setSpacing(69);
+
+        VBox rightBottomP = new VBox();
+        rightBottomP.setPadding(new Insets(10));
+        rightBottomP.setSpacing(69);
 
         // General Statistics title
         Text title = new Text("General Statistics");
@@ -50,39 +77,47 @@ public class StatsPanel extends Panel
         leftTopP.getChildren().add(title);
 
         // Average number of reviews/prop
-        Text averageReview = new Text("Average Reviews per property: " + getAverageReviews());
+        Text averageReview = new Text("Average Reviews per property:");
         averageReview.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftTopP.getChildren().add(averageReview);
+        rightTopP.getChildren().add(averageReview);
+        Text avrNumber = new Text("" + getAverageReviews());
+        avrNumber.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        rightTopP.getChildren().add(avrNumber);
 
         // Total number of properties in London airbnb
-        Text totalNumberOfProperties = new Text("Total number of properties on airbnb in London: " + getTotalNumber());
+        Text totalNumberOfProperties = new Text("Total number of properties on airbnb in London:");
         totalNumberOfProperties.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftTopP.getChildren().add(totalNumberOfProperties);
+        leftBottomP.getChildren().add(totalNumberOfProperties);
+        Text tnpNumber = new Text("" + getTotalNumber());
+        tnpNumber.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        leftBottomP.getChildren().add(tnpNumber);
 
         // Number of entire homes and apartments
-        Text totalNumberOfHomesAndAppts = new Text("Total number of homes and apartments: " + getNumberOfEntireHomes());
+        Text totalNumberOfHomesAndAppts = new Text("Total number of homes and apartments:");
         totalNumberOfHomesAndAppts.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftTopP.getChildren().add(totalNumberOfHomesAndAppts);
+        rightBottomP.getChildren().add(totalNumberOfHomesAndAppts);
+        Text homeandappts = new Text("" + getNumberOfEntireHomes());
+        homeandappts.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        rightBottomP.getChildren().add(homeandappts);
 
+        plsWork.add(leftTopP, 0, 0);
+        plsWork.add(rightTopP, 2, 0);
+        plsWork.add(leftBottomP, 0, 2);
+        plsWork.add(rightBottomP, 2, 2);
+        plsWork.setHgap(20);
+        plsWork.setVgap(20);
 
-
-        return leftTopP;
-    }
-
-    public ArrayList loadListings()
-    {
-        return Data.load();
+        mainPane.setCenter(plsWork);
+        plsWork.setAlignment(Pos.CENTER); //THIS SHOULD BE CENTRE
+        return mainPane;
     }
 
     public int getTotalReview()
     {
-        ArrayList<AirbnbListing> listings = loadListings();
-        Iterator<AirbnbListing> airbnbIT = listings.iterator();
-        int i = 0;
+        NUMBER_OF_REVIEWS = 0;
         while(airbnbIT.hasNext()){
-            AirbnbListing a1 = listings.get(i);
+            AirbnbListing a1 = airbnbIT.next();
             NUMBER_OF_REVIEWS += a1.getNumberOfReviews();
-            i++;
         }
         return NUMBER_OF_REVIEWS;
     }
@@ -94,28 +129,25 @@ public class StatsPanel extends Panel
 
     public int getTotalNumber()
     {
-        return loadListings().size();
+        return listings.size();
     }
 
     public int getNumberOfEntireHomes()
     {
-        ArrayList<AirbnbListing> listings = loadListings();
-        Iterator<AirbnbListing> airbnbIT = listings.iterator();
-        int NUMBER_OF_ENTIRE_HOME_APARTMENTS = 0;
-        int i = 0;
-        while(airbnbIT.hasNext()){
-            AirbnbListing a1 = listings.get(i);
+        NUMBER_OF_ENTIRE_HOME_APARTMENTS = 0;
+
+        while(homeListings.hasNext()){
+            AirbnbListing a1 = homeListings.next();
             String toTest = a1.getRoom_type();
-            if(toTest.equals("Entire home/apt")){
+            if(!toTest.equalsIgnoreCase("Private room")){
                 NUMBER_OF_ENTIRE_HOME_APARTMENTS++;
             }
-            i++;
         }
         return NUMBER_OF_ENTIRE_HOME_APARTMENTS;
     }
 
     /*
-    Method returns the borough with the most expensive average cost (taking into account
+    Method returns the borough with the most expensive average cost (taking into account minimum nights)
      */
     public String boroughCost()
     {
@@ -129,13 +161,13 @@ public class StatsPanel extends Panel
         while(boroughsIT.hasNext()){
             String boroughName = boroughsIT.next();
             ArrayList<AirbnbListing> listings = filter.getInArea(min, max, boroughName);
-            Iterator<AirbnbListing> airbnbIT = listings.iterator();
+            boroughListings = listings.iterator();
             int toCompare = 0;
-            while(airbnbIT.hasNext()){
+            while(boroughListings.hasNext()){
                 boroughCost = toCompare;
-                AirbnbListing airbnb = listings.get(i);
-                i++;
+                AirbnbListing airbnb = boroughListings.next();
                 toCompare += airbnb.getPrice() * airbnb.getMinimumNights();
+                i++;
             }
             if(toCompare/i > boroughCost){
                 boroughCost = toCompare/i;
