@@ -89,6 +89,7 @@ public class listingBorough extends Pane{
             for (AirbnbListing listing : matchedListings) {
                 if (id.equals(listing.getId())) {
                     this.propertyToPane(listing);
+                    ApplicationWindow.popUpProperty(listing, matchedListings);
                 }
             }
         }
@@ -98,7 +99,6 @@ public class listingBorough extends Pane{
             Label text = new Label();
             text.setText(listing.toString());
             pane.setCenter(text);
-            ApplicationWindow.popUpProperty(pane, listing.getName());
         }
 
         public Pane getPane()   {
