@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Sorter
+comment1.params=
+comment1.target=Sorter()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Sorter\r\n
+comment2.params=toSort
+comment2.target=java.util.ArrayList\ sortByNumberOfReviews(java.util.ArrayList)
+comment3.params=toSort
+comment3.target=java.util.ArrayList\ sortByPrice(java.util.ArrayList)
+comment4.params=toSort
+comment4.target=java.util.ArrayList\ sortByHostName(java.util.ArrayList)
+numComments=5

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Panel
+comment1.params=
+comment1.target=Panel()
+comment2.params=minPrice\ maxPrice
+comment2.target=javafx.scene.layout.Pane\ getPanel(int,\ int)
+comment3.params=
+comment3.target=void\ loadBoroughs()
+comment4.params=name
+comment4.target=Borough\ matchBoroughs(java.lang.String)
+comment5.params=minPrice\ maxPrice
+comment5.target=java.util.HashMap\ boroughToPropertyNo(int,\ int)
+numComments=6
