@@ -163,7 +163,12 @@ public class ApplicationWindow extends Application
     {
         // last center panel
         if (minSelected && maxSelected) {
-            count = (count - 1) % 2;
+            if (count==0) {
+                count = (count + 1) % 2;
+            }
+            else if (count ==1){
+                count = (count - 1) % 2;
+            }
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
