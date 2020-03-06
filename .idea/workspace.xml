@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="38351ca0-9058-4e32-a484-6d57d9b04eb9" name="Default Changelist" comment="adding sorting into the pop up window (half of the sorting done)">
+      <change afterPath="$PROJECT_DIR$/.idea/TheHongKongers.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TheHongKongers/ApplicationWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TheHongKongers/test_scenebuilder.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/StatsPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/StatsPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/listingBorough.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/listingBorough.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="ProjectId" id="1YlEOCIoESMTJRaRGC4hCxqhNef" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ApplicationWindow" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="ApplicationWindow" />
+      <module name="TheHongKongers" />
+      <option name="VM_PARAMETERS" value=" --module-path $USER_HOME$/javafx-sdk-11.0.2/lib --add-modules=javafx.controls,javafx.fxml " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="ApplicationWIndow" />
+      <module name="TheHongKongers" />
+      <option name="VM_PARAMETERS" value=" --module-path $USER_HOME$/javafx-sdk-11.0.2/lib --add-modules=javafx.controls,javafx.fxml " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38351ca0-9058-4e32-a484-6d57d9b04eb9" name="Default Changelist" comment="" />
+      <created>1583508745329</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583508745329</updated>
+      <workItem from="1583508746655" duration="617000" />
+      <workItem from="1583509453856" duration="112000" />
+      <workItem from="1583509812646" duration="10117000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding sorting into the pop up window (half of the sorting done)" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding sorting into the pop up window (half of the sorting done)" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="320" y="115" key="#Project_Structure" timestamp="1583509906125">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="115" key="#Project_Structure/0.0.1440.900@0.0.1440.900" timestamp="1583509906125" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583521232825">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1583521232825" />
+    <state x="570" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583509870260">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="570" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900@0.0.1440.900" timestamp="1583509870260" />
+    <state x="0" y="0" width="832" height="900" key="CommitChangelistDialog2" timestamp="1583519035861">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" width="832" height="900" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1583519035861" />
+    <state width="1398" height="359" key="GridCell.Tab.0.bottom" timestamp="1583521236317">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="359" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1583521236317" />
+    <state width="1398" height="359" key="GridCell.Tab.0.center" timestamp="1583521236316">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="359" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1583521236316" />
+    <state width="1398" height="359" key="GridCell.Tab.0.left" timestamp="1583521236315">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="359" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1583521236315" />
+    <state width="1398" height="359" key="GridCell.Tab.0.right" timestamp="1583521236316">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="359" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1583521236316" />
+    <state x="144" y="79" key="MergeDialog" timestamp="1583519535033">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1583519535033" />
+    <state x="433" y="173" key="MultipleFileMergeDialog" timestamp="1583519547910">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="433" y="173" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1583519547910" />
+    <state x="208" y="31" key="SettingsEditor" timestamp="1583509954685">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583509954685" />
+    <state x="320" y="190" width="862" height="509" key="Vcs.Push.Dialog.v2" timestamp="1583518955152">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="190" width="862" height="509" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1583518955152" />
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1583520189753">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.23.1440.877@0.23.1440.877" timestamp="1583520189753" />
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1583520680067">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1440.900@0.0.1440.900" timestamp="1583520680067" />
+    <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583518743654">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1583518743654" />
+  </component>
+</project>
