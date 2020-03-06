@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.beans.value.ChangeListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -37,8 +38,8 @@ public class ApplicationWindow extends Application
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
 
-    private int minPrice;
-    private int maxPrice;
+    private static int minPrice;
+    private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
 
@@ -48,6 +49,7 @@ public class ApplicationWindow extends Application
     private Panel welcome = new WelcomePanel();
 
     private ArrayList<Panel> panels;
+
 
     /**
      * The start method is the main entry point for every JavaFX application.
@@ -175,12 +177,64 @@ public class ApplicationWindow extends Application
         }
     }
 
-     public void popUpWindow(Pane pane, String name)  {
+    static public void popUpList(listingBorough pane, String name)  {
         Stage newWindow = new Stage();
-        Scene scene = new Scene(pane);
-        newWindow.setTitle(name);
+        Scene scene = new Scene(pane.getPane());
+        newWindow.setTitle("Properties of " + name );
         newWindow.setScene(scene);
-
+        newWindow.setMaxHeight(600);
+        newWindow.setMinWidth(300);
+        newWindow.show();
+        pane.button();
     }
 
+    static public void popUpProperty (AirbnbListing property, ArrayList<AirbnbListing> list)    {
+        Button left = new Button();
+        Button right = new Button();
+        BorderPane navigation = new BorderPane();
+        Stage newWindow = new Stage();
+        BorderPane main = new BorderPane();
+        Scene scene = new Scene(main);
+        left.setText("Left");
+        right.setText("Right");
+        navigation.setLeft(left);
+        navigation.setRight(right);
+
+        main.setCenter(displayProperty(property));
+        newWindow.setTitle(displayProperty(property).getId());
+        int i = list.indexOf(property);
+        if (list.get(i+1) != null) {
+            left.setOnMouseClicked(e -> {
+                main.setCenter(displayProperty(list.get(i + 1)));
+                newWindow.setTitle(displayProperty(list.get(i + 1)).getId());
+                    }
+            );
+        }
+
+        main.setBottom(navigation);
+        newWindow.setScene(scene);
+        newWindow.setMaxHeight(600);
+        newWindow.setMinWidth(300);
+        newWindow.show();
+    }
+
+    static public Pane displayProperty (AirbnbListing property)    {
+        FlowPane container = new FlowPane();
+
+        Label name = new Label();
+        name.setText(property.getName());
+
+        container.getChildren().addAll(name);
+        container.setId(property.getName());
+
+        return container;
+    }
+
+    static public int getMinPrice()    {
+        return minPrice;
+    }
+
+    static public int getMaxPrice() {
+        return maxPrice;
+    }
 }
