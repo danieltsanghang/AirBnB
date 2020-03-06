@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ComboBox;
 import javafx.beans.value.ChangeListener;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -137,6 +138,7 @@ public class ApplicationWindow extends Application
         bottomPane.setLeft(backButton);
         bottomPane.setRight(forwardButton);
 
+
         root.setTop(menuBar);
         root.setBottom(bottomPane);
         centerPanel = welcome.getPanel(0,0);
@@ -172,4 +174,13 @@ public class ApplicationWindow extends Application
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
+
+     public void popUpWindow(Pane pane, String name)  {
+        Stage newWindow = new Stage();
+        Scene scene = new Scene(pane);
+        newWindow.setTitle(name);
+        newWindow.setScene(scene);
+
+    }
+
 }
