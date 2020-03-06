@@ -155,11 +155,6 @@ public class ApplicationWindow extends Application
         stage.show();
     }
 
-
-    /**
-     * This will be executed when the button is clicked
-     * It increments the count by 1*/
-
     private void backButtonClick(ActionEvent event)
     {
         // last center panel
@@ -177,5 +172,4 @@ public class ApplicationWindow extends Application
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
-
 }
