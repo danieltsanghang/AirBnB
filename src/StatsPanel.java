@@ -34,7 +34,7 @@ public class StatsPanel extends Panel
     private ArrayList<AirbnbListing> listings;
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> homeListings;
-    private Iterator<AirbnbListing> plsWork;
+    private Iterator<AirbnbListing> boroughListings;
 
 
     public StatsPanel()
@@ -50,8 +50,9 @@ public class StatsPanel extends Panel
         airbnbIT = listings.iterator();
         homeListings = listings.iterator();
 
-        GridPane plsWork = new GridPane();
+        BorderPane mainPane = new BorderPane();
 
+        GridPane plsWork = new GridPane();
 
         VBox leftTopP = new VBox();
         leftTopP.setPadding(new Insets(10));
@@ -102,7 +103,9 @@ public class StatsPanel extends Panel
         plsWork.add(rightTopP, 2, 0);
         plsWork.add(leftBottomP, 0, 2);
         plsWork.add(rightBottomP, 2, 2);
-        return plsWork;
+
+        mainPane.setCenter(plsWork);
+        return mainPane;
     }
 
     public int getTotalReview()
@@ -154,11 +157,11 @@ public class StatsPanel extends Panel
         while(boroughsIT.hasNext()){
             String boroughName = boroughsIT.next();
             ArrayList<AirbnbListing> listings = filter.getInArea(min, max, boroughName);
-            plsWork = listings.iterator();
+            boroughListings = listings.iterator();
             int toCompare = 0;
-            while(plsWork.hasNext()){
+            while(boroughListings.hasNext()){
                 boroughCost = toCompare;
-                AirbnbListing airbnb = plsWork.next();
+                AirbnbListing airbnb = boroughListings.next();
                 toCompare += airbnb.getPrice() * airbnb.getMinimumNights();
                 i++;
             }
