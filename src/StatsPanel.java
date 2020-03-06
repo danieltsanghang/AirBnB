@@ -38,37 +38,31 @@ public class StatsPanel extends Panel
 
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
-        Pane root = new Pane();
-        Label myLabel = new Label("This is definitely a functional statistics panel.");
-        root.getChildren().addAll(myLabel);
 
-        Cell leftCell = new Cell();
-        cell.
-
-        GridPane leftPane = new GridPane();
-        leftPane.setHgap(0);
-        leftPane.setVgap(0);
-        leftPane.setPadding(new Insets(10, 10, 10, 10));
+        FlowPane leftTopP = new FlowPane();
+        leftTopP.setHgap(0);
+        leftTopP.setVgap(0);
+        leftTopP.setPadding(new Insets(10, 10, 10, 10));
 
         // General Statistics title
         Text title = new Text("General Statistics");
         title.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 25));
-        leftPane.add(title, 2, 0);
+        leftTopP.getChildren().add(title);
 
         // Average number of reviews/prop
         Text averageReview = new Text("Average Reviews per property: " + getAverageReviews());
         averageReview.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftPane.add(averageReview, 1, 1);
+        leftTopP.getChildren().add(averageReview);
 
         // Total number of properties in London airbnb
         Text totalNumberOfProperties = new Text("Total number of properties on airbnb in London: " + getTotalNumber());
         totalNumberOfProperties.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftPane.add(totalNumberOfProperties, 1, 2);
+        leftTopP.getChildren().add(totalNumberOfProperties);
 
         // Number of entire homes and apartments
         Text totalNumberOfHomesAndAppts = new Text("Total number of homes and apartments: " + getNumberOfEntireHomes());
         totalNumberOfHomesAndAppts.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        leftPane.add(totalNumberOfHomesAndAppts, 1, 2);
+        leftTopP.getChildren().add(totalNumberOfHomesAndAppts);
 
 
 
