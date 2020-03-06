@@ -104,6 +104,6 @@ public class MapPanel extends Panel
     }
 
     static public void test (listingBorough pane) {
-        ApplicationWindow.popUpWindow(pane, pane.getName());
+        ApplicationWindow.popUpList(pane, pane.getName());
 }
 }
