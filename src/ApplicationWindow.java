@@ -15,12 +15,6 @@ import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
-/**
- * Write a description of JavaFX class ApplicationWindow here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class ApplicationWindow extends Application
 {
     private int count = 0;

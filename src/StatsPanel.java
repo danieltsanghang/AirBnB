@@ -1,10 +1,3 @@
-/**
- * Write a description of class StatsPanel here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;

@@ -1,11 +1,3 @@
-
-/**
- * Write a description of class MapPanel here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-
 import java.util.Collections;
 import java.util.ArrayList;
 import javafx.scene.input.*;
@@ -16,9 +8,6 @@ import javafx.scene.paint.*;
 
 public class MapPanel extends Panel
 {
-    /**
-     * Constructor for objects of class MapPanel
-     */
     private double scale;
 
     public MapPanel()
