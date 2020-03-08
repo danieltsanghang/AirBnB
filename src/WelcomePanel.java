@@ -12,7 +12,7 @@ public class WelcomePanel extends Panel
     //Creating an image
     public WelcomePanel()
     {
-        File file = new File("welcomepanel_try.png");
+        File file = new File("airbnb_welcome.png");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
     }
