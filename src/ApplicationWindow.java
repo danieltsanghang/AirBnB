@@ -23,12 +23,10 @@ import java.util.ArrayList;
  */
 public class ApplicationWindow extends Application
 {
-    // We keep track of the count, and label displaying the count:
     private int count = 0;
     private BorderPane root= new  BorderPane();
     private ComboBox minComboBox = new ComboBox();
     private ComboBox maxComboBox = new ComboBox();
-    private static AirbnbListing currentPopUpProperty;
 
     private static int minPrice;
     private static int maxPrice;
@@ -40,8 +38,6 @@ public class ApplicationWindow extends Application
     private Panel map = new MapPanel();
     private Panel stats = new StatsPanel();
     private Panel welcome = new WelcomePanel();
-
-    private static  AirbnbListing realProperty;
 
     private ArrayList<Panel> panels;
     /**
@@ -65,13 +61,10 @@ public class ApplicationWindow extends Application
         panels.add(map);
         panels.add(stats);
 
-        //ChoiceDialog d = new ChoiceDialog();
-
         minComboBox.getItems().addAll(null, "0", "50", "100", "150", "200", "250", "300");
-        // Set the Limit of visible months to 5
-        minComboBox.setVisibleRowCount(3);
         maxComboBox.getItems().addAll( null, "50", "100", "150", "200", "250", "300");
-        // Set the Limit of visible months to 5
+
+        minComboBox.setVisibleRowCount(3);
         maxComboBox.setVisibleRowCount(3);
 
         minComboBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -120,11 +113,9 @@ public class ApplicationWindow extends Application
         bottomPane.setPadding(new Insets(10, 10, 10, 10));
         bottomPane.setMinHeight(50);
 
-        //set an action on the button using method reference
         backButton.setOnAction(this::backButtonClick);
         forwardButton.setOnAction(this::forwardButtonClick);
 
-        // Add the button and label into the pane
         topGridPane.add(priceFromLabel, 0, 0);
         topGridPane.add(minComboBox, 1, 0);
         topGridPane.add(priceToLabel, 2, 0);
@@ -139,27 +130,23 @@ public class ApplicationWindow extends Application
         centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
 
-        // JavaFX must have a Scene (window content) inside a Stage (window)
         Scene scene = new Scene(root);
 
         stage.setTitle("Application Window");
         stage.setScene(scene);
         stage.setMinHeight(centerPanel.getHeight());
         stage.setMinWidth(centerPanel.getWidth());
-        // stage.setMaximized(true);
         stage.setResizable(false);
-        // Show the Stage (window)
         stage.show();
     }
 
     private void backButtonClick(ActionEvent event)
     {
-        // last center panel
         if (minSelected && maxSelected) {
-            if (count==0) {
+            if (count == 0) {
                 count = (count + 1) % 2;
             }
-            else if (count ==1){
+            else if (count == 1){
                 count = (count - 1) % 2;
             }
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
@@ -168,7 +155,6 @@ public class ApplicationWindow extends Application
 
     private void forwardButtonClick(ActionEvent event)
     {
-        //next center panel
         if (minSelected && maxSelected) {
             count = (count + 1) % 2;
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
