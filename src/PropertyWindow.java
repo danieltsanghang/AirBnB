@@ -80,7 +80,9 @@ public class PropertyWindow{
         Label calculatedHostListingsCountBox = new Label("Host Listings: "+String.valueOf(property.getCalculatedHostListingsCount()));
 
         container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
+        container.getStyleClass().add("container");
         root.setRight(container);
+        root.getStylesheets().add("style_popupproperty.css");
         return root;
     }
 
