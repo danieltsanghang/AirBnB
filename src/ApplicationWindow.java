@@ -44,13 +44,6 @@ public class ApplicationWindow extends Application
     @Override
     public void start(Stage stage) throws FileNotFoundException {
 
-        Label priceFromLabel = new Label("From");
-        priceFromLabel.setStyle("-fx-background-color: #00ffff;");
-        Label priceToLabel = new Label("To");
-        priceToLabel.setStyle("-fx-background-color: #00ffff;");
-        Button backButton = new Button("BACK");
-        Button forwardButton = new Button("FORWARD");
-
         panels = new ArrayList<>();
         panels.add(map);
         panels.add(stats);
@@ -95,36 +88,30 @@ public class ApplicationWindow extends Application
             }
         });
 
-        BorderPane menuBar = new BorderPane();
-        GridPane topGridPane = new GridPane();
-        topGridPane.setPadding(new Insets(7, 7, 7, 7));
-        topGridPane.setHgap(10);
-        menuBar.setStyle("-fx-background-color: #336699;");
+        centerPanel = welcome.getPanel(0,0);
 
-        BorderPane bottomPane = new BorderPane();
-        bottomPane.setStyle("-fx-background-color: #336699;");
-        bottomPane.setPrefSize(100, 10);
-        bottomPane.setPadding(new Insets(10, 10, 10, 10));
-        bottomPane.setMinHeight(50);
+        Label priceFromLabel = new Label("From");
+        Label priceToLabel = new Label("To");
 
+        Button backButton = new Button("BACK");
         backButton.setOnAction(this::backButtonClick);
+        Button forwardButton = new Button("FORWARD");
         forwardButton.setOnAction(this::forwardButtonClick);
 
-        topGridPane.add(priceFromLabel, 0, 0);
-        topGridPane.add(minComboBox, 1, 0);
-        topGridPane.add(priceToLabel, 2, 0);
-        topGridPane.add(maxComboBox, 3, 0);
-        menuBar.setRight(topGridPane);
-        bottomPane.setLeft(backButton);
-        bottomPane.setRight(forwardButton);
+        HBox topPane = new HBox();
+        topPane.getStyleClass().add("topBar");
+        topPane.getChildren().addAll(priceFromLabel, minComboBox, priceToLabel, maxComboBox);
 
+        HBox bottomPane = new HBox();
+        bottomPane.getStyleClass().add("bottomBar");
+        bottomPane.getChildren().addAll(backButton, forwardButton);
 
-        root.setTop(menuBar);
+        root.setTop(topPane);
         root.setBottom(bottomPane);
-        centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("styles.css");
 
         stage.setTitle("Application Window");
         stage.setScene(scene);
@@ -176,8 +163,8 @@ public class ApplicationWindow extends Application
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("");
         boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMaxHeight(600);
-        boroughWindowStage.setMinWidth(300);
+        boroughWindowStage.setMaxHeight(700);
+        boroughWindowStage.setMinWidth(700);
         boroughWindowStage.show();
     }
 }

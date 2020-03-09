@@ -102,7 +102,7 @@ public class StatsPanel extends Panel
     {
         int number = 0;
         for (AirbnbListing listing : listings) {
-            if (listing.getRoom_type().equalsIgnoreCase("Private room")) {
+            if (!listing.getRoom_type().equalsIgnoreCase("Private room")) {
                 number++;
             }
         }
