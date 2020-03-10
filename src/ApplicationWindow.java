@@ -69,12 +69,25 @@ public class ApplicationWindow extends Application
             @Override
             protected ArrayList<Panel> call() throws InterruptedException, IOException {
                 ArrayList<Panel> panels = new ArrayList<>();
-                panels.add(new LoginPanel());
-                updateMessage("Login Panel Loaded");
+                updateMessage("Loading Map Panel ...");
                 panels.add(new MapPanel());
-                updateMessage("Map Panel Loaded");
+
+                updateMessage("Loading Stats Panel");
                 panels.add(new StatsPanel());
-                updateMessage("Stats Panel Loaded");
+
+                ArrayList<Panel> accountPanels = new ArrayList<>();
+
+                updateMessage("Loading Login Panel");
+                accountPanels.add(new LoginPanel());
+
+                updateMessage("Loading Account Creation Panel");
+                accountPanels.add(new CreateAccountPanel());
+
+                updateMessage("Loading My Account Panel");
+                accountPanels.add(new MyAccountPanel());
+
+                updateMessage("Loading Account Panel");
+                panels.add(new AccountPanel(accountPanels));
 
                 updateMessage("Application Starting");
                 Thread.sleep(300);
