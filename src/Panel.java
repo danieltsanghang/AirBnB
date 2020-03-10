@@ -17,7 +17,6 @@ public abstract class Panel extends Pane
         boroughLoader = new BoroughDataLoader();
         accountLoader = new AccountDataLoader();
 
-
         listings = dataLoader.load();
         boroughs = boroughLoader.load();
         accounts = accountLoader.loadAccounts();

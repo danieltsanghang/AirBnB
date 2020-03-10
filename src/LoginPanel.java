@@ -89,8 +89,5 @@ public class LoginPanel extends Panel {
 
     public Pane getPanel(int minPrice, int maxPrice){
         return root;
-
     }
-
-
 }
