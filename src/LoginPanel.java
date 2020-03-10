@@ -19,21 +19,25 @@ import java.io.IOException;
 public class LoginPanel extends Panel {
     private String username;
     private String password;
-    BorderPane root = new BorderPane();
-    BorderPane bottomRoot = new BorderPane();
-    GridPane container1 = new GridPane();
-    GridPane container2 = new GridPane();
-    Button enterButton = new Button("Enter");
-    Button createAccountButton = new Button("Create Account");
-    File splashScreenImageFile = new File("logo.png");
-    Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
-    ImageView splashScreen = new ImageView(splashScreenImage);
     CreateAccountPanel accountpanel = new CreateAccountPanel();
+
 
 
     public LoginPanel() throws IOException {
         super();
+    }
 
+    public Pane getPanel(int minPrice, int maxPrice){
+
+        BorderPane root = new BorderPane();
+        BorderPane bottomRoot = new BorderPane();
+        GridPane container1 = new GridPane();
+        GridPane container2 = new GridPane();
+        Button enterButton = new Button("Enter");
+        Button createAccountButton = new Button("Create Account");
+        File splashScreenImageFile = new File("logo.png");
+        Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
+        ImageView splashScreen = new ImageView(splashScreenImage);
 
         splashScreen.setFitHeight(200);
         splashScreen.setFitWidth(400);
@@ -63,16 +67,25 @@ public class LoginPanel extends Panel {
             public void handle(ActionEvent actionEvent) {
                 username = userValue.getText();
                 password = passwordValue.getText();
-                /*if(checkUser.equals(user) && checkPw.equals(pw)){
-                    lblMessage.setText("Congratulations!");
-                    lblMessage.setTextFill(Color.GREEN);
+                boolean loginSuccess = false;
+                boolean existence = false;
+
+                for(int i=0; i<accounts.size(); i++){
+                    if(accounts.get(i).getUName().equals(username)){
+                        existence = true;
+                    }
+                    if ( accounts.get(i).getPassword().equals(password) ){
+                        System.out.println("Logined");
+                        loginSuccess=true;
+                        break;
+                    }
+                    else if (!accounts.get(i).getPassword().equals(password) ) {
+                        System.out.println("Wrong Username");
+                        break;
+                    }
+
                 }
-                else{
-                    lblMessage.setText("Incorrect user or pw.");
-                    lblMessage.setTextFill(Color.RED);
-                }
-                txtUserName.setText("");
-                pf.setText("");*/
+
             }
         });
 
@@ -84,13 +97,13 @@ public class LoginPanel extends Panel {
                 root.setBottom(null);
             }
         });
-    }
-    @Override
 
-    public Pane getPanel(int minPrice, int maxPrice){
+
         return root;
-
     }
+
+
+
 
 
 }
