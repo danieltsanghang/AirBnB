@@ -17,9 +17,6 @@ import java.io.IOException;
 
 
 public class LoginPanel extends Panel {
-    public LoginPanel() throws IOException {
-        super();
-    }
     private String username;
     private String password;
     BorderPane root = new BorderPane();
@@ -28,13 +25,16 @@ public class LoginPanel extends Panel {
     GridPane container2 = new GridPane();
     Button enterButton = new Button("Enter");
     Button createAccountButton = new Button("Create Account");
-    @Override
+    File splashScreenImageFile = new File("logo.png");
+    Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
+    ImageView splashScreen = new ImageView(splashScreenImage);
+    CreateAccountPanel accountpanel = new CreateAccountPanel();
 
-    public Pane getPanel(int minPrice, int maxPrice){
 
-        File splashScreenImageFile = new File("logo.png");
-        Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
-        ImageView splashScreen = new ImageView(splashScreenImage);
+    public LoginPanel() throws IOException {
+        super();
+
+
         splashScreen.setFitHeight(200);
         splashScreen.setFitWidth(400);
         splashScreen.setPreserveRatio(true);
@@ -49,11 +49,11 @@ public class LoginPanel extends Panel {
         TextField passwordValue = new TextField();
         container1.add(usernameLabel, 150, 2);
         container1.add(passwordLabel, 150, 5);
-        container1.add(userValue,200,2 );
-        container1.add(passwordValue,200 ,5 );
-        container1.add(enterButton, 216,6);
+        container1.add(userValue, 200, 2);
+        container1.add(passwordValue, 200, 5);
+        container1.add(enterButton, 216, 6);
         container2.add(noAccountLabel, 0, 40);
-        container2.add(createAccountButton, 216,40);
+        container2.add(createAccountButton, 216, 40);
         bottomRoot.setTop(container1);
         bottomRoot.setCenter(container2);
         root.setCenter(splashScreen);
@@ -80,14 +80,14 @@ public class LoginPanel extends Panel {
         createAccountButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+                root.setCenter(accountpanel.getPanel(0, 0));
+                root.setBottom(null);
             }
         });
+    }
+    @Override
 
-
-
-
-
+    public Pane getPanel(int minPrice, int maxPrice){
         return root;
 
     }
