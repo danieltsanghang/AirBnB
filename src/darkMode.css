@@ -62,6 +62,14 @@ BorderPane  {
 BorderPane > BorderPane > GridPane > VBox > Label   {
     -fx-text-fill: white;
 }
+/*stat panel blocks bg*/
+BorderPane > BorderPane > GridPane > VBox   {
+    -fx-background-color: #272727;
+}
+/*stat panel bg*/
+BorderPane > BorderPane > GridPane    {
+    -fx-background-color: #404040;
+}
 
 /*for borough window top text*/
 BorderPane > BorderPane > Label {
