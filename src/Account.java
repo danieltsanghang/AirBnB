@@ -17,7 +17,7 @@ public class Account {
         return displayName;
     }
 
-    public String getUName() {
+    public String getUserName() {
         return username;
     }
 

@@ -15,10 +15,13 @@ import javafx.scene.layout.BorderPane;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.iterator;
 
 public class LoginPanel extends Panel {
     private String username;
     private String password;
+
+    private Iterator<Account> accountIT;
     private boolean loginSuccess = false;
 
     public LoginPanel() throws IOException {
@@ -28,9 +31,9 @@ public class LoginPanel extends Panel {
     public Pane getPanel(int minPrice, int maxPrice){
 
         BorderPane root = new BorderPane();
-        BorderPane bottomRoot = new BorderPane();
-        GridPane container1 = new GridPane();
-        GridPane container2 = new GridPane();
+        BorderPane bottomPane = new BorderPane();
+        GridPane mainContainerPane = new GridPane();
+        GridPane secondaryContainerPane = new GridPane();
         Button enterButton = new Button("Enter");
         File splashScreenImageFile = new File("logo.png");
         Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
@@ -47,38 +50,40 @@ public class LoginPanel extends Panel {
 
         TextField userValue = new TextField();
         TextField passwordValue = new TextField();
-        container1.add(usernameLabel, 150, 2);
-        container1.add(passwordLabel, 150, 5);
-        container1.add(userValue, 200, 2);
-        container1.add(passwordValue, 200, 5);
-        container1.add(enterButton, 216, 6);
-        bottomRoot.setTop(container1);
-        bottomRoot.setCenter(container2);
+        Label errorLabel = new Label("");
+        mainContainerPane.add(usernameLabel, 150, 2);
+        mainContainerPane.add(passwordLabel, 150, 5);
+        mainContainerPane.add(userValue, 200, 2);
+        mainContainerPane.add(passwordValue, 200, 5);
+        mainContainerPane.add(enterButton, 216, 6);
+        secondaryContainerPane.add(errorLabel);
+        bottomPane.setTop(mainContainerPane);
+        bottomPane.setCenter(secondaryContainerPane);
         root.setCenter(splashScreen);
-        root.setBottom(bottomRoot);
+        root.setBottom(bottomPane);
 
         enterButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 username = userValue.getText();
                 password = passwordValue.getText();
+                boolean loginSuccess = false;
+                accountIT = accounts.iterator();
 
-                int i = 0;
-                while (!loginSuccess && i < accounts.size()) {
+                while (!loginSuccess) {
+                    while(accountIT.hasNext()) {
+                        Account accountToCheck = accountIT.next();
+                        if (username.equals(accountToCheck.getUserName())) {
+                            if (password.equals(accountToCheck.getPassword())) {
+                                loginSuccess = true;
+                            } else {
+                                //wrong password
+                                errorLabel = "Please check your username or password again."
+                            }
+                        } else {
+                            //no such user
+                            errorLabel = "Please check your username or password again."
 
-                    Account currentCheckAccount = accounts.get(i++);
-                    if (username.equals(currentCheckAccount.getUName())) {
-                        if (password.equals(currentCheckAccount.getPassword())) {
-                            loginSuccess = true;
-                        }
-                        else {
-                            //wrong password
-                        }
-                    }
-                    else {
-                        //no such user
-                    }
-                }
 
                 System.out.println(loginSuccess);
             }
