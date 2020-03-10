@@ -19,6 +19,7 @@ import java.io.IOException;
 public class LoginPanel extends Panel {
     private String username;
     private String password;
+    private boolean loginSuccess = false;
 
     public LoginPanel() throws IOException {
         super();
@@ -61,10 +62,10 @@ public class LoginPanel extends Panel {
             public void handle(ActionEvent actionEvent) {
                 username = userValue.getText();
                 password = passwordValue.getText();
-                boolean loginSuccess = false;
 
-                while (!loginSuccess) {
-                    int i = 0;
+                int i = 0;
+                while (!loginSuccess && i < accounts.size()) {
+
                     Account currentCheckAccount = accounts.get(i++);
                     if (username.equals(currentCheckAccount.getUName())) {
                         if (password.equals(currentCheckAccount.getPassword())) {
@@ -78,14 +79,13 @@ public class LoginPanel extends Panel {
                         //no such user
                     }
                 }
+
+                System.out.println(loginSuccess);
             }
         });
-
+        if (loginSuccess) {
+            return null;
+        }
         return root;
     }
-
-
-
-
-
 }
