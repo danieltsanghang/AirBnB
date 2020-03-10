@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
@@ -16,8 +17,7 @@ public class StatsPanel extends Panel
     private ArrayList<String> statsType;
     private ArrayList<String> stats;
 
-    public StatsPanel()
-    {
+    public StatsPanel() throws IOException {
         super();
         statsType = new ArrayList<>();
         stats = new ArrayList<>();

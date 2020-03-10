@@ -1,17 +1,32 @@
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
-import javax.swing.text.html.HTMLDocument;
 import java.net.URISyntaxException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class AccountDataLoader {
+
+    private static final String[] accountCSVheader = {"Display Name", "Username", "Password"};
+    private static final String[] favouritesCSVheader = {"Username", "Listing ID"};
+
+    private CSVWriter favouriteWriter;
+
+    public AccountDataLoader() throws IOException {
+
+        favouriteWriter = new CSVWriter(
+                new FileWriter("src/favourites.csv"),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+    }
 
     public ArrayList<Account> loadAccounts() {
         ArrayList<Account> accounts = new ArrayList<>();
@@ -72,5 +87,30 @@ public class AccountDataLoader {
             e.printStackTrace();
         }
         return favourites;
+    }
+
+    public void newAccount(Account account) throws IOException{
+        String[] newline = new String[3];
+        newline[0] = account.getDName();
+        newline[1] = account.getUName();
+        newline[2] = account.getPassword();
+
+        try(CSVWriter accountWriter = new CSVWriter(
+                new FileWriter("src/app-accounts.csv"),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        ) {
+            accountWriter.writeNext(accountCSVheader);
+            for (Account prevAccount : loadAccounts()) {
+                String[] line = new String[3];
+                line[0] = prevAccount.getDName();
+                line[1] = prevAccount.getUName();
+                line[2] = prevAccount.getPassword();
+                accountWriter.writeNext(line);
+            }
+            accountWriter.writeNext(newline);
+        }
     }
 }
