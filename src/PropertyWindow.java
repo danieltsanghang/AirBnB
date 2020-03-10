@@ -82,7 +82,7 @@ public class PropertyWindow{
         container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
         container.getStyleClass().add("container");
         root.setRight(container);
-        root.getStylesheets().add("style_popupproperty.css");
+//        root.getStylesheets().add("style_popupproperty.css");
         return root;
     }
 

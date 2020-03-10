@@ -149,7 +149,7 @@ public class ApplicationWindow extends Application
         root.setCenter(centerPanel);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("styles.css");
+        scene.getStylesheets().add("darkMode.css");
 
         Stage mainStage = new Stage(StageStyle.DECORATED);
         mainStage.setTitle("Application Window");
@@ -210,7 +210,7 @@ public class ApplicationWindow extends Application
         BoroughWindow boroughWindow = new BoroughWindow(boroughName, minPrice, maxPrice, boroughs);
 
         Scene scene = new Scene(boroughWindow.getPane());
-
+        scene.getStylesheets().add("darkMode.css");
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
@@ -223,12 +223,11 @@ public class ApplicationWindow extends Application
         PropertyWindow propertyWindow = new PropertyWindow(property, list, pos);
 
         Scene scene = new Scene(propertyWindow.getPane());
-
+        scene.getStylesheets().add("darkMode.css");
         Stage propertyWindowStage = new Stage();
         propertyWindowStage.setTitle("");
         propertyWindowStage.setScene(scene);
-        propertyWindowStage.setMaxHeight(700);
-        propertyWindowStage.setMinWidth(700);
+
         propertyWindowStage.show();
     }
 
