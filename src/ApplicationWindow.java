@@ -69,7 +69,8 @@ public class ApplicationWindow extends Application
             @Override
             protected ArrayList<Panel> call() throws InterruptedException, IOException {
                 ArrayList<Panel> panels = new ArrayList<>();
-
+                panels.add(new LoginPanel());
+                updateMessage("Login Panel Loaded");
                 panels.add(new MapPanel());
                 updateMessage("Map Panel Loaded");
                 panels.add(new StatsPanel());
@@ -194,10 +195,10 @@ public class ApplicationWindow extends Application
     private void backButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             if (count == 0) {
-                count = (count + 1) % 2;
+                count = panels.size()-1;
             }
-            else if (count == 1){
-                count = (count - 1) % 2;
+            else {
+                count = (count - 1) % 3;
             }
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
@@ -205,7 +206,7 @@ public class ApplicationWindow extends Application
 
     private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
-            count = (count + 1) % 2;
+            count = (count + 1) % 3;
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }

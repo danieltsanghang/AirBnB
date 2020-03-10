@@ -1,9 +1,10 @@
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -12,8 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.io.File;
+import java.io.IOException;
 
-public class LoginWindow extends Application {
+
+public class LoginPanel extends Panel {
+    public LoginPanel() throws IOException {
+        super();
+    }
     private String username;
     private String password;
     BorderPane root = new BorderPane();
@@ -23,7 +29,9 @@ public class LoginWindow extends Application {
     Button enterButton = new Button("Enter");
     Button createAccountButton = new Button("Create Account");
     @Override
-    public void start(Stage primaryStage) {
+
+    public Pane getPanel(int minPrice, int maxPrice){
+
         File splashScreenImageFile = new File("logo.png");
         Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
         ImageView splashScreen = new ImageView(splashScreenImage);
@@ -77,18 +85,12 @@ public class LoginWindow extends Application {
         });
 
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("styles.css");
-
-        Stage mainStage = new Stage();
-        mainStage.setTitle("User Login Window");
-        mainStage.setScene(scene);
-        mainStage.setHeight(400);
-        mainStage.setWidth(400);
-        mainStage.setResizable(false);
 
 
-        mainStage.show();
+
+        return root;
+
     }
+
 
 }
