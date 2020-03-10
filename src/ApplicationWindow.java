@@ -160,11 +160,11 @@ public class ApplicationWindow extends Application
 
         Scene scene = new Scene(propertyWindow.getPane());
 
-        Stage boroughWindowStage = new Stage();
-        boroughWindowStage.setTitle("");
-        boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMaxHeight(700);
-        boroughWindowStage.setMinWidth(700);
-        boroughWindowStage.show();
+        Stage propertyWindowStage = new Stage();
+        propertyWindowStage.setTitle("");
+        propertyWindowStage.setScene(scene);
+        propertyWindowStage.setMaxHeight(700);
+        propertyWindowStage.setMinWidth(700);
+        propertyWindowStage.show();
     }
 }

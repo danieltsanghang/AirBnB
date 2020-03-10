@@ -31,6 +31,8 @@ public class BoroughWindow{
                 sortedListings = borough.getFilteredListing(minPrice, maxPrice);
             }
         }
+        Collections.sort(sortedListings, sorter.getSoringMethod(("Price - Ascending")));
+
 
         sortBy.add("Price - Ascending");
         sortBy.add("Price - Descending");
@@ -52,6 +54,7 @@ public class BoroughWindow{
 
         ComboBox sortBox = new ComboBox();
         sortBox.getItems().addAll(sortBy);
+        sortBox.getSelectionModel().selectFirst();
         sortBox.valueProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue ov, String t, String t1) {
                 if (t1 != null) {
