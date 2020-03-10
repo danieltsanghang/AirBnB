@@ -1,15 +1,20 @@
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.control.ComboBox;
+import javafx.scene.paint.Color;
+import javafx.stage.*;
+import javafx.concurrent.*;
+
+import java.io.File;
+
+import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ChangeListener;
+import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 
@@ -26,27 +31,60 @@ public class ApplicationWindow extends Application
     private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
-    private static int position;
 
     private static Pane centerPanel;
-    private Panel map = new MapPanel();
-    private Panel stats = new StatsPanel();
+    private Pane splashLayout;
+    private ProgressIndicator loadProgress;
+    private Label loadText;
+
     private Panel welcome = new WelcomePanel();
 
     private ArrayList<Panel> panels;
-    /**
-     * The start method is the main entry point for every JavaFX application.
-     * It is called after the init() method has returned and after
-     * the system is ready for the application to begin running.
-     *
-     * @param  stage the primary stage for this application.
-     */
-    @Override
-    public void start(Stage stage) throws FileNotFoundException {
 
-        panels = new ArrayList<>();
-        panels.add(map);
-        panels.add(stats);
+    @Override
+    public void init() {
+        File splashScreenImageFile = new File("splashscreen.png");
+        Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
+        ImageView splashScreen = new ImageView(splashScreenImage);
+
+        loadProgress = new ProgressIndicator();
+        loadText = new Label();
+        loadText.getStyleClass().add("loadingText");
+
+        VBox overlay = new VBox();
+        overlay.getStyleClass().add("overlayPane");
+        overlay.getChildren().addAll(loadProgress, loadText);
+
+        splashLayout = new StackPane();
+        splashLayout.getChildren().addAll(splashScreen, overlay);
+    }
+
+    @Override
+    public void start(final Stage initStage) throws FileNotFoundException {
+        Task<ArrayList<Panel>> createPanels = new Task<ArrayList<Panel>>() {
+            @Override
+            protected ArrayList<Panel> call() throws InterruptedException {
+                ArrayList<Panel> panels = new ArrayList<>();
+
+                panels.add(new MapPanel());
+                updateMessage("Map Panel Loaded");
+                panels.add(new StatsPanel());
+                updateMessage("Stats Panel Loaded");
+
+                updateMessage("Application Starting");
+                Thread.sleep(300);
+
+                return panels;
+            }
+        };
+
+        showSplash(initStage, createPanels, () -> showMainStage(createPanels.getValue()));
+        new Thread(createPanels).start();
+    }
+
+    private void showMainStage(ArrayList<Panel> loadedPanels) {
+
+        panels = loadedPanels;
 
         minComboBox.getItems().addAll(null, "0", "50", "100", "150", "200", "250", "300");
         maxComboBox.getItems().addAll( null, "50", "100", "150", "200", "250", "300");
@@ -60,7 +98,7 @@ public class ApplicationWindow extends Application
                     int min = Integer.parseInt(t1);
                     minPrice = min;
                     if (maxSelected && maxPrice > minPrice) {
-                        centerPanel = map.getPanel(minPrice,maxPrice);
+                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                     }
                     minSelected = true;
                 }
@@ -77,7 +115,7 @@ public class ApplicationWindow extends Application
                     int max = Integer.parseInt(t1);
                     maxPrice = max;
                     if (minSelected && maxPrice > minPrice) {
-                        centerPanel = map.getPanel(minPrice,maxPrice);
+                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                     }
                     maxSelected = true;
                 }
@@ -113,16 +151,43 @@ public class ApplicationWindow extends Application
         Scene scene = new Scene(root);
         scene.getStylesheets().add("styles.css");
 
-        stage.setTitle("Application Window");
-        stage.setScene(scene);
-        stage.setMinHeight(centerPanel.getHeight());
-        stage.setMinWidth(centerPanel.getWidth());
-        stage.setResizable(false);
-        stage.show();
+        Stage mainStage = new Stage(StageStyle.DECORATED);
+        mainStage.setTitle("Application Window");
+        mainStage.setScene(scene);
+        mainStage.setMinHeight(centerPanel.getHeight());
+        mainStage.setMinWidth(centerPanel.getWidth());
+        mainStage.setResizable(false);
+        mainStage.show();
     }
 
-    private void backButtonClick(ActionEvent event)
-    {
+    private void showSplash(final Stage initStage, Task<?> task, InitCompletionHandler initCompletionHandler) {
+        loadText.textProperty().bind(task.messageProperty());
+        loadProgress.progressProperty().bind(task.progressProperty());
+
+        task.stateProperty().addListener((observableValue, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                loadProgress.progressProperty().unbind();
+                loadProgress.setProgress(1);
+
+                FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.4), splashLayout);
+                fadeSplash.setFromValue(1);
+                fadeSplash.setToValue(0);
+                fadeSplash.setOnFinished(actionEvent -> initStage.hide());
+                fadeSplash.play();
+
+                initCompletionHandler.complete();
+            }
+        });
+
+        Scene splashScene = new Scene (splashLayout, Color.TRANSPARENT);
+        splashScene.getStylesheets().add("styles.css");
+        initStage.setScene(splashScene);
+        initStage.initStyle(StageStyle.TRANSPARENT);
+        initStage.setAlwaysOnTop(true);
+        initStage.show();
+    }
+
+    private void backButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             if (count == 0) {
                 count = (count + 1) % 2;
@@ -134,8 +199,7 @@ public class ApplicationWindow extends Application
         }
     }
 
-    private void forwardButtonClick(ActionEvent event)
-    {
+    private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             count = (count + 1) % 2;
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
@@ -166,5 +230,9 @@ public class ApplicationWindow extends Application
         boroughWindowStage.setMaxHeight(600);
         boroughWindowStage.setMinWidth(300);
         boroughWindowStage.show();
+    }
+
+    public interface InitCompletionHandler {
+        void complete();
     }
 }

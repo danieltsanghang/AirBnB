@@ -3,8 +3,8 @@
 }
 
 .topBar {
-    -fx-padding: 10, 50, 10, 10;
-    -fx-alignment: center;
+    -fx-padding: 10, 10, 10, 10;
+    -fx-alignment: center-right;
     -fx-spacing: 10;
     -fx-background-color: #336699;
 }
@@ -17,4 +17,19 @@
     -fx-alignment: center;
     -fx-spacing: 700;
     -fx-background-color: #336699;
+}
+
+.progress-indicator {
+    -fx-progress-color: white;
+}
+
+.loadingText {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.overlayPane {
+    -fx-alignment: bottom-center;
+    -fx-padding: 10;
+    -fx-spacing: 60;
 }
