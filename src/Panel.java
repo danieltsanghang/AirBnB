@@ -5,15 +5,22 @@ public abstract class Panel extends Pane
 {
     private AirbnbDataLoader dataLoader;
     private BoroughDataLoader boroughLoader;
+    private AccountDataLoader accountLoader;
 
     protected ArrayList<AirbnbListing> listings;
     protected ArrayList<Borough> boroughs;
+    protected ArrayList<Account> accounts;
 
     public Panel () {
         dataLoader = new AirbnbDataLoader();
         boroughLoader = new BoroughDataLoader();
+        accountLoader = new AccountDataLoader();
+
+
         listings = dataLoader.load();
         boroughs = boroughLoader.load();
+        accounts = accountLoader.loadAccounts();
+
         loadListingsIntoBorough();
     }
 
