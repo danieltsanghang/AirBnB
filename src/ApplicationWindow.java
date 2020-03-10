@@ -1,18 +1,24 @@
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.control.ComboBox;
+import javafx.scene.paint.Color;
+import javafx.stage.*;
+import javafx.concurrent.*;
+
+import java.io.File;
+
+import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ChangeListener;
+import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ApplicationWindow extends Application
@@ -26,34 +32,77 @@ public class ApplicationWindow extends Application
     private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
-    private static int position;
 
     private static Pane centerPanel;
-    private Panel map = new MapPanel();
-    private Panel stats = new StatsPanel();
+    private Pane splashLayout;
+    private ProgressIndicator loadProgress;
+    private Label loadText;
+
     private Panel welcome = new WelcomePanel();
 
     private ArrayList<Panel> panels;
-    /**
-     * The start method is the main entry point for every JavaFX application.
-     * It is called after the init() method has returned and after
-     * the system is ready for the application to begin running.
-     *
-     * @param  stage the primary stage for this application.
-     */
+
+    public ApplicationWindow() throws IOException {
+    }
+
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void init() {
+        File splashScreenImageFile = new File("splashscreen.png");
+        Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
+        ImageView splashScreen = new ImageView(splashScreenImage);
 
-        Label priceFromLabel = new Label("From");
-        priceFromLabel.setStyle("-fx-background-color: #00ffff;");
-        Label priceToLabel = new Label("To");
-        priceToLabel.setStyle("-fx-background-color: #00ffff;");
-        Button backButton = new Button("BACK");
-        Button forwardButton = new Button("FORWARD");
+        loadProgress = new ProgressIndicator();
+        loadText = new Label();
+        loadText.getStyleClass().add("loadingText");
 
-        panels = new ArrayList<>();
-        panels.add(map);
-        panels.add(stats);
+        VBox overlay = new VBox();
+        overlay.getStyleClass().add("overlayPane");
+        overlay.getChildren().addAll(loadProgress, loadText);
+
+        splashLayout = new StackPane();
+        splashLayout.getChildren().addAll(splashScreen, overlay);
+    }
+
+    @Override
+    public void start(final Stage initStage) throws FileNotFoundException {
+        Task<ArrayList<Panel>> createPanels = new Task<ArrayList<Panel>>() {
+            @Override
+            protected ArrayList<Panel> call() throws InterruptedException, IOException {
+                ArrayList<Panel> panels = new ArrayList<>();
+                updateMessage("Loading Map Panel ...");
+                panels.add(new MapPanel());
+
+                updateMessage("Loading Stats Panel");
+                panels.add(new StatsPanel());
+
+                ArrayList<Panel> accountPanels = new ArrayList<>();
+
+                updateMessage("Loading Login Panel");
+                accountPanels.add(new LoginPanel());
+
+                updateMessage("Loading Account Creation Panel");
+                accountPanels.add(new CreateAccountPanel());
+
+                updateMessage("Loading My Account Panel");
+                accountPanels.add(new MyAccountPanel());
+
+                updateMessage("Loading Account Panel");
+                panels.add(new AccountPanel(accountPanels));
+
+                updateMessage("Application Starting");
+                Thread.sleep(300);
+
+                return panels;
+            }
+        };
+
+        showSplash(initStage, createPanels, () -> showMainStage(createPanels.getValue()));
+        new Thread(createPanels).start();
+    }
+
+    private void showMainStage(ArrayList<Panel> loadedPanels) {
+
+        panels = loadedPanels;
 
         minComboBox.getItems().addAll(null, "0", "50", "100", "150", "200", "250", "300");
         maxComboBox.getItems().addAll( null, "50", "100", "150", "200", "250", "300");
@@ -67,7 +116,7 @@ public class ApplicationWindow extends Application
                     int min = Integer.parseInt(t1);
                     minPrice = min;
                     if (maxSelected && maxPrice > minPrice) {
-                        centerPanel = map.getPanel(minPrice,maxPrice);
+                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                     }
                     minSelected = true;
                 }
@@ -84,7 +133,7 @@ public class ApplicationWindow extends Application
                     int max = Integer.parseInt(t1);
                     maxPrice = max;
                     if (minSelected && maxPrice > minPrice) {
-                        centerPanel = map.getPanel(minPrice,maxPrice);
+                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                     }
                     maxSelected = true;
                 }
@@ -95,62 +144,82 @@ public class ApplicationWindow extends Application
             }
         });
 
-        BorderPane menuBar = new BorderPane();
-        GridPane topGridPane = new GridPane();
-        topGridPane.setPadding(new Insets(7, 7, 7, 7));
-        topGridPane.setHgap(10);
-        menuBar.setStyle("-fx-background-color: #336699;");
+        centerPanel = welcome.getPanel(0,0);
 
-        BorderPane bottomPane = new BorderPane();
-        bottomPane.setStyle("-fx-background-color: #336699;");
-        bottomPane.setPrefSize(100, 10);
-        bottomPane.setPadding(new Insets(10, 10, 10, 10));
-        bottomPane.setMinHeight(50);
+        Label priceFromLabel = new Label("From");
+        Label priceToLabel = new Label("To");
 
+        Button backButton = new Button("BACK");
         backButton.setOnAction(this::backButtonClick);
+        Button forwardButton = new Button("FORWARD");
         forwardButton.setOnAction(this::forwardButtonClick);
 
-        topGridPane.add(priceFromLabel, 0, 0);
-        topGridPane.add(minComboBox, 1, 0);
-        topGridPane.add(priceToLabel, 2, 0);
-        topGridPane.add(maxComboBox, 3, 0);
-        menuBar.setRight(topGridPane);
-        bottomPane.setLeft(backButton);
-        bottomPane.setRight(forwardButton);
+        HBox topPane = new HBox();
+        topPane.getStyleClass().add("topBar");
+        topPane.getChildren().addAll(priceFromLabel, minComboBox, priceToLabel, maxComboBox);
 
+        HBox bottomPane = new HBox();
+        bottomPane.getStyleClass().add("bottomBar");
+        bottomPane.getChildren().addAll(backButton, forwardButton);
 
-        root.setTop(menuBar);
+        root.setTop(topPane);
         root.setBottom(bottomPane);
-        centerPanel = welcome.getPanel(0,0);
         root.setCenter(centerPanel);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("darkMode.css");
 
-        stage.setTitle("Application Window");
-        stage.setScene(scene);
-        stage.setMinHeight(centerPanel.getHeight());
-        stage.setMinWidth(centerPanel.getWidth());
-        stage.setResizable(false);
-        stage.show();
+        Stage mainStage = new Stage(StageStyle.DECORATED);
+        mainStage.setTitle("Application Window");
+        mainStage.setScene(scene);
+        mainStage.setMinHeight(centerPanel.getHeight());
+        mainStage.setMinWidth(centerPanel.getWidth());
+        mainStage.setResizable(false);
+        mainStage.show();
     }
 
-    private void backButtonClick(ActionEvent event)
-    {
+    private void showSplash(final Stage initStage, Task<?> task, InitCompletionHandler initCompletionHandler) {
+        loadText.textProperty().bind(task.messageProperty());
+        loadProgress.progressProperty().bind(task.progressProperty());
+
+        task.stateProperty().addListener((observableValue, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                loadProgress.progressProperty().unbind();
+                loadProgress.setProgress(1);
+
+                FadeTransition fadeSplash = new FadeTransition(Duration.seconds(0.4), splashLayout);
+                fadeSplash.setFromValue(1);
+                fadeSplash.setToValue(0);
+                fadeSplash.setOnFinished(actionEvent -> initStage.hide());
+                fadeSplash.play();
+
+                initCompletionHandler.complete();
+            }
+        });
+
+        Scene splashScene = new Scene (splashLayout, Color.TRANSPARENT);
+        splashScene.getStylesheets().add("styles.css");
+        initStage.setScene(splashScene);
+        initStage.initStyle(StageStyle.TRANSPARENT);
+        initStage.setAlwaysOnTop(true);
+        initStage.show();
+    }
+
+    private void backButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             if (count == 0) {
-                count = (count + 1) % 2;
+                count = panels.size()-1;
             }
-            else if (count == 1){
-                count = (count - 1) % 2;
+            else {
+                count = (count - 1) % 3;
             }
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
 
-    private void forwardButtonClick(ActionEvent event)
-    {
+    private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
-            count = (count + 1) % 2;
+            count = (count + 1) % 3;
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
         }
     }
@@ -159,7 +228,7 @@ public class ApplicationWindow extends Application
         BoroughWindow boroughWindow = new BoroughWindow(boroughName, minPrice, maxPrice, boroughs);
 
         Scene scene = new Scene(boroughWindow.getPane());
-
+        scene.getStylesheets().add("darkMode.css");
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
@@ -172,12 +241,15 @@ public class ApplicationWindow extends Application
         PropertyWindow propertyWindow = new PropertyWindow(property, list, pos);
 
         Scene scene = new Scene(propertyWindow.getPane());
+        scene.getStylesheets().add("darkMode.css");
+        Stage propertyWindowStage = new Stage();
+        propertyWindowStage.setTitle("");
+        propertyWindowStage.setScene(scene);
 
-        Stage boroughWindowStage = new Stage();
-        boroughWindowStage.setTitle("");
-        boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMaxHeight(600);
-        boroughWindowStage.setMinWidth(300);
-        boroughWindowStage.show();
+        propertyWindowStage.show();
+    }
+
+    public interface InitCompletionHandler {
+        void complete();
     }
 }

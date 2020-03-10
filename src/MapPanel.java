@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
 import javafx.scene.input.*;
@@ -10,8 +11,7 @@ public class MapPanel extends Panel
 {
     private double scale;
 
-    public MapPanel()
-    {
+    public MapPanel() throws IOException {
         super();
         scale = 0.55;
     }
@@ -47,7 +47,7 @@ public class MapPanel extends Panel
             abbrevName.setBoundsType(TextBoundsType.VISUAL);
 
             StackPane stack = new StackPane();
-            stack.relocate(borough.getX(scale), borough.getY(scale));
+            stack.relocate(borough.getX(scale)-100, borough.getY(scale));
             stack.getChildren().addAll(circle, abbrevName);
 
             stack.setOnMousePressed(this::popUp);

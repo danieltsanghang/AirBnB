@@ -1,0 +1,101 @@
+/*omg fuck this*/
+
+
+
+/*comboBox skin*/
+.combo-box  {
+    -fx-background-color: #434343;
+}
+.combo-box:hover    {
+    -fx-background-color: #4d4d4d;
+}
+/*comboBox bg*/
+.combo-box  .list-cell {
+    -fx-background-color: #595959;
+    -fx-text-fill: white;
+}
+
+/*comboBox and scrollPane scroll bars bg*/
+.scroll-bar  {
+    -fx-background-color: #595959;
+}
+/*comboBox and scrollPane scroll bars THUMBS*/
+.scroll-bar .thumb {
+    -fx-background-color : #454545;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+/*comboBox and scrollPane scroll bars THUMBS over effects*/
+.scroll-bar .thumb:hover {
+    -fx-background-color : #636363;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+
+/*all buttons*/
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: #595959;
+    /*-fx-padding: 7,7,7,7; doesnt work */
+}
+.button:hover   {
+    -fx-background-color: #636363;
+}
+/*main window top and bot*/
+BorderPane > HBox    {
+    -fx-background-color: #272727;
+    -fx-alignment: Center_right;
+    -fx-padding: 7,7,7,7;
+}
+/*main window top and bot Labels*/
+BorderPane > HBox > Label   {
+    -fx-text-fill: white;
+    -fx-padding: 7,7,7,7;
+}
+
+/*bg color across the board*/
+BorderPane  {
+    -fx-background-color: #404040;
+}
+
+/*for statPanel Labels*/
+BorderPane > BorderPane > GridPane > VBox > Label   {
+    -fx-text-fill: white;
+}
+/*stat panel blocks bg*/
+BorderPane > BorderPane > GridPane > VBox   {
+    -fx-background-color: #272727;
+}
+/*stat panel bg*/
+BorderPane > BorderPane > GridPane    {
+    -fx-background-color: #404040;
+}
+
+/*for borough window top text*/
+BorderPane > BorderPane > Label {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+/*borough window topBar*/
+BorderPane > BorderPane  {
+    -fx-background-color: #272727;
+}
+
+/*borough window bg*/
+.scroll-pane  .viewport{
+    -fx-fit-to-width: true;
+    -fx-background-color: #404040;
+}
+/*borough window main labels*/
+.scroll-pane > HBox > VBox > Label   {
+    -fx-text-fill: white;
+}
+
+/*property window labels*/
+BorderPane > BorderPane > VBox > Label  {
+    -fx-text-fill: white;
+}
+/*property window bg*/
+BorderPane > BorderPane > VBox   {
+    -fx-background-color: #404040;
+}

@@ -1,8 +1,10 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -15,8 +17,7 @@ public class StatsPanel extends Panel
     private ArrayList<String> statsType;
     private ArrayList<String> stats;
 
-    public StatsPanel()
-    {
+    public StatsPanel() throws IOException {
         super();
         statsType = new ArrayList<>();
         stats = new ArrayList<>();
@@ -59,10 +60,10 @@ public class StatsPanel extends Panel
                 vbox.setPadding(new Insets(10));
                 vbox.setSpacing(69);
 
-                Text statName = new Text(statsType.get(col * 2 + row));
+                Label statName = new Label(statsType.get(col * 2 + row));
                 statName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-                Text stat = new Text(stats.get(col * 2 + row));
+                Label stat = new Label(stats.get(col * 2 + row));
                 stat.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
                 vbox.getChildren().addAll(statName, stat);
@@ -75,6 +76,7 @@ public class StatsPanel extends Panel
 
         mainPane.setCenter(gridPane);
         gridPane.setAlignment(Pos.CENTER);
+        mainPane.getStylesheets().add("darkMode.css");
         return mainPane;
     }
 

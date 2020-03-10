@@ -3,6 +3,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 
 public class WelcomePanel extends Panel
 {
@@ -10,8 +11,8 @@ public class WelcomePanel extends Panel
     private ImageView imageView;
 
     //Creating an image
-    public WelcomePanel()
-    {
+    public WelcomePanel() throws IOException {
+        super();
         File file = new File("airbnb_welcome.png");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
