@@ -18,6 +18,7 @@ import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ApplicationWindow extends Application
@@ -41,6 +42,9 @@ public class ApplicationWindow extends Application
 
     private ArrayList<Panel> panels;
 
+    public ApplicationWindow() throws IOException {
+    }
+
     @Override
     public void init() {
         File splashScreenImageFile = new File("splashscreen.png");
@@ -63,7 +67,7 @@ public class ApplicationWindow extends Application
     public void start(final Stage initStage) throws FileNotFoundException {
         Task<ArrayList<Panel>> createPanels = new Task<ArrayList<Panel>>() {
             @Override
-            protected ArrayList<Panel> call() throws InterruptedException {
+            protected ArrayList<Panel> call() throws InterruptedException, IOException {
                 ArrayList<Panel> panels = new ArrayList<>();
 
                 panels.add(new MapPanel());

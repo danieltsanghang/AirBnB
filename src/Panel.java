@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.layout.*;
 
@@ -5,13 +6,13 @@ public abstract class Panel extends Pane
 {
     private AirbnbDataLoader dataLoader;
     private BoroughDataLoader boroughLoader;
-    private AccountDataLoader accountLoader;
+    protected AccountDataLoader accountLoader;
 
     protected ArrayList<AirbnbListing> listings;
     protected ArrayList<Borough> boroughs;
     protected ArrayList<Account> accounts;
 
-    public Panel () {
+    public Panel () throws IOException {
         dataLoader = new AirbnbDataLoader();
         boroughLoader = new BoroughDataLoader();
         accountLoader = new AccountDataLoader();

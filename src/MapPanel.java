@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
 import javafx.scene.input.*;
@@ -10,8 +11,7 @@ public class MapPanel extends Panel
 {
     private double scale;
 
-    public MapPanel()
-    {
+    public MapPanel() throws IOException {
         super();
         scale = 0.55;
     }
