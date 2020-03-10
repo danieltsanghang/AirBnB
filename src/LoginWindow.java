@@ -34,8 +34,8 @@ public class LoginWindow extends Application {
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
         Label noAccountLabel = new Label("No account? Create one!");
-       // usernameLabel.setMinWidth(50);
-       // passwordLabel.setMinWidth(50);
+        // usernameLabel.setMinWidth(50);
+        // passwordLabel.setMinWidth(50);
 
         TextField userValue = new TextField();
         TextField passwordValue = new TextField();
