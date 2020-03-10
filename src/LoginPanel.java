@@ -19,9 +19,6 @@ import java.io.IOException;
 public class LoginPanel extends Panel {
     private String username;
     private String password;
-    CreateAccountPanel accountpanel = new CreateAccountPanel();
-
-
 
     public LoginPanel() throws IOException {
         super();
@@ -65,24 +62,22 @@ public class LoginPanel extends Panel {
                 username = userValue.getText();
                 password = passwordValue.getText();
                 boolean loginSuccess = false;
-                boolean existence = false;
 
-                for(int i=0; i<accounts.size(); i++){
-                    if(accounts.get(i).getUName().equals(username)){
-                        existence = true;
+                while (!loginSuccess) {
+                    int i = 0;
+                    Account currentCheckAccount = accounts.get(i++);
+                    if (username.equals(currentCheckAccount.getUName())) {
+                        if (password.equals(currentCheckAccount.getPassword())) {
+                            loginSuccess = true;
+                        }
+                        else {
+                            //wrong password
+                        }
                     }
-                    if ( accounts.get(i).getPassword().equals(password) ){
-                        System.out.println("Logined");
-                        loginSuccess=true;
-                        break;
+                    else {
+                        //no such user
                     }
-                    else if (!accounts.get(i).getPassword().equals(password) ) {
-                        System.out.println("Wrong Username");
-                        break;
-                    }
-
                 }
-
             }
         });
 
