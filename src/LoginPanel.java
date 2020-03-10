@@ -20,7 +20,9 @@ import java.util.iterator;
 public class LoginPanel extends Panel {
     private String username;
     private String password;
+
     private Iterator<Account> accountIT;
+    private boolean loginSuccess = false;
 
     public LoginPanel() throws IOException {
         super();
@@ -81,16 +83,14 @@ public class LoginPanel extends Panel {
                         } else {
                             //no such user
                             errorLabel = "Please check your username or password again."
-                        }
-                    }
-                }
+
+
+                System.out.println(loginSuccess);
             }
         });
+        if (loginSuccess) {
+            return null;
+        }
         return root;
     }
-
-
-
-
-
 }

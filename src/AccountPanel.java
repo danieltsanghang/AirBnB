@@ -1,3 +1,6 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
@@ -16,6 +19,7 @@ public class AccountPanel extends Panel{
 
     public Pane getPanel(int minPrice, int maxPrice) {
         BorderPane pane = new BorderPane();
+        Pane centerPane = new Pane();
 
         HBox topBar = new HBox();
         HBox bottomBar = new HBox();
@@ -29,10 +33,22 @@ public class AccountPanel extends Panel{
             newAccountButton.setVisible(false);
             pane.setCenter(panels.get(1).getPanel(0, 0));
         });
+
         escapeButton.setOnAction(e -> {
            escapeButton.setVisible(false);
            newAccountButton.setVisible(true);
-           pane.setCenter(panels.get(0).getPanel(0, 0));
+           if (panels.get(0).getPanel(0, 0) != null) {
+               pane.setCenter(panels.get(0).getPanel(0, 0));
+           }
+        });
+
+        panels.get(0).getPanel(0, 0).sceneProperty().addListener(new ChangeListener<Scene>() {
+            @Override
+            public void changed(ObservableValue<? extends Scene> observableValue, Scene scene, Scene t1) {
+                if (t1 == null) {
+                    pane.setCenter(panels.get(2).getPanel(0, 0));
+                }
+            }
         });
 
         topBar.getChildren().add(escapeButton);
