@@ -113,4 +113,8 @@ public class AccountDataLoader {
             accountWriter.writeNext(newline);
         }
     }
+
+    public void newFavourite(String username, String listingID) throws IOException {
+
+    }
 }
