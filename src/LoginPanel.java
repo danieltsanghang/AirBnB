@@ -34,7 +34,6 @@ public class LoginPanel extends Panel {
         GridPane container1 = new GridPane();
         GridPane container2 = new GridPane();
         Button enterButton = new Button("Enter");
-        Button createAccountButton = new Button("Create Account");
         File splashScreenImageFile = new File("logo.png");
         Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
         ImageView splashScreen = new ImageView(splashScreenImage);
@@ -45,7 +44,6 @@ public class LoginPanel extends Panel {
 
         Label usernameLabel = new Label("Username:");
         Label passwordLabel = new Label("Password:");
-        Label noAccountLabel = new Label("No account? Create one!");
         // usernameLabel.setMinWidth(50);
         // passwordLabel.setMinWidth(50);
 
@@ -56,12 +54,11 @@ public class LoginPanel extends Panel {
         container1.add(userValue, 200, 2);
         container1.add(passwordValue, 200, 5);
         container1.add(enterButton, 216, 6);
-        container2.add(noAccountLabel, 0, 40);
-        container2.add(createAccountButton, 216, 40);
         bottomRoot.setTop(container1);
         bottomRoot.setCenter(container2);
         root.setCenter(splashScreen);
         root.setBottom(bottomRoot);
+
         enterButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -88,16 +85,6 @@ public class LoginPanel extends Panel {
 
             }
         });
-
-
-        createAccountButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                root.setCenter(accountpanel.getPanel(0, 0));
-                root.setBottom(null);
-            }
-        });
-
 
         return root;
     }
