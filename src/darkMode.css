@@ -126,3 +126,7 @@ BorderPane > BorderPane > VBox > Label  {
 BorderPane > BorderPane > VBox   {
     -fx-background-color: #404040;
 }
+
+#circle:hover {
+
+}

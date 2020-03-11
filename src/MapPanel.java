@@ -47,6 +47,7 @@ public class MapPanel extends Panel
             abbrevName.setBoundsType(TextBoundsType.VISUAL);
 
             StackPane stack = new StackPane();
+            stack.setId("circle");
             stack.relocate(borough.getX(scale)-100, borough.getY(scale));
             stack.getChildren().addAll(circle, abbrevName);
 

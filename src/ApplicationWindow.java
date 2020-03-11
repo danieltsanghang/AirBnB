@@ -204,14 +204,31 @@ public class ApplicationWindow extends Application
             else {
                 count = (count - 1) % 3;
             }
+            System.out.println("back clicked");
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(200),root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(200),root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
     private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             count = (count + 1) % 3;
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(200), root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(200), root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
@@ -224,7 +241,7 @@ public class ApplicationWindow extends Application
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
         boroughWindowStage.setMaxHeight(600);
-        boroughWindowStage.setMinWidth(300);
+        boroughWindowStage.setMinWidth(boroughWindow.getPane().getMinWidth());
         boroughWindowStage.show();
     }
 
