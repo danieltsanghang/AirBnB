@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
@@ -94,6 +95,7 @@ public class BoroughWindow{
         reviewsBox.setAlignment(Pos.CENTER);
         priceBox.setAlignment(Pos.CENTER);
         minStayBox.setAlignment(Pos.CENTER);
+        propertyLaunch.setAlignment(Pos.CENTER);
 
         popUpPane = new BorderPane();
         scrollBar = new ScrollPane();
@@ -125,9 +127,8 @@ public class BoroughWindow{
 
 //        popUpPane.setCenter(tableView);
 
-        BorderPane topBar = new BorderPane();
-        topBar.setCenter(sortLabel);
-        topBar.setRight(sortBox);
+        HBox topBar = new HBox();
+        topBar.getChildren().addAll(sortLabel,sortBox);
 
         popUpPane.setTop(topBar);
         popUpPane.setCenter(scrollBar);
@@ -171,7 +172,7 @@ public class BoroughWindow{
     }
 
     public Pane getPane() {
-        popUpPane.setMinSize(500,600);
+        popUpPane.setMinSize(560,500);
         return popUpPane;
     }
     private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
