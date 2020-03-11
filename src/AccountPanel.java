@@ -170,16 +170,29 @@ public class AccountPanel extends Panel{
     private Pane makeMyAccountPane(String username) {
         BorderPane myAccountPane = new BorderPane();
         GridPane personalInformation = new GridPane();
+        GridPane boroughSavedPane = new GridPane();
+
+        Label boroughSavedLabel = new Label("Borough Saved:");
+        ScrollPane scrollPane = new ScrollPane();
+        VBox savedBoroughBox = new VBox();
+        savedBoroughBox.setPrefSize(400,400);
+        scrollPane.setContent(savedBoroughBox);
+        boroughSavedPane.add(boroughSavedLabel,1,1);
+        boroughSavedPane.add(savedBoroughBox,1,4);
+
+
         Label name = new Label("Welcome " + username + "!");
         Circle circle  = new Circle(40);
         Image userImage = new Image(userURL);
         circle.setFill(new ImagePattern(userImage, 0, 0, 1, 1, true));
         personalInformation.add(circle, 1, 1);
         personalInformation.add(name, 1, 2);
+        personalInformation.getStyleClass().add("createAccountGrid");
 
 
-
+        personalInformation.setPrefWidth(200);
         myAccountPane.setRight(personalInformation);
+        myAccountPane.setCenter(boroughSavedPane);
 
         return myAccountPane;
     }
