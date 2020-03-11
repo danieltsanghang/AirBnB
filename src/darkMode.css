@@ -1,6 +1,18 @@
 /*omg fuck this*/
 
+/* progress circle in splash screen */
+.progress-indicator {
+    -fx-progress-color: white;
+}
 
+/* white texts */
+.whiteText {
+    -fx-text-fill: white;
+}
+
+.createAccountGrid .label {
+    -fx-text-fill: white;
+}
 
 /*comboBox skin*/
 .combo-box  {
