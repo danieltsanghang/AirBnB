@@ -75,19 +75,8 @@ public class ApplicationWindow extends Application
                 updateMessage("Loading Stats Panel");
                 panels.add(new StatsPanel());
 
-                ArrayList<Panel> accountPanels = new ArrayList<>();
-
-                updateMessage("Loading Login Panel");
-                accountPanels.add(new LoginPanel());
-
-                updateMessage("Loading Account Creation Panel");
-                accountPanels.add(new CreateAccountPanel());
-
-                updateMessage("Loading My Account Panel");
-                accountPanels.add(new MyAccountPanel());
-
                 updateMessage("Loading Account Panel");
-                panels.add(new AccountPanel(accountPanels));
+                panels.add(new AccountPanel());
 
                 updateMessage("Application Starting");
                 Thread.sleep(300);

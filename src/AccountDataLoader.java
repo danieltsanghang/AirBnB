@@ -92,7 +92,7 @@ public class AccountDataLoader {
     public void newAccount(Account account) throws IOException{
         String[] newline = new String[3];
         newline[0] = account.getDName();
-        newline[1] = account.getUName();
+        newline[1] = account.getUserName();
         newline[2] = account.getPassword();
 
         try(CSVWriter accountWriter = new CSVWriter(
@@ -106,7 +106,7 @@ public class AccountDataLoader {
             for (Account prevAccount : loadAccounts()) {
                 String[] line = new String[3];
                 line[0] = prevAccount.getDName();
-                line[1] = prevAccount.getUName();
+                line[1] = prevAccount.getUserName();
                 line[2] = prevAccount.getPassword();
                 accountWriter.writeNext(line);
             }

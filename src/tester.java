@@ -9,14 +9,7 @@ public class tester extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        ArrayList<Panel> accountPanels = new ArrayList<>();
-
-        accountPanels.add(new LoginPanel());
-        accountPanels.add(new CreateAccountPanel());
-        accountPanels.add(new MyAccountPanel());
-
-        AccountPanel panel = new AccountPanel(accountPanels);
+        AccountPanel panel = new AccountPanel();
 
         Scene scene = new Scene(panel.getPanel(0, 0));
         stage.setScene(scene);
