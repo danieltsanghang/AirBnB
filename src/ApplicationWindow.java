@@ -53,7 +53,7 @@ public class ApplicationWindow extends Application
 
         loadProgress = new ProgressIndicator();
         loadText = new Label();
-        loadText.getStyleClass().add("loadingText");
+        loadText.getStyleClass().add("whiteText");
 
         VBox overlay = new VBox();
         overlay.getStyleClass().add("overlayPane");
@@ -157,6 +157,7 @@ public class ApplicationWindow extends Application
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("darkMode.css");
+        scene.getStylesheets().add("styles.css");
 
         Stage mainStage = new Stage(StageStyle.DECORATED);
         mainStage.setTitle("Application Window");
@@ -187,6 +188,7 @@ public class ApplicationWindow extends Application
         });
 
         Scene splashScene = new Scene (splashLayout, Color.TRANSPARENT);
+        splashScene.getStylesheets().add("darkMode.css");
         splashScene.getStylesheets().add("styles.css");
         initStage.setScene(splashScene);
         initStage.initStyle(StageStyle.TRANSPARENT);

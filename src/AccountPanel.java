@@ -25,12 +25,12 @@ public class AccountPanel extends Panel{
     public AccountPanel () throws IOException{
         super();
         Pane loginPane = makeLoginPane();
-        Pane gridpane = makeCreateAccountPane();
+        Pane newAccountPane = makeCreateAccountPane();
         returnPane = new BorderPane();
 
         panes = new ArrayList<>();
         panes.add(loginPane);
-        panes.add(gridpane);
+        panes.add(newAccountPane);
     }
 
     public Pane getPanel(int minPrice, int maxPrice) {
@@ -46,15 +46,18 @@ public class AccountPanel extends Panel{
         ImageView loginScreen = new ImageView(loginImage);
 
         VBox vbox = new VBox();
-        vbox.setStyle("-fx-alignment: bottom-center");
+        vbox.getStyleClass().add("loginVBox");
 
         TextField userValue = new TextField();
+        userValue.getStyleClass().add("inputBox");
         userValue.setPromptText("Username");
 
         PasswordField passwordValue = new PasswordField();
+        passwordValue.getStyleClass().add("inputBox");
         passwordValue.setPromptText("Password");
 
-        Label errorLabel = new Label("asdf");
+        Label errorLabel = new Label("");
+        errorLabel.getStyleClass().add("whiteText");
 
         loginButton = new Button("Login");
         newAccountButton = new Button("Create New Account");
@@ -70,11 +73,13 @@ public class AccountPanel extends Panel{
                 boolean pswdMatch = password.equals(accountToCheck.getPassword());
                 if (userMatch && pswdMatch) {
                     loginSuccess = true;
-                    returnPane.setCenter(makeMyAccountPane(username));
+                    paneSelection = 2;
+                    panes.add(makeMyAccountPane(username));
+                    returnPane.setCenter(panes.get(paneSelection));
                 }
             }
             if (!loginSuccess) {
-                System.out.println("login failed");
+                errorLabel.setText("Invalid username or password");
             }
         });
 
@@ -83,14 +88,16 @@ public class AccountPanel extends Panel{
            returnPane.setCenter(panes.get(paneSelection));
         });
 
-        vbox.getChildren().addAll(userValue, passwordValue, loginButton, errorLabel, newAccountButton);
+        Pane spacing = new Pane();
+        spacing.getStyleClass().add("loginSpacing");
+
+        vbox.getChildren().addAll(userValue, passwordValue, loginButton, errorLabel, spacing, newAccountButton);
         loginPane.getChildren().addAll(loginScreen, vbox);
         return loginPane;
     }
 
     private Pane makeCreateAccountPane() {
-        BorderPane newAccountPane = new BorderPane();
-        GridPane gridpane = new GridPane();
+        GridPane newAccountPane = new GridPane();
 
         Label displayName = new Label ("Your Displayed Name:");
         Label username = new Label("Your Username:");
@@ -104,7 +111,8 @@ public class AccountPanel extends Panel{
         PasswordField inputCPassword = new PasswordField();
 
         Button createAccount = new Button("Create Account");
-        escapeButton = new Button("Back");
+        escapeButton = new Button("<");
+        escapeButton.getStyleClass().add("escapeButton");
 
         createAccount.setOnAction(e -> {
             if (inputUsername.getText().equals("")) {
@@ -136,19 +144,23 @@ public class AccountPanel extends Panel{
             returnPane.setCenter(panes.get(paneSelection));
         });
 
-        gridpane.add(displayName, 0, 0);
-        gridpane.add(username, 0, 1);
-        gridpane.add(password, 0, 2);
-        gridpane.add(cPassword, 0, 3);
-        gridpane.add(inputDisplayName, 1, 0);
-        gridpane.add(inputUsername, 1, 1);
-        gridpane.add(inputPassword, 1, 2);
-        gridpane.add(inputCPassword, 1, 3);
-        gridpane.add(createAccount, 0, 4, 2, 1);
-        gridpane.add(errorMessage, 0, 5, 2, 1);
+        Pane spacing = new Pane();
+        spacing.getStyleClass().add("loginSpacing");
 
-        newAccountPane.setTop(escapeButton);
-        newAccountPane.setCenter(gridpane);
+        newAccountPane.add(escapeButton, 0, 0);
+        newAccountPane.add(displayName, 1, 1);
+        newAccountPane.add(username, 1, 2);
+        newAccountPane.add(password, 1, 3);
+        newAccountPane.add(cPassword, 1, 4);
+        newAccountPane.add(inputDisplayName, 2, 1);
+        newAccountPane.add(inputUsername, 2, 2);
+        newAccountPane.add(inputPassword, 2, 3);
+        newAccountPane.add(inputCPassword, 2, 4);
+        newAccountPane.add(createAccount, 1, 5, 2, 1);
+        newAccountPane.add(spacing, 1, 6, 2, 1);
+        newAccountPane.add(errorMessage, 1, 7, 2, 1);
+        newAccountPane.getStyleClass().add("createAccountGrid");
+
         return newAccountPane;
     }
 
