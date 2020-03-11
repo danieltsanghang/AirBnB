@@ -6,7 +6,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class GoogleMapPanel {
-    @Override public void start(){
+    public void start(){
         WebView googleMapView = new WebView();
         WebEngine googleMapEngine = googleMapView.getEngine();
 
@@ -16,6 +16,4 @@ public class GoogleMapPanel {
         // add pane shit and attach mapscene to a pane or something
 
     }
-
-
 }
