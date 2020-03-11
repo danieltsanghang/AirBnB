@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +24,7 @@ public class BoroughWindow{
     private double longestString;
     private ScrollPane scrollBar;
     private BorderPane popUpPane;
+    private HBox content = new HBox();
     private VBox hostBox = new VBox();
     private VBox priceBox = new VBox();
     private VBox minStayBox = new VBox();
@@ -68,10 +72,16 @@ public class BoroughWindow{
         launchLabel.setText("Click to learn more");
         propertyLaunch.getChildren().add(launchLabel);
 
-        hostBox.setId("propertyBox");
-        priceBox.setId("propertyBox");
-        minStayBox.setId("propertyBox");
-        propertyLaunch.setId("propertyBox");
+        hostBox.setId("boroughBox");
+        priceBox.setId("boroughBox");
+        minStayBox.setId("boroughBox");
+        reviewsBox.setId("boroughBox");
+        propertyLaunch.setId("boroughBox");
+
+        hostBox.setAlignment(Pos.CENTER_RIGHT);
+        reviewsBox.setAlignment(Pos.CENTER);
+        priceBox.setAlignment(Pos.CENTER);
+        minStayBox.setAlignment(Pos.CENTER);
 
         popUpPane = new BorderPane();
         scrollBar = new ScrollPane();
@@ -89,23 +99,30 @@ public class BoroughWindow{
                     for (String sortBy : sortBy){
                         if (t1.equals(sortBy)) {
                             Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
-                            loadBoxes(sortedListings, scrollBar);
+                            refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
+                            loadBoxes(sortedListings);
                         }
                     }
                 }
             }
         });
 
+        content.setSpacing(15);
+        content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
+        // popUpPane.setMinWidth(content.getMinWidth());
+        scrollBar.setContent(content);
+        popUpPane.setCenter(scrollBar);
         BorderPane topBar = new BorderPane();
         topBar.setLeft(sortLabel);
         topBar.setRight(sortBox);
         popUpPane.setTop(topBar);
-        loadBoxes(sortedListings, scrollBar);
+        loadBoxes(sortedListings);
     }
 
-    private void loadBoxes(ArrayList<AirbnbListing> sortedListings, ScrollPane scrollBar) {
+    private void loadBoxes(ArrayList<AirbnbListing> sortedListings) {
 
         findWidest(sortedListings);
+
         for (int i = 0; i < sortedListings.size(); i++) {
             AirbnbListing listing = sortedListings.get(i);
             final int pos = i;
@@ -114,12 +131,6 @@ public class BoroughWindow{
                 ApplicationWindow.triggerPropertyWindow(listing, sortedListings, pos);
             });
         }
-        HBox content = new HBox();
-        content.setSpacing(15);
-        content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
-        // popUpPane.setMinWidth(content.getMinWidth());
-        scrollBar.setContent(content);
-        popUpPane.setCenter(scrollBar);
     }
 
     private Button toBoxes(AirbnbListing listing) {
@@ -132,6 +143,7 @@ public class BoroughWindow{
         Label minStay= new Label();
         minStay.setText(listing.getMinimumNights() + "");
         Button launch = new Button();
+
         hostName.setMinHeight(26.9);
         reviews.setMinHeight(26.9);
         price.setMinHeight(26.9);
@@ -149,6 +161,14 @@ public class BoroughWindow{
         popUpPane.setMinSize(500,600);
         return popUpPane;
     }
+    private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
+        List<VBox> list = Arrays.asList(c1,c2,c3,c4,c5);
+        for(VBox v : list) {
+            if (v.getChildren().size() > 1)
+                v.getChildren().remove(1, v.getChildren().size());
+        }
+    }
+
 
     private void findWidest (ArrayList<AirbnbListing> sortedListings){
         for (AirbnbListing property : sortedListings)   {

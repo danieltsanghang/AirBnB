@@ -44,6 +44,21 @@
     -fx-background-radius : 0em;
 }
 
+.scroll-bar .increment-button   {
+    -fx-background-color: #454545;
+
+}
+.scroll-bar .increment-button:hover   {
+    -fx-background-color: #636363;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+.scroll-bar .decrement-button   {
+    -fx-background-color: #454545;
+}
+.scroll-bar .decrement-button:hover   {
+    -fx-background-color: #636363;
+}
 /*all buttons*/
 .button {
     -fx-text-fill: white;
@@ -99,7 +114,7 @@ BorderPane > BorderPane  {
     -fx-background-color: #404040;
 }
 /*borough window main labels*/
-.scroll-pane > HBox > VBox > Label   {
+#boroughBox > Label   {
     -fx-text-fill: white;
 }
 
