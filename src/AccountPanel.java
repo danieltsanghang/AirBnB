@@ -2,6 +2,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AccountPanel extends Panel{
+    private static final String userURL = "file:user.png";
     private Button escapeButton;
     private Button newAccountButton;
     private Button loginButton;
@@ -165,7 +168,19 @@ public class AccountPanel extends Panel{
     }
 
     private Pane makeMyAccountPane(String username) {
-        Pane myAccountPane = new Pane();
+        BorderPane myAccountPane = new BorderPane();
+        GridPane personalInformation = new GridPane();
+        Label name = new Label("Welcome " + username + "!");
+        Circle circle  = new Circle(40);
+        Image userImage = new Image(userURL);
+        circle.setFill(new ImagePattern(userImage, 0, 0, 1, 1, true));
+        personalInformation.add(circle, 1, 1);
+        personalInformation.add(name, 1, 2);
+
+
+
+        myAccountPane.setRight(personalInformation);
+
         return myAccountPane;
     }
 
