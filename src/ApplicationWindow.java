@@ -205,7 +205,6 @@ public class ApplicationWindow extends Application
             else {
                 count = (count - 1) % 3;
             }
-            System.out.println("back clicked");
             FadeTransition fadeOut = new FadeTransition(Duration.millis(100),root.getCenter());
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
