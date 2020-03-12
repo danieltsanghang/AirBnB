@@ -9,12 +9,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< Updated upstream
-    <orderEntry type="library" name="commons-lang3-3.7" level="project" />
-=======
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="commons-lang3-3.7" level="project" />
     <orderEntry type="library" name="jxmaps-1.3.2" level="project" />
->>>>>>> Stashed changes
   </component>
 </module>
