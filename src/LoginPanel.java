@@ -15,7 +15,11 @@ import javafx.scene.layout.BorderPane;
 import java.io.File;
 import java.io.IOException;
 
+<<<<<<< Updated upstream
 import java.util.iterator;
+=======
+import java.util.Iterator;
+>>>>>>> Stashed changes
 
 public class LoginPanel extends Panel {
     private String username;
@@ -48,13 +52,19 @@ public class LoginPanel extends Panel {
 
         TextField userValue = new TextField();
         TextField passwordValue = new TextField();
+<<<<<<< Updated upstream
         Label errorLabel = new Label("");
+=======
+>>>>>>> Stashed changes
         mainContainerPane.add(usernameLabel, 150, 2);
         mainContainerPane.add(passwordLabel, 150, 5);
         mainContainerPane.add(userValue, 200, 2);
         mainContainerPane.add(passwordValue, 200, 5);
         mainContainerPane.add(enterButton, 216, 6);
+<<<<<<< Updated upstream
         secondaryContainerPane.add(errorLabel);
+=======
+>>>>>>> Stashed changes
         bottomPane.setTop(mainContainerPane);
         bottomPane.setCenter(secondaryContainerPane);
         root.setCenter(splashScreen);
@@ -76,11 +86,17 @@ public class LoginPanel extends Panel {
                                 loginSuccess = true;
                             } else {
                                 //wrong password
+<<<<<<< Updated upstream
                                 errorLabel = "Please check your username or password again."
                             }
                         } else {
                             //no such user
                             errorLabel = "Please check your username or password again."
+=======
+                            }
+                        } else {
+                            //no such user
+>>>>>>> Stashed changes
                         }
                     }
                 }

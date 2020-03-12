@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -41,6 +42,13 @@ public class PropertyWindow{
     private void buildWindow() {
 //        navigation.setLeft(left);
 //        navigation.setRight(right);
+<<<<<<< Updated upstream
+=======
+
+
+
+        Pane content = loadContent(property);
+>>>>>>> Stashed changes
         popUpPane.setBottom(navigation);
         popUpPane.setCenter(loadContent(property));
         left.setOnMouseClicked(e -> {
@@ -61,6 +69,10 @@ public class PropertyWindow{
     }
 
     private Pane loadContent(AirbnbListing property) {
+
+        GoogleMapPanel streetView = new GoogleMapPanel();
+
+
         BorderPane root = new BorderPane();
         Text text = new Text(property.getName());
         root.setTop(text);
@@ -82,7 +94,12 @@ public class PropertyWindow{
         container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
         container.getStyleClass().add("container");
         root.setRight(container);
+<<<<<<< Updated upstream
 //        root.getStylesheets().add("style_popupproperty.css");
+=======
+        root.setLeft(streetView.start(property.getLatitude(),property.getLongitude()));
+        root.setMinSize(container.getMinWidth(),container.getMinHeight());
+>>>>>>> Stashed changes
         return root;
     }
 

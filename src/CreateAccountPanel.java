@@ -64,7 +64,11 @@ public class CreateAccountPanel extends Panel {
     private boolean matchAccounts(String attempt) {
         boolean match = false;
         for (Account existing : accounts) {
+<<<<<<< Updated upstream
             if (existing.getUName().equals(attempt)) {
+=======
+            if (existing.getUserName().equals(attempt)) {
+>>>>>>> Stashed changes
                 match = true;
             }
         }
