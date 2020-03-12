@@ -2,6 +2,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class AccountPanel extends Panel{
+    private static final String userURL = "file:user.png";
     private Button escapeButton;
     private Button newAccountButton;
     private Button loginButton;
@@ -170,7 +173,30 @@ public class AccountPanel extends Panel{
     }
 
     private Pane makeMyAccountPane(String username) {
-        Pane myAccountPane = new Pane();
+        HBox myAccountPane = new HBox();
+        myAccountPane.getStyleClass().add("profileHBox");
+        VBox personalInformation = new VBox();
+        VBox boroughSavedPane = new VBox();
+
+        Label boroughSavedLabel = new Label("Borough Saved:");
+        boroughSavedLabel.getStyleClass().add("accountLabel");
+        ScrollPane scrollPane = new ScrollPane();
+        VBox savedBoroughBox = new VBox();
+        savedBoroughBox.setPrefSize(400,400);
+        scrollPane.setContent(savedBoroughBox);
+        boroughSavedPane.getChildren().addAll(boroughSavedLabel, scrollPane);
+        boroughSavedPane.getStyleClass().add("scrollPaneVox");
+
+        Label name = new Label("Welcome " + username + "!");
+        name.getStyleClass().add("accountLabel");
+        Circle circle  = new Circle(100);
+        Image userImage = new Image(userURL);
+        circle.setFill(new ImagePattern(userImage, 0, 0, 1, 1, true));
+        personalInformation.getChildren().addAll(circle, name);
+        personalInformation.getStyleClass().add("profileVBox");
+
+        myAccountPane.getChildren().addAll(boroughSavedPane, personalInformation);
+
         return myAccountPane;
     }
 
