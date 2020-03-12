@@ -72,12 +72,12 @@
 BorderPane > HBox    {
     -fx-background-color: #272727;
     -fx-alignment: Center_right;
-    -fx-padding: 7,7,7,7;
+    -fx-padding: 3,3,3,3;
+    -fx-spacing: 10;
 }
 /*main window top and bot Labels*/
 BorderPane > HBox > Label   {
     -fx-text-fill: white;
-    -fx-padding: 7,7,7,7;
 }
 
 /*bg color across the board*/
@@ -103,10 +103,6 @@ BorderPane > BorderPane > Label {
     -fx-text-fill: white;
     -fx-alignment: center;
 }
-/*borough window topBar*/
-BorderPane > BorderPane  {
-    -fx-background-color: #272727;
-}
 
 /*borough window bg*/
 .scroll-pane  .viewport{
@@ -125,4 +121,8 @@ BorderPane > BorderPane > VBox > Label  {
 /*property window bg*/
 BorderPane > BorderPane > VBox   {
     -fx-background-color: #404040;
+}
+
+#circle:hover {
+    -fx-effect: dropshadow(gaussian,#090a0c,30,0,0,3);
 }

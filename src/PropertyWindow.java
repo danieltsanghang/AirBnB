@@ -29,7 +29,6 @@ public class PropertyWindow{
         navigation.setRight(right);
 
         popUpPane = new BorderPane();
-
         this.property = property;
         this.listings = list;
         this.position = pos;
@@ -41,8 +40,9 @@ public class PropertyWindow{
     private void buildWindow() {
 //        navigation.setLeft(left);
 //        navigation.setRight(right);
+        Pane content = loadContent(property);
         popUpPane.setBottom(navigation);
-        popUpPane.setCenter(loadContent(property));
+        popUpPane.setCenter(content);
         left.setOnMouseClicked(e -> {
             if (position != 0) {
                 position--;
@@ -58,6 +58,7 @@ public class PropertyWindow{
                 popUpPane.setCenter(loadContent(property));
             }
         });
+        popUpPane.setMinSize(300,300);
     }
 
     private Pane loadContent(AirbnbListing property) {
@@ -79,10 +80,12 @@ public class PropertyWindow{
         Label reviewsPerMonthBox = new Label("Reviews Per Month: "+Double.toString(property.getReviewsPerMonth()));
         Label calculatedHostListingsCountBox = new Label("Host Listings: "+String.valueOf(property.getCalculatedHostListingsCount()));
 
-        container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
+        container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,
+                                       latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,
+                                       lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
         container.getStyleClass().add("container");
         root.setRight(container);
-//        root.getStylesheets().add("style_popupproperty.css");
+        root.setMinSize(container.getMinWidth(),container.getMinHeight());
         return root;
     }
 

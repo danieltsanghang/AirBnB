@@ -135,7 +135,12 @@ public class AccountPanel extends Panel{
                 accounts.add(newaccount);
                 try {
                     accountLoader.newAccount(newaccount);
+                    accounts.add(newaccount);
                     errorMessage.setText("Account successfully created");
+                    inputDisplayName.clear();
+                    inputUsername.clear();
+                    inputPassword.clear();
+                    inputCPassword.clear();
                 } catch (IOException ex) {
                     errorMessage.setText("Account creation failure. Please try again.");
                 }

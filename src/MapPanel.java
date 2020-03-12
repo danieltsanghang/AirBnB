@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
+
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
@@ -33,13 +36,13 @@ public class MapPanel extends Panel
     @Override
     public Pane getPanel(int minPrice, int maxPrice) {
         Pane root = new Pane();
-
         for (Borough borough : boroughs) {
             double numberOfListings = borough.getNumberOfListings(minPrice, maxPrice);
             double maxNumberOfListings = getMax(minPrice, maxPrice);
             Color color = getFillColor(numberOfListings, maxNumberOfListings);
 
             Circle circle = new Circle(borough.getRadius(scale));
+            circle.setId("circle");
             circle.setFill(color);
 
             Text abbrevName = new Text(borough.getAbbrevName());
@@ -54,6 +57,7 @@ public class MapPanel extends Panel
 
             root.getChildren().add(stack);
         }
+        root.getStylesheets().add("darkMode.css");
         return root;
     }
 
