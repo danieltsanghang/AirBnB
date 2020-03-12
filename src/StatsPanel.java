@@ -71,9 +71,7 @@ public class StatsPanel extends Panel
 
                 HBox hbox = new HBox(10);
                 Button backButton = new Button("<");
-                //backButton.setOnAction(this::backButtonClick);
                 Button forwardButton = new Button(">");
-                //forwardButton.setOnAction(this::forwardButtonClick);
                 hbox.getChildren().addAll(backButton, vbox, forwardButton);
 
 
