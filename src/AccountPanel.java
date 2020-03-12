@@ -173,31 +173,29 @@ public class AccountPanel extends Panel{
     }
 
     private Pane makeMyAccountPane(String username) {
-        BorderPane myAccountPane = new BorderPane();
-        GridPane personalInformation = new GridPane();
-        GridPane boroughSavedPane = new GridPane();
+        HBox myAccountPane = new HBox();
+        myAccountPane.getStyleClass().add("profileHBox");
+        VBox personalInformation = new VBox();
+        VBox boroughSavedPane = new VBox();
 
         Label boroughSavedLabel = new Label("Borough Saved:");
+        boroughSavedLabel.getStyleClass().add("accountLabel");
         ScrollPane scrollPane = new ScrollPane();
         VBox savedBoroughBox = new VBox();
         savedBoroughBox.setPrefSize(400,400);
         scrollPane.setContent(savedBoroughBox);
-        boroughSavedPane.add(boroughSavedLabel,1,1);
-        boroughSavedPane.add(savedBoroughBox,1,4);
-
+        boroughSavedPane.getChildren().addAll(boroughSavedLabel, scrollPane);
+        boroughSavedPane.getStyleClass().add("scrollPaneVox");
 
         Label name = new Label("Welcome " + username + "!");
-        Circle circle  = new Circle(40);
+        name.getStyleClass().add("accountLabel");
+        Circle circle  = new Circle(100);
         Image userImage = new Image(userURL);
         circle.setFill(new ImagePattern(userImage, 0, 0, 1, 1, true));
-        personalInformation.add(circle, 1, 1);
-        personalInformation.add(name, 1, 2);
-        personalInformation.getStyleClass().add("createAccountGrid");
+        personalInformation.getChildren().addAll(circle, name);
+        personalInformation.getStyleClass().add("profileVBox");
 
-
-        personalInformation.setPrefWidth(200);
-        myAccountPane.setRight(personalInformation);
-        myAccountPane.setCenter(boroughSavedPane);
+        myAccountPane.getChildren().addAll(boroughSavedPane, personalInformation);
 
         return myAccountPane;
     }
