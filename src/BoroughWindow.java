@@ -134,7 +134,8 @@ public class BoroughWindow{
 
     private Button toBoxes(AirbnbListing listing) {
 
-        Button launch = new Button();
+        Button launch = new Button("View");
+        launch.setPadding(new Insets(0, 40, 0, 40));
 
         Pane hostCell = new Pane(new Label(listing.getHost_name()));
         Pane priceCell = new Pane(new Label(listing.getPrice() + ""));

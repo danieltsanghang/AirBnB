@@ -75,6 +75,7 @@
 }
 
 .cell .label {
+    -fx-float: right;
     -fx-text-fill: white;
 }
 
