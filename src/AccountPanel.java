@@ -79,6 +79,7 @@ public class AccountPanel extends Panel{
                 boolean pswdMatch = password.equals(accountToCheck.getPassword());
                 if (userMatch && pswdMatch) {
                     loginSuccess = true;
+                    ApplicationWindow.login(accountToCheck);
                     paneSelection = 2;
                     panes.add(makeMyAccountPane(username));
                     returnPane.setCenter(panes.get(paneSelection));

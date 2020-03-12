@@ -74,7 +74,15 @@
     -fx-min-height: 30;
 }
 
-.cell .label {
+.cell .label {;
+    -fx-text-fill: white;
+}
+
+.boroughWindow {
+    -fx-alignment: center;
+}
+
+.contentGrid .label {
     -fx-text-fill: white;
 }
 
