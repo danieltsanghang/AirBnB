@@ -68,6 +68,16 @@
 .button:hover   {
     -fx-background-color: #636363;
 }
+
+.cell {
+    -fx-max-height: 30;
+    -fx-min-height: 30;
+}
+
+.cell .label {
+    -fx-text-fill: white;
+}
+
 /*main window top and bot*/
 BorderPane > HBox    {
     -fx-background-color: #272727;
@@ -125,4 +135,7 @@ BorderPane > BorderPane > VBox   {
 
 #circle:hover {
     -fx-effect: dropshadow(gaussian,#090a0c,30,0,0,3);
+}
+#circle > #circleBG:hover {
+    -fx-fill: #ff9a8a;
 }

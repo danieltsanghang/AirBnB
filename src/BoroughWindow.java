@@ -32,19 +32,8 @@ public class BoroughWindow{
     private VBox minStayBox = new VBox();
     private VBox reviewsBox = new VBox();
     private VBox propertyLaunch = new VBox();
-//    private TableView tableView = new TableView<>();
-//    private TableColumn<String,AirbnbListing> hName = new TableColumn<>("Host Name");
-//    private TableColumn<String,AirbnbListing> priceNight = new TableColumn<>("per Night");
-//    private TableColumn<String,AirbnbListing> minStay = new TableColumn<>("Minimum Nights");
-//    private TableColumn<String,AirbnbListing> reviews = new TableColumn<>("Reviews");
 
     public BoroughWindow(String name, int minPrice, int maxPrice, ArrayList<Borough> boroughs) {
-
-//        hName.setCellValueFactory((new PropertyValueFactory<>("host_name")));
-//        priceNight.setCellValueFactory((new PropertyValueFactory<>("price")));
-//        minStay.setCellValueFactory((new PropertyValueFactory<>("minimumNights")));
-//        reviews.setCellValueFactory((new PropertyValueFactory<>("numberOfReviews")));
-//        tableView.getColumns().addAll(hName,priceNight,minStay,reviews);
 
         sorter = new Sorter();
         sortBy = new ArrayList<>();
@@ -112,7 +101,6 @@ public class BoroughWindow{
                     for (String sortBy : sortBy){
                         if (t1.equals(sortBy)) {
                             Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
-//                            refreshTableview();
                             refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
                             loadBoxes(sortedListings);
                         }
@@ -124,8 +112,6 @@ public class BoroughWindow{
         content.setSpacing(15);
         content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
         scrollBar.setContent(content);
-
-//        popUpPane.setCenter(tableView);
 
         HBox topBar = new HBox();
         topBar.getChildren().addAll(sortLabel,sortBox);
@@ -147,27 +133,27 @@ public class BoroughWindow{
     }
 
     private Button toBoxes(AirbnbListing listing) {
-//        tableView.getItems().add(listing);
-        Label hostName= new Label();
-        hostName.setText(listing.getHost_name());
-        Label price= new Label();
-        price.setText(listing.getPrice() + "");
-        Label reviews= new Label();
-        reviews.setText(listing.getNumberOfReviews() + "");
-        Label minStay= new Label();
-        minStay.setText(listing.getMinimumNights() + "");
+
         Button launch = new Button();
 
-        hostName.setMinHeight(26.9);
-        reviews.setMinHeight(26.9);
-        price.setMinHeight(26.9);
-        minStay.setMinHeight(26.9);
+        Pane hostCell = new Pane(new Label(listing.getHost_name()));
+        Pane priceCell = new Pane(new Label(listing.getPrice() + ""));
+        Pane reviewCell = new Pane(new Label(listing.getNumberOfReviews() + ""));
+        Pane minStayCell = new Pane(new Label(listing.getMinimumNights() + ""));
+        Pane launchCell = new Pane(launch);
 
-        hostBox.getChildren().add(hostName);
-        priceBox.getChildren().add(price);
-        reviewsBox.getChildren().add(reviews);
-        minStayBox.getChildren().add(minStay);
-        propertyLaunch.getChildren().add(launch);
+        hostCell.getStyleClass().add("cell");
+        priceCell.getStyleClass().add("cell");
+        reviewCell.getStyleClass().add("cell");
+        minStayCell.getStyleClass().add("cell");
+        launchCell.getStyleClass().add("cell");
+
+        hostBox.getChildren().add(hostCell);
+        priceBox.getChildren().add(priceCell);
+        reviewsBox.getChildren().add(reviewCell);
+        minStayBox.getChildren().add(minStayCell);
+        propertyLaunch.getChildren().add(launchCell);
+
         return launch;
     }
 
@@ -179,26 +165,9 @@ public class BoroughWindow{
     private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
         List<VBox> list = Arrays.asList(c1,c2,c3,c4,c5);
         for(VBox v : list) {
-            if (v.getChildren().size() > 1)
+            if (v.getChildren().size() > 1) {
                 v.getChildren().remove(1, v.getChildren().size());
+            }
         }
     }
-//    private void refreshTableview ()    {
-//        hName.getColumns().remove(0,hName.getColumns().size());
-//        priceNight.getColumns().remove(0,priceNight.getColumns().size());
-//        minStay.getColumns().remove(0,minStay.getColumns().size());
-//        reviews.getColumns().remove(0,reviews.getColumns().size());
-//
-//    }
-
-//    private void findWidest (ArrayList<AirbnbListing> sortedListings){
-//        for (AirbnbListing property : sortedListings)   {
-//            int lineOne = property.getHost_name().length() ;
-//            System.out.println(lineOne);
-//            if (lineOne > longestString)    {
-//                longestString = lineOne;
-//            }
-//        }
-//        System.out.println(longestString);
-//    }
 }
