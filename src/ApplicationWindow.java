@@ -25,8 +25,8 @@ public class ApplicationWindow extends Application
 {
     private int count = 0;
     private BorderPane root= new  BorderPane();
-    private ComboBox minComboBox = new ComboBox();
-    private ComboBox maxComboBox = new ComboBox();
+    private ComboBox<String> minComboBox = new ComboBox();
+    private ComboBox<String> maxComboBox = new ComboBox();
 
     private static int minPrice;
     private static int maxPrice;
@@ -145,6 +145,7 @@ public class ApplicationWindow extends Application
 
         HBox topPane = new HBox();
         topPane.getStyleClass().add("topBar");
+
         topPane.getChildren().addAll(priceFromLabel, minComboBox, priceToLabel, maxComboBox);
 
         HBox bottomPane = new HBox();
@@ -204,14 +205,30 @@ public class ApplicationWindow extends Application
             else {
                 count = (count - 1) % 3;
             }
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(100),root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(100),root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
     private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             count = (count + 1) % 3;
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(100), root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
@@ -223,8 +240,9 @@ public class ApplicationWindow extends Application
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMaxHeight(600);
-        boroughWindowStage.setMinWidth(300);
+        boroughWindowStage.setMinHeight(boroughWindow.getPane().getMinHeight());
+        boroughWindowStage.setMinWidth(boroughWindow.getPane().getMinWidth());
+        boroughWindowStage.setResizable(false);
         boroughWindowStage.show();
     }
 
@@ -236,7 +254,9 @@ public class ApplicationWindow extends Application
         Stage propertyWindowStage = new Stage();
         propertyWindowStage.setTitle("");
         propertyWindowStage.setScene(scene);
-
+        propertyWindowStage.setMinHeight(propertyWindow.getPane().getMinHeight());
+        propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());
+        propertyWindowStage.setResizable(false);
         propertyWindowStage.show();
     }
 
