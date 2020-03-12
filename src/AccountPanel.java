@@ -24,6 +24,7 @@ public class AccountPanel extends Panel{
     private Iterator<Account> accountIT;
     private ArrayList<Pane> panes;
     private boolean loginSuccess = false;
+    VBox savedBoroughBox = new VBox();
 
     public AccountPanel () throws IOException{
         super();
@@ -34,6 +35,8 @@ public class AccountPanel extends Panel{
         panes = new ArrayList<>();
         panes.add(loginPane);
         panes.add(newAccountPane);
+
+
     }
 
     public Pane getPanel(int minPrice, int maxPrice) {
@@ -182,7 +185,7 @@ public class AccountPanel extends Panel{
         Label boroughSavedLabel = new Label("Borough Saved:");
         boroughSavedLabel.getStyleClass().add("accountLabel");
         ScrollPane scrollPane = new ScrollPane();
-        VBox savedBoroughBox = new VBox();
+        loadBoxes(Account.getFavourites());
         savedBoroughBox.setPrefSize(400,400);
         scrollPane.setContent(savedBoroughBox);
         boroughSavedPane.getChildren().addAll(boroughSavedLabel, scrollPane);
@@ -209,5 +212,13 @@ public class AccountPanel extends Panel{
             }
         }
         return match;
+    }
+
+    private void loadBoxes(ArrayList<AirbnbListing> favouriteAccounts) {
+        for (int i = 0; i < favouriteAccounts.size(); i++) {
+            Label account = new Label (favouriteAccounts.get(i).getName());
+            savedBoroughBox.getChildren().add(account);
+
+        }
     }
 }
