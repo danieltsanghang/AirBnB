@@ -56,7 +56,7 @@ public class AccountDataLoader {
             reader.readNext();
             while ((line = reader.readNext()) != null) {
                 String username = line[0];
-                String listingID = line[2];
+                String listingID = line[1];
 
                 Iterator<AirbnbListing> listingIT = listings.iterator();
                 boolean match = false;
@@ -66,11 +66,13 @@ public class AccountDataLoader {
                         if (favourites.get(username) != null) {
                             ArrayList<AirbnbListing> personalListings = favourites.get(username);
                             personalListings.add(listing);
+                            getAccount(username).loadFavouriteList(personalListings);
                             favourites.replace(username, personalListings);
                         }
                         else {
                             ArrayList<AirbnbListing> personalListings = new ArrayList<>();
                             personalListings.add(listing);
+                            getAccount(username).loadFavouriteList(personalListings);
                             favourites.put(username, personalListings);
                         }
                         match = true;
@@ -124,10 +126,12 @@ public class AccountDataLoader {
             favouriteWriter.writeNext(favouritesCSVheader);
             Set favouriteKeySet = favourites.keySet();
             for (Object key : favouriteKeySet) {
-                ArrayList<AirbnbListing> currentArray = favourites.get((String) key);
+                String name = (String) key;
+                System.out.println("writing favourites of " + name);
+                ArrayList<AirbnbListing> currentArray = favourites.get(name);
                 for (AirbnbListing listing : currentArray) {
                     String[] line = new String[2];
-                    line[0] = username;
+                    line[0] = (String) name;
                     line[1] = listing.getId();
                     favouriteWriter.writeNext(line);
                 }
@@ -158,5 +162,14 @@ public class AccountDataLoader {
                 }
             }
         }
+    }
+
+    private Account getAccount(String name) {
+        for (Account account : accounts) {
+            if (account.getUserName().equals(name)) {
+                return account;
+            }
+        }
+        return null;
     }
 }
