@@ -58,7 +58,7 @@ public class PropertyWindow{
                 popUpPane.setCenter(loadContent(property));
             }
         });
-        popUpPane.setMinSize(300,300);
+        popUpPane.setMinSize(500,300);
     }
 
     private Pane loadContent(AirbnbListing property) {
