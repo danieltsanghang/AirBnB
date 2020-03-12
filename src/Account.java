@@ -5,7 +5,7 @@ public class Account {
     private String displayName;
     private String username;
     private String password;
-    private ArrayList<AirbnbListing> favourites;
+    private static ArrayList<AirbnbListing> favourites;
     private AccountDataLoader dataLoader;
 
     public Account (String displayName, String username, String password) {
@@ -28,7 +28,7 @@ public class Account {
         return password;
     }
 
-    public ArrayList<AirbnbListing> getFavourites() {
+    public static ArrayList<AirbnbListing> getFavourites() {
         return favourites;
     }
 
