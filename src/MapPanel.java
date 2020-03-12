@@ -42,9 +42,8 @@ public class MapPanel extends Panel
             Color color = getFillColor(numberOfListings, maxNumberOfListings);
 
             Circle circle = new Circle(borough.getRadius(scale));
-            circle.setId("circle");
             circle.setFill(color);
-
+            circle.setId("circleBG");
             Text abbrevName = new Text(borough.getAbbrevName());
             abbrevName.setFont(new Font(20 * scale));
             abbrevName.setBoundsType(TextBoundsType.VISUAL);
@@ -55,6 +54,7 @@ public class MapPanel extends Panel
 
             stack.setOnMousePressed(this::popUp);
 
+            stack.setId("circle");
             root.getChildren().add(stack);
         }
         root.getStylesheets().add("darkMode.css");

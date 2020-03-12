@@ -240,7 +240,7 @@ public class ApplicationWindow extends Application
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMinHeight(boroughWindow.getPane().getMinHeight());
+        boroughWindowStage.setMaxHeight(boroughWindow.getPane().getMaxHeight());
         boroughWindowStage.setMinWidth(boroughWindow.getPane().getMinWidth());
         boroughWindowStage.setResizable(false);
         boroughWindowStage.show();

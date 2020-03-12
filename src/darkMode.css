@@ -126,3 +126,6 @@ BorderPane > BorderPane > VBox   {
 #circle:hover {
     -fx-effect: dropshadow(gaussian,#090a0c,30,0,0,3);
 }
+#circle > #circleBG:hover {
+    -fx-fill: #ff9a8a;
+}
