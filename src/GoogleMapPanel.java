@@ -68,7 +68,6 @@ public class GoogleMapPanel extends MapView
         return thisIsAPane;
 
     }
-
 //    public Pane getGog(){
 //        Pane thisIsAPane = new Pane();
 //        Object o = streetView;
