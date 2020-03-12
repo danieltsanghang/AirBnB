@@ -10,10 +10,6 @@ import com.teamdev.jxmaps.*;
 import com.teamdev.jxmaps.javafx.MapView;
 import java.net.URL;
 
-public class GoogleMapPanel {
-    @Override public void start(){
-        WebView googleMapView = new WebView();
-        WebEngine googleMapEngine = googleMapView.getEngine();
 public class GoogleMapPanel extends MapView
 {
     public String defaultURL = "https://www.google.com/maps?layer=c&cbll=51.5071707,-0.1274402&cbp=,300,,,0";
@@ -72,7 +68,6 @@ public class GoogleMapPanel extends MapView
         return thisIsAPane;
 
     }
-
 //    public Pane getGog(){
 //        Pane thisIsAPane = new Pane();
 //        Object o = streetView;
