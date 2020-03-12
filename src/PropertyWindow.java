@@ -67,6 +67,7 @@ public class PropertyWindow{
         root.setTop(text);
 
         VBox container = new VBox();
+        Label hostNameBox = new Label("Host Name: "+ property.getHost_name());
         Label idBox = new Label("ID: "+ property.getId());
         Label nameBox = new Label(" Name: "+property.getName());
         Label hostIdBox = new Label("Host ID: "+property.getHost_id());
@@ -80,7 +81,7 @@ public class PropertyWindow{
         Label reviewsPerMonthBox = new Label("Reviews Per Month: "+Double.toString(property.getReviewsPerMonth()));
         Label calculatedHostListingsCountBox = new Label("Host Listings: "+String.valueOf(property.getCalculatedHostListingsCount()));
 
-        container.getChildren().addAll(idBox,nameBox,hostIdBox,neighbourhoodBox,
+        container.getChildren().addAll(hostNameBox, idBox,nameBox,hostIdBox,neighbourhoodBox,
                                        latitudeBox,longitudeBox,priceBox,minimumNightsBox,reviewBox,
                                        lastReviewBox,reviewsPerMonthBox,calculatedHostListingsCountBox);
         container.getStyleClass().add("container");
