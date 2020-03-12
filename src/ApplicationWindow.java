@@ -151,7 +151,8 @@ public class ApplicationWindow extends Application
         topPane.getChildren().addAll(priceFromLabel, minComboBox, priceToLabel, maxComboBox);
 
         HBox bottomPane = new HBox();
-        bottomPane.getStyleClass().add("bottomBar");
+        bottomPane.setId("navBarMain");
+//        bottomPane.getStyleClass().add("bottomBar");
         bottomPane.getChildren().addAll(backButton, forwardButton);
 
         root.setTop(topPane);
@@ -258,7 +259,7 @@ public class ApplicationWindow extends Application
         propertyWindowStage.setScene(scene);
         propertyWindowStage.setMinHeight(propertyWindow.getPane().getMinHeight());
         propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());
-        propertyWindowStage.setResizable(false);
+//        propertyWindowStage.setResizable(false);
         propertyWindowStage.show();
     }
 

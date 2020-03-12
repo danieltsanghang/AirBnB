@@ -90,14 +90,34 @@
 BorderPane > HBox    {
     -fx-background-color: #272727;
     -fx-alignment: Center_right;
-    -fx-padding: 3,3,3,3;
+    -fx-padding: 7,7,7,7;
     -fx-spacing: 10;
 }
-/*main window top and bot Labels*/
-BorderPane > HBox > Label   {
-    -fx-text-fill: white;
+
+#navBarMain {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 725;
+    /*-fx-effect: innershadow(gaussian, #3b3b3b,4,0.1,0,2);*/
+}
+#navBarBorough {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 450;
+}
+#navBarProperty {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 410;
 }
 
+/*main window top and bot Labels*/
+BorderPane > HBox > Label {
+    -fx-text-fill: white;
+}
 /*bg color across the board*/
 BorderPane  {
     -fx-background-color: #404040;

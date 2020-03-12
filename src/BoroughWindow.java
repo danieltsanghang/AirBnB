@@ -139,6 +139,7 @@ public class BoroughWindow{
         scrollBar.setContent(content);
 
         HBox botBar = new HBox();
+        botBar.setId("navBarBorough");
         botBar.getChildren().addAll(previous, next);
         HBox topBar = new HBox();
         topBar.getChildren().addAll(sortLabel,sortBox);
