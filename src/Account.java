@@ -12,7 +12,7 @@ public class Account {
         this.displayName = displayName;
         this.username = username;
         this.password = password;
-        this.favourites = new ArrayList<>();
+        favourites = new ArrayList<>();
         dataLoader = new AccountDataLoader();
     }
 
@@ -32,8 +32,8 @@ public class Account {
         return favourites;
     }
 
-    public void setFavourites(ArrayList<AirbnbListing> fav) {
-        favourites = fav;
+    public void loadFavouriteList(ArrayList<AirbnbListing> favList) {
+        favourites = favList;
     }
 
     public void newFavourite(AirbnbListing fav) throws IOException {
@@ -42,7 +42,7 @@ public class Account {
     }
 
     public void removeFavourite(AirbnbListing fav) throws IOException {
-        favourites.add(fav);
+        favourites.remove(fav);
         dataLoader.removeFavourite(getUserName(), fav.getId());
     }
 }

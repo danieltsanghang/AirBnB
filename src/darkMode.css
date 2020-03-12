@@ -78,6 +78,14 @@
     -fx-text-fill: white;
 }
 
+.boroughWindow {
+    -fx-alignment: center;
+}
+
+.contentGrid .label {
+    -fx-text-fill: white;
+}
+
 /*main window top and bot*/
 BorderPane > HBox    {
     -fx-background-color: #272727;

@@ -33,6 +33,8 @@ public class ApplicationWindow extends Application
     private boolean minSelected;
     private boolean maxSelected;
 
+    private static Account user;
+
     private static Pane centerPanel;
     private Pane splashLayout;
     private ProgressIndicator loadProgress;
@@ -247,7 +249,7 @@ public class ApplicationWindow extends Application
     }
 
     public static void triggerPropertyWindow (AirbnbListing property, ArrayList<AirbnbListing> list, int pos) {
-        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos);
+        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos, user);
 
         Scene scene = new Scene(propertyWindow.getPane());
         scene.getStylesheets().add("darkMode.css");
@@ -258,6 +260,10 @@ public class ApplicationWindow extends Application
         propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());
         propertyWindowStage.setResizable(false);
         propertyWindowStage.show();
+    }
+
+    public static void login(Account account) {
+        user = account;
     }
 
     public interface InitCompletionHandler {
