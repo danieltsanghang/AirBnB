@@ -25,13 +25,15 @@ public class ApplicationWindow extends Application
 {
     private int count = 0;
     private BorderPane root= new  BorderPane();
-    private ComboBox minComboBox = new ComboBox();
-    private ComboBox maxComboBox = new ComboBox();
+    private ComboBox<String> minComboBox = new ComboBox();
+    private ComboBox<String> maxComboBox = new ComboBox();
 
     private static int minPrice;
     private static int maxPrice;
     private boolean minSelected;
     private boolean maxSelected;
+
+    private static Account user;
 
     private static Pane centerPanel;
     private Pane splashLayout;
@@ -53,7 +55,7 @@ public class ApplicationWindow extends Application
 
         loadProgress = new ProgressIndicator();
         loadText = new Label();
-        loadText.getStyleClass().add("loadingText");
+        loadText.getStyleClass().add("whiteText");
 
         VBox overlay = new VBox();
         overlay.getStyleClass().add("overlayPane");
@@ -75,19 +77,8 @@ public class ApplicationWindow extends Application
                 updateMessage("Loading Stats Panel");
                 panels.add(new StatsPanel());
 
-                ArrayList<Panel> accountPanels = new ArrayList<>();
-
-                updateMessage("Loading Login Panel");
-                accountPanels.add(new LoginPanel());
-
-                updateMessage("Loading Account Creation Panel");
-                accountPanels.add(new CreateAccountPanel());
-
-                updateMessage("Loading My Account Panel");
-                accountPanels.add(new MyAccountPanel());
-
                 updateMessage("Loading Account Panel");
-                panels.add(new AccountPanel(accountPanels));
+                panels.add(new AccountPanel());
 
                 updateMessage("Application Starting");
                 Thread.sleep(300);
@@ -156,6 +147,7 @@ public class ApplicationWindow extends Application
 
         HBox topPane = new HBox();
         topPane.getStyleClass().add("topBar");
+
         topPane.getChildren().addAll(priceFromLabel, minComboBox, priceToLabel, maxComboBox);
 
         HBox bottomPane = new HBox();
@@ -168,6 +160,7 @@ public class ApplicationWindow extends Application
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("darkMode.css");
+        scene.getStylesheets().add("styles.css");
 
         Stage mainStage = new Stage(StageStyle.DECORATED);
         mainStage.setTitle("Application Window");
@@ -198,6 +191,7 @@ public class ApplicationWindow extends Application
         });
 
         Scene splashScene = new Scene (splashLayout, Color.TRANSPARENT);
+        splashScene.getStylesheets().add("darkMode.css");
         splashScene.getStylesheets().add("styles.css");
         initStage.setScene(splashScene);
         initStage.initStyle(StageStyle.TRANSPARENT);
@@ -213,14 +207,30 @@ public class ApplicationWindow extends Application
             else {
                 count = (count - 1) % 3;
             }
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(100),root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(100),root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
     private void forwardButtonClick(ActionEvent event) {
         if (minSelected && maxSelected) {
             count = (count + 1) % 3;
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), root.getCenter());
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.play();
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(100), root.getCenter());
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
         }
     }
 
@@ -232,21 +242,28 @@ public class ApplicationWindow extends Application
         Stage boroughWindowStage = new Stage();
         boroughWindowStage.setTitle("Properties of " + boroughName );
         boroughWindowStage.setScene(scene);
-        boroughWindowStage.setMaxHeight(600);
-        boroughWindowStage.setMinWidth(300);
+        boroughWindowStage.setMaxHeight(boroughWindow.getPane().getMaxHeight());
+        boroughWindowStage.setMinWidth(boroughWindow.getPane().getMinWidth());
+        boroughWindowStage.setResizable(false);
         boroughWindowStage.show();
     }
 
     public static void triggerPropertyWindow (AirbnbListing property, ArrayList<AirbnbListing> list, int pos) {
-        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos);
+        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos, user);
 
         Scene scene = new Scene(propertyWindow.getPane());
         scene.getStylesheets().add("darkMode.css");
         Stage propertyWindowStage = new Stage();
         propertyWindowStage.setTitle("");
         propertyWindowStage.setScene(scene);
-
+        propertyWindowStage.setMinHeight(propertyWindow.getPane().getMinHeight());
+        propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());
+        propertyWindowStage.setResizable(false);
         propertyWindowStage.show();
+    }
+
+    public static void login(Account account) {
+        user = account;
     }
 
     public interface InitCompletionHandler {

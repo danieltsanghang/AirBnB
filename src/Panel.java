@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.scene.layout.*;
 
 public abstract class Panel extends Pane
@@ -11,6 +13,7 @@ public abstract class Panel extends Pane
     protected ArrayList<AirbnbListing> listings;
     protected ArrayList<Borough> boroughs;
     protected ArrayList<Account> accounts;
+    protected HashMap<String, ArrayList<AirbnbListing>> favourites;
 
     public Panel () throws IOException {
         dataLoader = new AirbnbDataLoader();
@@ -20,6 +23,7 @@ public abstract class Panel extends Pane
         listings = dataLoader.load();
         boroughs = boroughLoader.load();
         accounts = accountLoader.loadAccounts();
+        favourites = accountLoader.loadFavourites(listings);
 
         loadListingsIntoBorough();
     }
