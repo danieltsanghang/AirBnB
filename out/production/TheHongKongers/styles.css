@@ -25,6 +25,40 @@
     -fx-vgap: 10;
 }
 
+.profileHBox {
+    -fx-alignment: center;
+    -fx-spacing: 60;
+}
+
+.profileVBox {
+    -fx-alignment: center;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.scrollPaneVox {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-hgap: 20;
+    -fx-vgap: 10;
+}
+
+.accountLabel {
+    -fx-text-fill: white;
+    -fx-border-color: #090a0c;
+    -fx-border-radius: 5;
+    -fx-padding: 3 6 6 6;
+}
+
+
+
+
+.profileGrid {
+    -fx-alignment: center;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
 .escapeButton {
     -fx-background-color: transparent;
     -fx-font-size: 30;
