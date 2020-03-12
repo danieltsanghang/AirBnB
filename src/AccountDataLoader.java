@@ -14,10 +14,14 @@ import java.util.Set;
 
 public class AccountDataLoader {
 
+    // The first row (labels) in account.csv
     private static final String[] accountCSVheader = {"Display Name", "Username", "Password"};
+    // The first row (labels) in favourite.csv
     private static final String[] favouritesCSVheader = {"Username", "Listing ID"};
 
+    // An ArrayList that holds every account created, including previous accounts
     private ArrayList<Account> accounts;
+    // A HashMap username and its matching list of favourite listings in pairs
     private HashMap<String, ArrayList<AirbnbListing>> favourites;
 
     public AccountDataLoader(){
@@ -25,6 +29,10 @@ public class AccountDataLoader {
         favourites = new HashMap<>();
     }
 
+    /**
+     * Reads account.csv and loads every account in the csv into an Arraylist
+     * @return an account filled ArrayList
+     */
     public ArrayList<Account> loadAccounts() {
         try{
             URL url = getClass().getResource("app-accounts.csv");
@@ -47,6 +55,10 @@ public class AccountDataLoader {
         return accounts;
     }
 
+    /**
+     * @param listings
+     * @return
+     */
     public HashMap<String, ArrayList<AirbnbListing>> loadFavourites(ArrayList<AirbnbListing> listings) {
         try{
             URL url = getClass().getResource("favourites.csv");
