@@ -10,26 +10,22 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 public class AccountDataLoader {
 
     private static final String[] accountCSVheader = {"Display Name", "Username", "Password"};
     private static final String[] favouritesCSVheader = {"Username", "Listing ID"};
 
-    private CSVWriter favouriteWriter;
+    private ArrayList<Account> accounts;
+    private HashMap<String, ArrayList<AirbnbListing>> favourites;
 
-    public AccountDataLoader() throws IOException {
-
-        favouriteWriter = new CSVWriter(
-                new FileWriter("src/favourites.csv"),
-                CSVWriter.DEFAULT_SEPARATOR,
-                CSVWriter.NO_QUOTE_CHARACTER,
-                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END);
+    public AccountDataLoader(){
+        accounts = new ArrayList<>();
+        favourites = new HashMap<>();
     }
 
     public ArrayList<Account> loadAccounts() {
-        ArrayList<Account> accounts = new ArrayList<>();
         try{
             URL url = getClass().getResource("app-accounts.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -51,8 +47,7 @@ public class AccountDataLoader {
         return accounts;
     }
 
-    private HashMap<String, ArrayList<AirbnbListing>> loadFavourites(ArrayList<AirbnbListing> listings) {
-        HashMap<String, ArrayList<AirbnbListing>> favourites = new HashMap<>();
+    public HashMap<String, ArrayList<AirbnbListing>> loadFavourites(ArrayList<AirbnbListing> listings) {
         try{
             URL url = getClass().getResource("favourites.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -103,7 +98,7 @@ public class AccountDataLoader {
                 CSVWriter.DEFAULT_LINE_END);
         ) {
             accountWriter.writeNext(accountCSVheader);
-            for (Account prevAccount : loadAccounts()) {
+            for (Account prevAccount : accounts) {
                 String[] line = new String[3];
                 line[0] = prevAccount.getDName();
                 line[1] = prevAccount.getUserName();
@@ -115,6 +110,53 @@ public class AccountDataLoader {
     }
 
     public void newFavourite(String username, String listingID) throws IOException {
+        String[] newline = new String[2];
+        newline[0] = username;
+        newline[1] = listingID;
 
+        try (CSVWriter favouriteWriter = new CSVWriter(
+                new FileWriter("src/favourites.csv"),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        ) {
+            favouriteWriter.writeNext(favouritesCSVheader);
+            Set favouriteKeySet = favourites.keySet();
+            for (Object key : favouriteKeySet) {
+                ArrayList<AirbnbListing> currentArray = favourites.get((String) key);
+                for (AirbnbListing listing : currentArray) {
+                    String[] line = new String[2];
+                    line[0] = username;
+                    line[1] = listing.getId();
+                    favouriteWriter.writeNext(line);
+                }
+            }
+            favouriteWriter.writeNext(newline);
+        }
+    }
+
+    public void removeFavourite(String username, String listingID) throws IOException {
+        try (CSVWriter favouriteWriter = new CSVWriter(
+                new FileWriter("src/favourites.csv"),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        ) {
+            favouriteWriter.writeNext(favouritesCSVheader);
+            Set favouriteKeySet = favourites.keySet();
+            for (Object key : favouriteKeySet) {
+                ArrayList<AirbnbListing> currentArray = favourites.get((String) key);
+                for (AirbnbListing listing : currentArray) {
+                    String[] line = new String[2];
+                    line[0] = username;
+                    line[1] = listing.getId();
+                    if (!line[1].equals(listingID)) {
+                        favouriteWriter.writeNext(line);
+                    }
+                }
+            }
+        }
     }
 }
