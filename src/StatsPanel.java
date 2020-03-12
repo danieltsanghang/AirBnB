@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Collections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
@@ -68,7 +69,13 @@ public class StatsPanel extends Panel
 
                 vbox.getChildren().addAll(statName, stat);
 
-                gridPane.add(vbox, col, row);
+                HBox hbox = new HBox(10);
+                Button backButton = new Button("<");
+                Button forwardButton = new Button(">");
+                hbox.getChildren().addAll(backButton, vbox, forwardButton);
+
+
+                gridPane.add(hbox, col, row);
             }
         }
         gridPane.setHgap(20);
