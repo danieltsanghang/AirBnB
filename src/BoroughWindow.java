@@ -172,7 +172,8 @@ public class BoroughWindow{
     }
 
     public Pane getPane() {
-        popUpPane.setMinSize(560,500);
+        popUpPane.setMinSize(560,600);
+        popUpPane.setMaxSize(560,600);
         return popUpPane;
     }
     private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
