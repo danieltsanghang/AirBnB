@@ -127,17 +127,23 @@ public class StatsPanel extends Panel
 
     private String getMostExpensiveBorough()
     {
-        HashMap<Double, String> averages = new HashMap<>();
+        HashMap<String, Double> averages = new HashMap<>();
         for (Borough borough : boroughs) {
-            ArrayList<AirbnbListing> listingsInBorough = borough.getListing();
-            long sum = 0;
-            for (AirbnbListing listing : listingsInBorough) {
-                sum += listing.getMinimumNights() * listing.getPrice();
+            double sum = 0;
+            for (AirbnbListing listing : borough.getListing()) {
+                sum += listing.getPrice() * listing.getMinimumNights();
             }
-            double average = (double) sum / listingsInBorough.size();
-            averages.put(average, borough.getName());
+            averages.put(borough.getName(), sum / borough.getListing().size());
         }
-        return averages.get(Collections.max(averages.keySet()));
+        String mostExpensive = "Luigi's castle";
+        double price = 0;
+        for (String key : averages.keySet()) {
+            if (price < averages.get(key)) {
+                price = averages.get(key);
+                mostExpensive = key;
+            }
+        }
+        return mostExpensive;
     }
 
     private ArrayList getMostExpensiveListing()
@@ -162,7 +168,8 @@ public class StatsPanel extends Panel
         return mostExpensiveListings;
     }
 
-    private String getMostPropertyOwner(){
+    private String getMostPropertyOwner()
+    {
         ownerIT = listings.iterator();
         long numberOfProperties = 0;
         String ownerName = "Homer Simpson";
@@ -181,11 +188,11 @@ public class StatsPanel extends Panel
                 }
             }
         }
-        // System.out.println(ownerName + "/" + ownerID + "/" + numberOfProperties); //debugging line remove later
         return "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + numberOfProperties;
     }
 
-    private String getMostPropertyBorough(){
+    private String getMostPropertyBorough()
+    {
         ArrayList<String> temp = new ArrayList<>();
         String sBoroughToReturn = "yeet";
         long lBoroughToReturn = 0;
@@ -199,8 +206,9 @@ public class StatsPanel extends Panel
         //System.out.println(sBoroughToReturn); //debugging line remove later
         return sBoroughToReturn;
     }
-
-    private ArrayList getClosestProperties(){
+    
+    private ArrayList getClosestProperties()
+    {
         double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
         double latitude = 51.4613; double longitude = -0.3037;
         double delta = 0;
@@ -217,5 +225,3 @@ public class StatsPanel extends Panel
         }
         return closestListings;
     }
-
-}
