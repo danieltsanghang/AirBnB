@@ -40,6 +40,11 @@ public class AccountPanel extends Panel
     public AccountPanel() throws IOException
     {
         super();
+        // JavaFx Image
+        File loginImageFile = new File("img/login-screen.png");
+        Image loginImage = new Image(loginImageFile.toURI().toString());
+        loginScreen = new ImageView(loginImage);
+
         // Create the login pane
         Pane loginPane = makeLoginPane();
         // Create the new account pane
@@ -54,11 +59,6 @@ public class AccountPanel extends Panel
         panes = new ArrayList<>();
         panes.add(loginPane);
         panes.add(newAccountPane);
-
-        // Image Loading
-        File loginImageFile = new File("img/loginscreen.png");
-        Image loginImage = new Image(loginImageFile.toURI().toString());
-        loginScreen = new ImageView(loginImage);
     }
 
     /**

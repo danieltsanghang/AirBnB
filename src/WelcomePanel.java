@@ -15,7 +15,7 @@ public class WelcomePanel extends Panel
         super();
         // Loads the welcome screen based on the provided URL
         // Converts File to ImageView using Image
-        File file = new File("img/airbnb_welcome.png");
+        File file = new File("img/welcome-screen.png");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
     }
