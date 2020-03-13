@@ -122,17 +122,23 @@ public class StatsPanel extends Panel
 
     private String getMostExpensiveBorough()
     {
-        HashMap<Double, String> averages = new HashMap<>();
+        HashMap<String, Double> averages = new HashMap<>();
         for (Borough borough : boroughs) {
-            ArrayList<AirbnbListing> listingsInBorough = borough.getListing();
-            long sum = 0;
-            for (AirbnbListing listing : listingsInBorough) {
-                sum += listing.getMinimumNights() * listing.getPrice();
+            double sum = 0;
+            for (AirbnbListing listing : borough.getListing()) {
+                sum += listing.getPrice() * listing.getMinimumNights();
             }
-            double average = (double) sum / listingsInBorough.size();
-            averages.put(average, borough.getName());
+            averages.put(borough.getName(), sum / borough.getListing().size());
         }
-        return averages.get(Collections.max(averages.keySet()));
+        String mostExpensive = "Luigi's castle";
+        double price = 0;
+        for (String key : averages.keySet()) {
+            if (price < averages.get(key)) {
+                price = averages.get(key);
+                mostExpensive = key;
+            }
+        }
+        return mostExpensive;
     }
 
     private ArrayList getMostExpensiveListing()
@@ -156,18 +162,26 @@ public class StatsPanel extends Panel
         return mostExpensiveListings;
     }
 
-    private String getMostPropertyOwner(){
+    private String getMostPropertyOwner() {
         HashMap<String, Integer> ownerHashmap = new HashMap<>();
-        ownerIT = listings.iterator();
-        int i = 0;
-        String ownerName = "Homer Simpson";
-        while(ownerIT.hasNext()){
-            AirbnbListing thisListing = ownerIT.next();
-            ownerName = thisListing.getHost_name();
-            ownerHashmap.put(ownerName, i);
-            i++;
+        String owner;
+        for (AirbnbListing listing : listings) {
+            owner = listing.getHost_name();
+            if (ownerHashmap.containsKey(owner)) {
+                ownerHashmap.replace(owner, ownerHashmap.get(owner) + 1);
+            }
+            else {
+                ownerHashmap.put(owner, 1);
+            }
         }
-        return (String) Collections.max(ownerHashmap);
+
+        int maxNumber = Collections.max(ownerHashmap.values());
+        for (String name : ownerHashmap.keySet()) {
+            if (ownerHashmap.get(name) == maxNumber) {
+                return name + " owns " + maxNumber + " properties";
+            }
+        }
+        return null;
     }
 
     private String getMostPropertyBorough(){
@@ -183,6 +197,4 @@ public class StatsPanel extends Panel
         }
         return sBoroughToReturn;
     }
-
-
 }
