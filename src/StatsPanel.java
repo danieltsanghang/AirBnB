@@ -1,7 +1,6 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Collections;
+import java.util.*;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -17,6 +16,9 @@ public class StatsPanel extends Panel
 {
     private ArrayList<String> statsType;
     private ArrayList<String> stats;
+    private Iterator<AirbnbListing> airbnbIT;
+    private Iterator<AirbnbListing> ownerIT;
+    private ArrayList<AirbnbListing> mostExpensiveListings;
 
     public StatsPanel() throws IOException {
         super();
@@ -132,4 +134,55 @@ public class StatsPanel extends Panel
         }
         return averages.get(Collections.max(averages.keySet()));
     }
+
+    private ArrayList getMostExpensiveListing()
+    {
+        airbnbIT = listings.iterator();
+        long toCompare = 0;
+        AirbnbListing mostExpensiveListing;
+        mostExpensiveListings = new ArrayList<>();
+        while(airbnbIT.hasNext()){
+            AirbnbListing toTest = airbnbIT.next();
+            long temp = toTest.getPrice();
+            if(temp > toCompare){
+                toCompare = temp;
+                mostExpensiveListing = toTest;
+                mostExpensiveListings.add(mostExpensiveListing);
+            } else if(temp == toCompare){
+                mostExpensiveListing = toTest;
+                mostExpensiveListings.add(mostExpensiveListing);
+            }
+        }
+        return mostExpensiveListings;
+    }
+
+    private String getMostPropertyOwner(){
+        HashMap<String, Integer> ownerHashmap = new HashMap<>();
+        ownerIT = listings.iterator();
+        int i = 0;
+        String ownerName = "Homer Simpson";
+        while(ownerIT.hasNext()){
+            AirbnbListing thisListing = ownerIT.next();
+            ownerName = thisListing.getHost_name();
+            ownerHashmap.put(ownerName, i);
+            i++;
+        }
+        return (String) Collections.max(ownerHashmap);
+    }
+
+    private String getMostPropertyBorough(){
+        ArrayList<String> temp = new ArrayList<>();
+        String sBoroughToReturn = "";
+        long lBoroughToReturn = 0;
+        for (Borough borough : boroughs) {
+            long boroughToCompare = borough.getNumberOfListings(0,100000);
+            if(boroughToCompare > lBoroughToReturn){
+                lBoroughToReturn = boroughToCompare;
+                sBoroughToReturn = borough.getName();
+            } else if(boroughToCompare == lBoroughToReturn){ sBoroughToReturn += borough.getName(); }
+        }
+        return sBoroughToReturn;
+    }
+
+
 }

@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class PropertyWindow{
@@ -104,12 +107,13 @@ public class PropertyWindow{
         }
     }
 
-    private Pane loadContent(AirbnbListing property) {
+    private Pane loadContent(AirbnbListing property){
 
         HBox pane = new HBox();
         Pane googleMapPane = new Pane();
         BorderPane right = new BorderPane();
         GridPane contentGrid = new GridPane();
+        GoogleMapPanel gog = new GoogleMapPanel();
 
         favBtn.setOnAction(e -> {
             if (login) {
@@ -154,7 +158,17 @@ public class PropertyWindow{
 
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-
+        try {
+            right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         pane.getChildren().addAll(googleMapPane, right);
         return pane;
     }
