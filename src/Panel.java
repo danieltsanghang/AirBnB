@@ -39,9 +39,9 @@ public abstract class Panel extends Pane
 
     /**
      * Abstract method overrided in every class that extends Panel
-     * @param minPrice selected minimum price for filtering
-     * @param maxPrice selected maximum price for filtering
-     * @return the Pane of each Panel
+     * @param minPrice Selected minimum price for filtering
+     * @param maxPrice Selected maximum price for filtering
+     * @return The Pane of each Panel
      */
     public Pane getPanel(int minPrice, int maxPrice) {
         return null;

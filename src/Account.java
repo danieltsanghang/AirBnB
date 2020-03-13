@@ -60,21 +60,23 @@ public class Account
     /**
      * Adds a new listing to the ArrayList
      * Also updates favourite.csv
-     * @param fav listing of choice
-     * @throws IOException unable to update favourite.csv
+     * @param fav Listing of choice
+     * @throws IOException Unable to update favourite.csv
      */
-    public void newFavourite(AirbnbListing fav) throws IOException {
+    public void newFavourite(AirbnbListing fav) throws IOException
+    {
         favourites.add(fav);
         dataLoader.newFavourite(getUserName(), fav.getId());
     }
 
     /**
-     * removes a listing from the ArrayList
+     * Removes a listing from the ArrayList
      * Also updates favourite.csv
-     * @param fav listing of choice
-     * @throws IOException unable to update favourite.csv
+     * @param fav Listing of choice
+     * @throws IOException Unable to update favourite.csv
      */
-    public void removeFavourite(AirbnbListing fav) throws IOException {
+    public void removeFavourite(AirbnbListing fav) throws IOException
+    {
         favourites.remove(fav);
         dataLoader.removeFavourite(getUserName(), fav.getId());
     }
