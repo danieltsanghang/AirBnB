@@ -7,6 +7,10 @@ import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
 
 public class BoroughDataLoader {
+    /**
+     * Reads borough-london.csv and loads every borough in the csv into an ArrayList
+     * @return A Borough filled ArrayList
+     */
     public ArrayList<Borough> load() {
         ArrayList<Borough> boroughs = new ArrayList<Borough>();
         try {
@@ -21,6 +25,7 @@ public class BoroughDataLoader {
                 int xPos = Integer.parseInt(line[2]);
                 int yPos = Integer.parseInt(line[3]);
                 int diameter = Integer.parseInt(line[4]);
+                // Creation of new Borough based on loaded csv data
                 boroughs.add(new Borough(name, abbrevName, xPos, yPos, diameter));
             }
         } catch (IOException | URISyntaxException e) {
