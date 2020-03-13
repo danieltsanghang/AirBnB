@@ -2,9 +2,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.ArrayList;
 
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
@@ -51,9 +48,10 @@ public class MapPanel extends Panel
      */
     private Color getFillColor(double number, double max)
     {
-        double redValue = (max - number) / max * 255;
-        double blueValue = 0.2164 * redValue + 200;
-        return Color.rgb((int) redValue, 255, (int)blueValue);
+        double redValue = 255 - number/ max * 13;
+        double greenValue = 255 - number / max * 169;
+        double blueValue = 255 - number / max * 163;
+        return Color.rgb((int) redValue, (int) greenValue, (int)blueValue);
     }
 
     /**
