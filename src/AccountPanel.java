@@ -11,68 +11,96 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class AccountPanel extends Panel{
+public class AccountPanel extends Panel
+{
+    // URL holding the profile picture image
     private static final String userURL = "file:user.png";
+
+    // Pane selection 0, 1, or 2
+    private int paneSelection = 0;
+
+    // ArrayList that holds all the panes that belong to this panel
+    private ArrayList<Pane> panes;
+
+    // Logged in state
+    private boolean loginSuccess = false;
+
+    // JavaFX Control Nodes
     private Button escapeButton;
     private Button newAccountButton;
     private Button loginButton;
 
+    // JavaFX Layouts
     private BorderPane returnPane;
+    private VBox favouriteBoroughBox;
 
-    private int paneSelection = 0;
+    // JavaFx Images
+    private ImageView loginScreen;
 
-    private Iterator<Account> accountIT;
-    private ArrayList<Pane> panes;
-    private boolean loginSuccess = false;
-    VBox savedBoroughBox = new VBox();
-
-    public AccountPanel () throws IOException{
+    public AccountPanel() throws IOException
+    {
         super();
-        Pane loginPane = makeLoginPane();
-        Pane newAccountPane = makeCreateAccountPane();
-        returnPane = new BorderPane();
+        // JavaFx Image
+        File loginImageFile = new File("img/login-screen.png");
+        Image loginImage = new Image(loginImageFile.toURI().toString());
+        loginScreen = new ImageView(loginImage);
 
+        // Create the login pane
+        Pane loginPane = makeLoginPane();
+        // Create the new account pane
+        Pane newAccountPane = makeCreateAccountPane();
+
+        // The pane to return in the getPanel method
+        returnPane = new BorderPane();
+        // The VBox that shows the favourite listings of this user
+        favouriteBoroughBox = new VBox();
+
+        // Initialize ArrayList panes and adds loginPane and newAccountPane
         panes = new ArrayList<>();
         panes.add(loginPane);
         panes.add(newAccountPane);
-
-
     }
 
-    public Pane getPanel(int minPrice, int maxPrice) {
+    /**
+     * Parameters not in use
+     * @param minPrice Selected minimum price for filtering
+     * @param maxPrice Selected maximum price for filtering
+     * @return The selected pane
+     */
+    public Pane getPanel(int minPrice, int maxPrice)
+    {
         returnPane.setCenter(panes.get(paneSelection));
         return returnPane;
     }
 
-    private Pane makeLoginPane() {
-        StackPane loginPane = new StackPane();
+    /**
+     * Creation of the login Pane
+     * @return constructed login pane
+     */
+    private Pane makeLoginPane()
+    {
+        StackPane loginPane = new StackPane(); // The base pane
 
-        File loginImageFile = new File("loginscreen.png");
-        Image loginImage = new Image(loginImageFile.toURI().toString());
-        ImageView loginScreen = new ImageView(loginImage);
+        VBox loginVBox = new VBox(); // The VBox holding all the controls
+        loginVBox.getStyleClass().add("loginVBox"); // Set style class
 
-        VBox vbox = new VBox();
-        vbox.getStyleClass().add("loginVBox");
-
-        TextField userValue = new TextField();
-        userValue.getStyleClass().add("inputBox");
+        TextField userValue = new TextField(); // Username input textbox
+        userValue.getStyleClass().add("inputBox"); // Set style class
         userValue.setPromptText("Username");
 
-        PasswordField passwordValue = new PasswordField();
-        passwordValue.getStyleClass().add("inputBox");
+        PasswordField passwordValue = new PasswordField(); // Password input textbox
+        passwordValue.getStyleClass().add("inputBox"); // Set style class
         passwordValue.setPromptText("Password");
 
-        Label errorLabel = new Label("");
-        errorLabel.getStyleClass().add("whiteText");
+        Label errorLabel = new Label(""); // Label of error message
+        errorLabel.getStyleClass().add("whiteText"); // Set style class
 
-        loginButton = new Button("Login");
-        newAccountButton = new Button("Create New Account");
-
-        loginButton.setOnAction(e -> {
+        loginButton = new Button("Login"); // Login button
+        loginButton.setOnAction(e -> { // Set login button action
             String username = userValue.getText();
             String password = passwordValue.getText();
 
-            accountIT = accounts.iterator();
+            Iterator<Account> accountIT = accounts.iterator();
             while (accountIT.hasNext() && !loginSuccess) {
                 Account accountToCheck = accountIT.next();
                 boolean userMatch = username.equals(accountToCheck.getUserName());
@@ -90,19 +118,26 @@ public class AccountPanel extends Panel{
             }
         });
 
-        newAccountButton.setOnAction(e -> {
+        newAccountButton = new Button("Create New Account"); // Create account button
+        newAccountButton.setOnAction(e -> { // Set create account button action
            paneSelection = 1;
            returnPane.setCenter(panes.get(paneSelection));
         });
 
-        Pane spacing = new Pane();
-        spacing.getStyleClass().add("loginSpacing");
+        Pane spacing = new Pane(); // Create spacing pane
+        spacing.getStyleClass().add("loginSpacing"); // Set style class
 
-        vbox.getChildren().addAll(userValue, passwordValue, loginButton, errorLabel, spacing, newAccountButton);
-        loginPane.getChildren().addAll(loginScreen, vbox);
+        // Add all nodes into VBox
+        loginVBox.getChildren().addAll(userValue, passwordValue, loginButton, errorLabel, spacing, newAccountButton);
+        // Add all loginScreen.png and VBox into StackPane
+        loginPane.getChildren().addAll(loginScreen, loginVBox);
         return loginPane;
     }
 
+    /**
+     * Creation of Create Account Pane
+     * @return constructed create account pane
+     */
     private Pane makeCreateAccountPane() {
         GridPane newAccountPane = new GridPane();
 
@@ -186,8 +221,8 @@ public class AccountPanel extends Panel{
         boroughSavedLabel.getStyleClass().add("accountLabel");
         ScrollPane scrollPane = new ScrollPane();
         loadBoxes(Account.getFavourites());
-        savedBoroughBox.setPrefSize(400,400);
-        scrollPane.setContent(savedBoroughBox);
+        favouriteBoroughBox.setPrefSize(400,400);
+        scrollPane.setContent(favouriteBoroughBox);
         boroughSavedPane.getChildren().addAll(boroughSavedLabel, scrollPane);
         boroughSavedPane.getStyleClass().add("scrollPaneVox");
 
@@ -217,7 +252,7 @@ public class AccountPanel extends Panel{
     private void loadBoxes(ArrayList<AirbnbListing> favouriteAccounts) {
         for (int i = 0; i < favouriteAccounts.size(); i++) {
             Label account = new Label (favouriteAccounts.get(i).getName());
-            savedBoroughBox.getChildren().add(account);
+            favouriteBoroughBox.getChildren().add(account);
 
         }
     }

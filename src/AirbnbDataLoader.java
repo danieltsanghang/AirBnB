@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
 
-public class AirbnbDataLoader {
-
+public class AirbnbDataLoader
+{
     /**
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
      */
-    public ArrayList<AirbnbListing> load() {
+    public ArrayList<AirbnbListing> load()
+    {
         System.out.print("Begin loading Airbnb london dataset...");
         ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
         try{
@@ -58,7 +59,8 @@ public class AirbnbDataLoader {
      * @return the Double value of the string, or -1.0 if the string is
      * either empty or just whitespace
      */
-    private Double convertDouble(String doubleString){
+    private Double convertDouble(String doubleString)
+    {
         if(doubleString != null && !doubleString.trim().equals("")){
             return Double.parseDouble(doubleString);
         }
@@ -71,7 +73,8 @@ public class AirbnbDataLoader {
      * @return the Integer value of the string, or -1 if the string is
      * either empty or just whitespace
      */
-    private Integer convertInt(String intString){
+    private Integer convertInt(String intString)
+    {
         if(intString != null && !intString.trim().equals("")){
             return Integer.parseInt(intString);
         }
