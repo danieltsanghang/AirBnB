@@ -95,8 +95,8 @@ public class ApplicationWindow extends Application
 
         panels = loadedPanels;
 
-        minComboBox.getItems().addAll(null, "0", "50", "100", "150", "200", "250", "300");
-        maxComboBox.getItems().addAll( null, "50", "100", "150", "200", "250", "300");
+        minComboBox.getItems().addAll(null, "0", "50", "100", "200", "500", "1000", "2000", "4000");
+        maxComboBox.getItems().addAll( null, "50", "100", "200", "500", "1000", "2000", "4000", "7000");
 
         minComboBox.setVisibleRowCount(3);
         maxComboBox.setVisibleRowCount(3);

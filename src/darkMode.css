@@ -74,7 +74,7 @@
     -fx-min-height: 30;
 }
 
-.cell .label {;
+.cell .label {
     -fx-text-fill: white;
 }
 
@@ -144,9 +144,13 @@ BorderPane > BorderPane > Label {
 
 /*borough window bg*/
 .scroll-pane  .viewport{
+    -fx-background-color: #404040;
+}
+.scroll-pane    {
     -fx-fit-to-width: true;
     -fx-background-color: #404040;
 }
+
 /*borough window main labels*/
 #boroughBox > Label   {
     -fx-text-fill: white;

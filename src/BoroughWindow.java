@@ -81,7 +81,9 @@ public class BoroughWindow{
         reviewsBox.setId("boroughBox");
         propertyLaunch.setId("boroughBox");
 
-        hostBox.setAlignment(Pos.CENTER_RIGHT);
+        content.setPadding(new Insets(0,0,1,20));
+        content.setAlignment(Pos.CENTER);
+        hostBox.setAlignment(Pos.CENTER);
         reviewsBox.setAlignment(Pos.CENTER);
         priceBox.setAlignment(Pos.CENTER);
         minStayBox.setAlignment(Pos.CENTER);
@@ -137,7 +139,7 @@ public class BoroughWindow{
         content.setSpacing(15);
         content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
         scrollBar.setContent(content);
-
+        scrollBar.setPadding(new Insets(3));
         HBox botBar = new HBox();
         botBar.setId("navBarBorough");
         botBar.getChildren().addAll(previous, next);
@@ -206,8 +208,8 @@ public class BoroughWindow{
     }
 
     public Pane getPane() {
-        popUpPane.setMinWidth(560);
-        popUpPane.setMaxHeight(500);
+        popUpPane.setMinWidth(700);
+        popUpPane.setMaxHeight(550);
         return popUpPane;
     }
     private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
