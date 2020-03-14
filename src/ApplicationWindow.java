@@ -49,7 +49,7 @@ public class ApplicationWindow extends Application
 
     @Override
     public void init() {
-        File splashScreenImageFile = new File("splashscreen.png");
+        File splashScreenImageFile = new File("img/splash-screen.png");
         Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
         ImageView splashScreen = new ImageView(splashScreenImage);
 

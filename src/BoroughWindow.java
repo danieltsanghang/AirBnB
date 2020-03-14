@@ -212,7 +212,8 @@ public class BoroughWindow{
         popUpPane.setMaxHeight(550);
         return popUpPane;
     }
-    private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5)    {
+
+    private void refreshVBox(VBox c1, VBox c2, VBox c3, VBox c4, VBox c5) {
         List<VBox> list = Arrays.asList(c1,c2,c3,c4,c5);
         for(VBox v : list) {
             if (v.getChildren().size() > 1) {
