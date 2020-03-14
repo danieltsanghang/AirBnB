@@ -250,7 +250,7 @@ public class ApplicationWindow extends Application
     }
 
     public static void triggerPropertyWindow (AirbnbListing property, ArrayList<AirbnbListing> list, int pos) {
-        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos, user);
+        PropertyWindow propertyWindow = new PropertyWindow(property, list, pos);
 
         Scene scene = new Scene(propertyWindow.getPane());
         scene.getStylesheets().add("darkMode.css");
