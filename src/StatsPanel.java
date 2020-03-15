@@ -33,10 +33,10 @@ public class StatsPanel extends Panel {
         statsType.add("Total Available Properties");
         statsType.add("Number of Entire Homes");
         statsType.add("Most Expensive Borough");
-        statsType.add("addition 1");
-        statsType.add("addition 2");
-        statsType.add("addition 3");
-        statsType.add("addition 4");
+        statsType.add("Most Expensive Listing");
+        statsType.add("Owner who owns the most properties");
+        statsType.add("Borough with the most properties");
+        statsType.add("Closest property to the city centre");
     }
 
     private void loadStats() {
@@ -44,10 +44,10 @@ public class StatsPanel extends Panel {
         stats.add(getTotalAvailableProperties());
         stats.add(getNumberOfEntireHomes());
         stats.add(getMostExpensiveBorough());
-        stats.add("value 1");
-        stats.add("value 2");
-        stats.add("value 3");
-        stats.add("value 4");
+        stats.add(getMostExpensiveListing());
+        stats.add(getMostPropertyOwner());
+        stats.add(getMostPropertyBorough());
+        stats.add(getClosestProperties());
     }
 
     @Override
@@ -171,25 +171,26 @@ public class StatsPanel extends Panel {
         return mostExpensive;
     }
 
-    private ArrayList<AirbnbListing> getMostExpensiveListing() {
+    private String getMostExpensiveListing() {
         airbnbIT = listings.iterator();
         long toCompare = 0;
         AirbnbListing mostExpensiveListing = listings.get(0);
-        mostExpensiveListings = new ArrayList<>();
         while (airbnbIT.hasNext()) {
             AirbnbListing toTest = airbnbIT.next();
             long temp = toTest.getPrice();
             if (temp > toCompare) {
                 toCompare = temp;
                 mostExpensiveListing = toTest;
-                mostExpensiveListings.add(mostExpensiveListing);
             } else if (temp == toCompare) {
                 mostExpensiveListing = toTest;
-                mostExpensiveListings.add(mostExpensiveListing);
             }
         }
-        //System.out.println(mostExpensiveListing); //debugging line remove later
-        return mostExpensiveListings;
+        String toReturn = ("Listing Title: " + mostExpensiveListing.getName() + "\n");
+        toReturn += ("Listing ID: " + mostExpensiveListing.getId() + "\n");
+        toReturn += ("Host ID: " + mostExpensiveListing.getHost_id() + "\n");
+        toReturn += ("Price: " + mostExpensiveListing.getPrice() + "/night" + "\n");
+        toReturn += ("Minimum nights: " + mostExpensiveListing.getMinimumNights() + "\n");
+        return toReturn;
     }
 
     private String getMostPropertyOwner() {
@@ -218,24 +219,30 @@ public class StatsPanel extends Panel {
         ArrayList<String> temp = new ArrayList<>();
         String sBoroughToReturn = "yeet";
         long lBoroughToReturn = 0;
+        int i = 0;
         for (Borough borough : boroughs) {
             long boroughToCompare = borough.getNumberOfListings(0, 100000);
             if (boroughToCompare > lBoroughToReturn) {
                 lBoroughToReturn = boroughToCompare;
                 sBoroughToReturn = borough.getName();
             } else if (boroughToCompare == lBoroughToReturn) {
-                sBoroughToReturn += borough.getName();
+                sBoroughToReturn += ", " + borough.getName();
+                i++;
             }
         }
         //System.out.println(sBoroughToReturn); //debugging line remove later
-        return sBoroughToReturn;
+        String toReturn = "fhk";
+        if(i == 0) {
+            toReturn = ("Borough Name: " + sBoroughToReturn);
+        } else{
+            toReturn = ("Borough Names: " + sBoroughToReturn);
+        }
+        return toReturn;
     }
 
-    private ArrayList getClosestProperties() {
-        double latitudeOfCentre = 51.50853;
-        double longitudeOfCentre = -0.12574;
-        double latitude = 51.4613;
-        double longitude = -0.3037;
+    private String getClosestProperties() {
+        double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
+        double latitude = 51.4613; double longitude = -0.3037; // default numbers - look this up before changing!
         double delta = 0;
         closestListings = new ArrayList<>();
         for (AirbnbListing listing : listings) {
@@ -248,6 +255,17 @@ public class StatsPanel extends Panel {
                 closestListings.add(listing);
             }
         }
-        return closestListings;
+
+        int i = 0;
+        String toReturn = "";//"its a me, luirio";
+        while (i < closestListings.size()){
+            AirbnbListing thisListing = closestListings.get(i);
+            toReturn += "Property Title: " + thisListing.getName() + "\n";
+            toReturn += "Borough: " + thisListing.getNeighbourhood() + "\n";
+            toReturn += "Property ID: " + thisListing.getId() + "\n";
+            toReturn += "Host Name: " + thisListing.getHost_name() + "\n";
+            toReturn += "\n";
+        }
+        return toReturn;
     }
 }

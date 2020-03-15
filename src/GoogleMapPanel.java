@@ -55,8 +55,8 @@ public class GoogleMapPanel
 
 
         Pane thisIsAPane = new Pane();
-        Object urlSV = streetView;
-        thisIsAPane.getChildren().add((Node) urlSV);
+        Object svObject = streetView;
+        thisIsAPane.getChildren().add((Node) svObject);
         return thisIsAPane;
 
     }
@@ -66,38 +66,45 @@ public class GoogleMapPanel
 
         URL url = new URL(urlString);
 
-        signer(API_KEY);
-        String digitalSignature = signRequest(url.getPath(), url.getQuery());
-
+        urlSigner signer = new urlSigner(API_KEY);
+        String digitalSignature = urlSigner.signRequest(url.getPath(), url.getQuery());
+        System.out.println((url.getProtocol() + "://" + url.getHost() + digitalSignature));
         return (url.getProtocol() + "://" + url.getHost() + digitalSignature);
     }
 
-    public void signer(String keyString) throws IOException{
-        keyString = keyString.replace('-', '+');
-        keyString = keyString.replace('_', '/');
+    public static class urlSigner{
 
-        this.key = Base64.getDecoder().decode(keyString);
-    }
+        private static byte[] key;
+        public urlSigner(String keyString) throws IOException
+        {
+            keyString = keyString.replace('-', '+');
+            keyString = keyString.replace('_', '/');
 
-    public String signRequest(String path, String query) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, URISyntaxException{
-        String URL = path + "?" + query;
+            this.key = Base64.getDecoder().decode(keyString);
+        }
 
-        SecretKeySpec sha1KEY = new SecretKeySpec(key, "HmacSHA1");
+        public static String signRequest(String path, String query) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, URISyntaxException{
+            String URL = path + "?" + query;
 
-        Mac mac = Mac.getInstance("HmacSHA1");
-        mac.init(sha1KEY);
+            SecretKeySpec sha1KEY = new SecretKeySpec(key, "HmacSHA1");
 
-        byte[] significantBytes = mac.doFinal(URL.getBytes());
+            Mac mac = Mac.getInstance("HmacSHA1");
+            mac.init(sha1KEY);
 
-        String signatureURL = Base64.getEncoder().encodeToString(significantBytes);
+            byte[] significantBytes = mac.doFinal(URL.getBytes());
 
-        signatureURL = signatureURL.replace('+', '-');
-        signatureURL = signatureURL.replace('/', '_');
+            String signatureURL = Base64.getEncoder().encodeToString(significantBytes);
 
-        return URL + "&signature=" + signatureURL;
+            signatureURL = signatureURL.replace('+', '-');
+            signatureURL = signatureURL.replace('/', '_');
+
+            return URL + "&signature=" + signatureURL;
+        }
     }
 
 }
+
+
 
 //    public Pane getGog(){
 //        Pane thisIsAPane = new Pane();
