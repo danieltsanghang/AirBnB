@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
-public class PropertyWindow{
+public class PropertyWindow {
 
     private Button left;
     private Button right;
@@ -34,6 +34,14 @@ public class PropertyWindow{
 
     public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
 
+        File filledHeartFile = new File ("icons/filledHeart.png");
+        Image filledHeartImage = new Image(filledHeartFile.toURI().toString());
+        filledHeart = new ImageView(filledHeartImage);
+
+        File emptyHeartFile = new File ("icons/emptyHeart.png");
+        Image emptyHeartImage = new Image(emptyHeartFile.toURI().toString());
+        emptyHeart = new ImageView(emptyHeartImage);
+
         left = new Button("Left");
         right = new Button("Right");
 
@@ -54,7 +62,6 @@ public class PropertyWindow{
         favouriteDataLoader = favDataLoader;
 
         buildWindow();
-
     }
 
     private void buildWindow() {
@@ -79,7 +86,7 @@ public class PropertyWindow{
             }
         });
         checkIsFavourite(property);
-        popUpPane.setMinSize(500,300);
+        popUpPane.setMinSize(500, 300);
     }
 
     private void checkIsFavourite(AirbnbListing property) {
@@ -95,7 +102,7 @@ public class PropertyWindow{
         }
     }
 
-    private Pane loadContent(AirbnbListing property){
+    private Pane loadContent(AirbnbListing property) {
 
         HBox pane = new HBox();
         Pane googleMapPane = new Pane();
@@ -111,8 +118,7 @@ public class PropertyWindow{
                     ex.printStackTrace();
                 }
                 favBtn.setGraphic(filledHeart);
-            }
-            else {
+            } else {
                 try {
                     favouriteDataLoader.removeFavourite(property.getId());
                 } catch (IOException ex) {
@@ -124,16 +130,26 @@ public class PropertyWindow{
         });
 
         contentGrid.getStyleClass().add("contentGrid");
-        contentGrid.add(new Label("Host Name:"), 0, 0); contentGrid.add(new Label (property.getHost_name()), 1, 0);
-        contentGrid.add(new Label("ID:"), 0, 1); contentGrid.add(new Label(property.getId()), 1,1);
-        contentGrid.add(new Label(" Name:"), 0, 2); contentGrid.add(new Label(property.getName()), 1, 2);
-        contentGrid.add(new Label("Host ID:"), 0, 3); contentGrid.add(new Label(property.getHost_id()), 1, 3);
-        contentGrid.add(new Label("Borough:"), 0, 4); contentGrid.add(new Label(property.getNeighbourhood()), 1, 4);
-        contentGrid.add(new Label("Price:"), 0, 5); contentGrid.add(new Label(property.getPrice() + ""), 1, 5);
-        contentGrid.add(new Label("Minimum Night:"), 0, 6); contentGrid.add(new Label(property.getMinimumNights() + ""), 1, 6);
-        contentGrid.add(new Label("Number of reviews:"), 0, 7); contentGrid.add(new Label(property.getNumberOfReviews() + ""), 1, 7);
-        contentGrid.add(new Label("Last Review:"), 0, 8); contentGrid.add(new Label(property.getLastReview()), 1, 8);
-        contentGrid.add(new Label("Host Listings:"), 0, 9); contentGrid.add(new Label(property.getCalculatedHostListingsCount() + ""), 1, 9);
+        contentGrid.add(new Label("Host Name:"), 0, 0);
+        contentGrid.add(new Label(property.getHost_name()), 1, 0);
+        contentGrid.add(new Label("ID:"), 0, 1);
+        contentGrid.add(new Label(property.getId()), 1, 1);
+        contentGrid.add(new Label(" Name:"), 0, 2);
+        contentGrid.add(new Label(property.getName()), 1, 2);
+        contentGrid.add(new Label("Host ID:"), 0, 3);
+        contentGrid.add(new Label(property.getHost_id()), 1, 3);
+        contentGrid.add(new Label("Borough:"), 0, 4);
+        contentGrid.add(new Label(property.getNeighbourhood()), 1, 4);
+        contentGrid.add(new Label("Price:"), 0, 5);
+        contentGrid.add(new Label(property.getPrice() + ""), 1, 5);
+        contentGrid.add(new Label("Minimum Night:"), 0, 6);
+        contentGrid.add(new Label(property.getMinimumNights() + ""), 1, 6);
+        contentGrid.add(new Label("Number of reviews:"), 0, 7);
+        contentGrid.add(new Label(property.getNumberOfReviews() + ""), 1, 7);
+        contentGrid.add(new Label("Last Review:"), 0, 8);
+        contentGrid.add(new Label(property.getLastReview()), 1, 8);
+        contentGrid.add(new Label("Host Listings:"), 0, 9);
+        contentGrid.add(new Label(property.getCalculatedHostListingsCount() + ""), 1, 9);
 
         right.setTop(favBtn);
         right.setCenter(contentGrid);
@@ -141,9 +157,15 @@ public class PropertyWindow{
             right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
         } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
             e.printStackTrace();
+        }
+
+        pane.getChildren().addAll(googleMapPane, right);
+
+        return pane;
     }
-      
+
     public Pane getPane() {
         return popUpPane;
     }
 }
+
