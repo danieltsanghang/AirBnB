@@ -3,14 +3,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,11 +16,11 @@ public class BoroughWindow{
 
     private ArrayList<String> sortBy;
     private ArrayList<AirbnbListing> sortedListings;
-
+    private ArrayList<ArrayList<AirbnbListing>> pages = new ArrayList<>();
+    private int position;
     private Sorter sorter;
 
     private String boroughSelection;
-    private double longestString;
     private ScrollPane scrollBar;
     private BorderPane popUpPane;
     private HBox content = new HBox();
@@ -38,7 +35,6 @@ public class BoroughWindow{
         sorter = new Sorter();
         sortBy = new ArrayList<>();
         sortedListings = new ArrayList<>();
-        longestString = 0;
         this.boroughSelection = name;
 
         for (Borough borough : boroughs) {
@@ -74,17 +70,14 @@ public class BoroughWindow{
         launchLabel.setText("Click to learn more");
         propertyLaunch.getChildren().add(launchLabel);
 
-        hostBox.setId("boroughBox");
-        priceBox.setId("boroughBox");
-        minStayBox.setId("boroughBox");
-        reviewsBox.setId("boroughBox");
+        hostBox.setId("boroughBox");    priceBox.setId("boroughBox");
+        minStayBox.setId("boroughBox"); reviewsBox.setId("boroughBox");
         propertyLaunch.setId("boroughBox");
 
-        hostBox.setAlignment(Pos.CENTER_RIGHT);
-        reviewsBox.setAlignment(Pos.CENTER);
-        priceBox.setAlignment(Pos.CENTER);
-        minStayBox.setAlignment(Pos.CENTER);
-        propertyLaunch.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(0,0,1,20));
+        content.setAlignment(Pos.CENTER);       hostBox.setAlignment(Pos.CENTER);
+        reviewsBox.setAlignment(Pos.CENTER);    priceBox.setAlignment(Pos.CENTER);
+        minStayBox.setAlignment(Pos.CENTER);    propertyLaunch.setAlignment(Pos.CENTER);
 
         popUpPane = new BorderPane();
         scrollBar = new ScrollPane();
@@ -93,6 +86,9 @@ public class BoroughWindow{
 
     private void buildWindow(){
         Label sortLabel = new Label("Sort by");
+        Label pageNumber = new Label();
+        Button previous = new Button("Previous");
+        Button next = new Button("Next");
         ComboBox<String> sortBox = new ComboBox();
         sortBox.getItems().addAll(sortBy);
         sortBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -102,23 +98,73 @@ public class BoroughWindow{
                         if (t1.equals(sortBy)) {
                             Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
                             refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
-                            loadBoxes(sortedListings);
+                            toPages(sortedListings);
+                            loadBoxes(pages.get(0));
+                            position = 0;
+                            pageNumber.setText("Page 1 of " + pages.size());
                         }
                     }
                 }
             }
         });
 
+        next.setOnMouseClicked(e -> {
+            if(position < pages.size() - 1) {
+                if (pages.get(position + 1) != null) {
+                    position++;
+                    refreshVBox(hostBox, priceBox, minStayBox, reviewsBox, propertyLaunch);
+                    loadBoxes(pages.get(position));
+                    pageNumber.setText("Page " + (position + 1) + " of " + pages.size());
+                }
+            }
+        });
+
+        previous.setOnMouseClicked(e -> {
+            if(position != 0) {
+                if (pages.get(position - 1) != null) {
+                    position--;
+                    refreshVBox(hostBox, priceBox, minStayBox, reviewsBox, propertyLaunch);
+                    loadBoxes(pages.get(position));
+                    pageNumber.setText("Page " + (position + 1) + " of " + pages.size());
+
+                }
+            }
+        });
+
+        toPages(sortedListings);
+        loadBoxes(pages.get(0));
+
         content.setSpacing(15);
         content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
         scrollBar.setContent(content);
-
+        scrollBar.setPadding(new Insets(3));
+        HBox botBar = new HBox();
+        botBar.setId("navBarBorough");
+        pageNumber.setText("Page 1 of " + pages.size());
+        botBar.getChildren().addAll(previous, pageNumber, next);
         HBox topBar = new HBox();
         topBar.getChildren().addAll(sortLabel,sortBox);
 
         popUpPane.setTop(topBar);
         popUpPane.setCenter(scrollBar);
-        loadBoxes(sortedListings);
+        popUpPane.setBottom(botBar);
+    }
+
+    private  void toPages (ArrayList<AirbnbListing> sortedListings)   {
+        pages.clear();
+        ArrayList<AirbnbListing> currentList = new ArrayList<>();
+        currentList.addAll(sortedListings);
+        int pageNumber = (int) Math.ceil(currentList.size() / 25.0);
+        for (;pageNumber > 0;pageNumber--) {
+            ArrayList<AirbnbListing> page = new ArrayList<>();
+            for (int i = 0; i < 25; i++) {
+                if(!currentList.isEmpty() && currentList.size() >= 1) {
+                    page.add(currentList.get(0));
+                    currentList.remove(0);
+                }
+            }
+            pages.add(page);
+        }
     }
 
     private void loadBoxes(ArrayList<AirbnbListing> sortedListings) {
@@ -143,24 +189,20 @@ public class BoroughWindow{
         Pane minStayCell = new Pane(new Label(listing.getMinimumNights() + ""));
         Pane launchCell = new Pane(launch);
 
-        hostCell.getStyleClass().add("cell");
-        priceCell.getStyleClass().add("cell");
-        reviewCell.getStyleClass().add("cell");
-        minStayCell.getStyleClass().add("cell");
+        hostCell.getStyleClass().add("cell");   priceCell.getStyleClass().add("cell");
+        reviewCell.getStyleClass().add("cell"); minStayCell.getStyleClass().add("cell");
         launchCell.getStyleClass().add("cell");
 
-        hostBox.getChildren().add(hostCell);
-        priceBox.getChildren().add(priceCell);
-        reviewsBox.getChildren().add(reviewCell);
-        minStayBox.getChildren().add(minStayCell);
+        hostBox.getChildren().add(hostCell);      priceBox.getChildren().add(priceCell);
+        reviewsBox.getChildren().add(reviewCell); minStayBox.getChildren().add(minStayCell);
         propertyLaunch.getChildren().add(launchCell);
 
         return launch;
     }
 
     public Pane getPane() {
-        popUpPane.setMinWidth(560);
-        popUpPane.setMaxHeight(500);
+        popUpPane.setMinWidth(700);
+        popUpPane.setMaxHeight(550);
         return popUpPane;
     }
 

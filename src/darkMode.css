@@ -74,7 +74,7 @@
     -fx-min-height: 30;
 }
 
-.cell .label {;
+.cell .label {
     -fx-text-fill: white;
 }
 
@@ -90,14 +90,34 @@
 BorderPane > HBox    {
     -fx-background-color: #272727;
     -fx-alignment: Center_right;
-    -fx-padding: 3,3,3,3;
+    -fx-padding: 7,7,7,7;
     -fx-spacing: 10;
 }
-/*main window top and bot Labels*/
-BorderPane > HBox > Label   {
-    -fx-text-fill: white;
+
+#navBarMain {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 725;
+    /*-fx-effect: innershadow(gaussian, #3b3b3b,4,0.1,0,2);*/
+}
+#navBarBorough {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 240;
+}
+#navBarProperty {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 410;
 }
 
+/*main window top and bot Labels*/
+BorderPane > HBox > Label {
+    -fx-text-fill: white;
+}
 /*bg color across the board*/
 BorderPane  {
     -fx-background-color: #404040;
@@ -112,8 +132,19 @@ BorderPane > BorderPane > GridPane > VBox   {
     -fx-background-color: #272727;
 }
 /*stat panel bg*/
-BorderPane > BorderPane > GridPane    {
-    -fx-background-color: #404040;
+#statBox  > VBox > Label{
+    -fx-text-fill: white;
+}
+#statBox  > VBox {
+    -fx-alignment: center;
+}
+#statBox {
+    -fx-padding: 7;
+    -fx-alignment: center;
+}
+#statBox:hover {
+    -fx-background-color: #ff9a8a;
+    -fx-effect: dropshadow(gaussian, #1f1f1f,30,0,0,3);
 }
 
 /*for borough window top text*/
@@ -124,9 +155,13 @@ BorderPane > BorderPane > Label {
 
 /*borough window bg*/
 .scroll-pane  .viewport{
+    -fx-background-color: #404040;
+}
+.scroll-pane    {
     -fx-fit-to-width: true;
     -fx-background-color: #404040;
 }
+
 /*borough window main labels*/
 #boroughBox > Label   {
     -fx-text-fill: white;
@@ -142,7 +177,7 @@ BorderPane > BorderPane > VBox   {
 }
 
 #circle:hover {
-    -fx-effect: dropshadow(gaussian,#090a0c,30,0,0,3);
+    -fx-effect: dropshadow(gaussian,#1f1f1f,10,0,0,3);
 }
 #circle > #circleBG:hover {
     -fx-fill: #ff9a8a;

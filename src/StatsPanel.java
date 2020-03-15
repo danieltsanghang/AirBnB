@@ -30,7 +30,7 @@ public class StatsPanel extends Panel {
 
     private void loadStatType() {
         statsType.add("Average Reviews per Property");
-        statsType.add("Total Number of Available Properties");
+        statsType.add("Total Available Properties");
         statsType.add("Number of Entire Homes");
         statsType.add("Most Expensive Borough");
         statsType.add("addition 1");
@@ -65,22 +65,35 @@ public class StatsPanel extends Panel {
         for (int col = 0; col < 2; col++) {
             for (int row = 0; row < 2; row++) {
                 VBox vbox = new VBox();
+
                 vbox.setPadding(new Insets(10));
-                vbox.setSpacing(69);
+                vbox.setSpacing(35);
 
-                Label statName = new Label(statsType.get(col * 2 + row));
+                ArrayList<String> flipStats = new ArrayList<>();
+                flipStats.add(statsType.get(col * 2 + row));
+                flipStats.add(statsType.get(col * 2 + row + 4));
+                flipStats.add(stats.get(col * 2 + row));
+                flipStats.add(stats.get(col * 2 + row + 4));
+
+                Label statName = new Label(flipStats.get(0));
                 statName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-                Label stat = new Label(stats.get(col * 2 + row));
+                Label stat = new Label(flipStats.get(2));
                 stat.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                Pane spacer = new Pane();
 
-                vbox.getChildren().addAll(statName, stat);
-
-                HBox hbox = new HBox(10);
                 Button backButton = new Button("<");
+                backButton.setPrefSize(20,120);
                 Button forwardButton = new Button(">");
-                hbox.getChildren().addAll(backButton, vbox, forwardButton);
+                forwardButton.setPrefSize(20,120);
+                navButton(flipStats, statName, stat, backButton);
+                navButton(flipStats, statName, stat, forwardButton);
 
+                vbox.getChildren().addAll(statName, stat,spacer);
+                HBox hbox = new HBox(10);
+                hbox.setId("statBox");
+                hbox.getChildren().addAll(backButton, vbox, forwardButton);
+                vbox.setPrefSize(320,150);
+//                hbox.setPrefWidth(400);
                 gridPane.add(hbox, col, row);
             }
         }
@@ -91,6 +104,23 @@ public class StatsPanel extends Panel {
         gridPane.setAlignment(Pos.CENTER);
         mainPane.getStylesheets().add("darkMode.css");
         return mainPane;
+    }
+
+    private void navButton(ArrayList<String> flipStats, Label statName, Label stat, Button b) {
+        b.setOnMouseClicked(e -> {
+            String currentTitle;
+            String currentData;
+            if (statName.getText().equals(flipStats.get(0))) {
+                currentTitle = flipStats.get(1);
+                currentData = flipStats.get(3);
+            }
+            else {
+                currentTitle = flipStats.get(0);
+                currentData = flipStats.get(2);
+            }
+            statName.setText(currentTitle);
+            stat.setText(currentData);
+        });
     }
 
     private String getAverageReviews() {
@@ -141,7 +171,7 @@ public class StatsPanel extends Panel {
         return mostExpensive;
     }
 
-    private ArrayList getMostExpensiveListing() {
+    private ArrayList<AirbnbListing> getMostExpensiveListing() {
         airbnbIT = listings.iterator();
         long toCompare = 0;
         AirbnbListing mostExpensiveListing = listings.get(0);
