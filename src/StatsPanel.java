@@ -14,8 +14,7 @@ import javafx.scene.text.Text;
 import java.lang.Math;
 
 
-public class StatsPanel extends Panel
-{
+public class StatsPanel extends Panel {
     private ArrayList<String> statsType;
     private ArrayList<String> stats;
     private Iterator<AirbnbListing> airbnbIT;
@@ -94,17 +93,15 @@ public class StatsPanel extends Panel
         return mainPane;
     }
 
-    private String getAverageReviews()
-    {
+    private String getAverageReviews() {
         int number = 0;
         for (AirbnbListing listing : listings) {
             number += listing.getNumberOfReviews();
         }
-        return (number/listings.size()) + "";
+        return (number / listings.size()) + "";
     }
 
-    private String getTotalAvailableProperties()
-    {
+    private String getTotalAvailableProperties() {
         int number = 0;
         for (AirbnbListing listing : listings) {
             if (listing.getAvailability365() == 365) {
@@ -114,8 +111,7 @@ public class StatsPanel extends Panel
         return number + "";
     }
 
-    private String getNumberOfEntireHomes()
-    {
+    private String getNumberOfEntireHomes() {
         int number = 0;
         for (AirbnbListing listing : listings) {
             if (!listing.getRoom_type().equalsIgnoreCase("Private room")) {
@@ -125,35 +121,39 @@ public class StatsPanel extends Panel
         return number + "";
     }
 
-    private String getMostExpensiveBorough()
-    {
-        HashMap<Double, String> averages = new HashMap<>();
+    private String getMostExpensiveBorough() {
+        HashMap<String, Double> averages = new HashMap<>();
         for (Borough borough : boroughs) {
-            ArrayList<AirbnbListing> listingsInBorough = borough.getListing();
-            long sum = 0;
-            for (AirbnbListing listing : listingsInBorough) {
-                sum += listing.getMinimumNights() * listing.getPrice();
+            double sum = 0;
+            for (AirbnbListing listing : borough.getListing()) {
+                sum += listing.getPrice() * listing.getMinimumNights();
             }
-            double average = (double) sum / listingsInBorough.size();
-            averages.put(average, borough.getName());
+            averages.put(borough.getName(), sum / borough.getListing().size());
         }
-        return averages.get(Collections.max(averages.keySet()));
+        String mostExpensive = "Luigi's castle";
+        double price = 0;
+        for (String key : averages.keySet()) {
+            if (price < averages.get(key)) {
+                price = averages.get(key);
+                mostExpensive = key;
+            }
+        }
+        return mostExpensive;
     }
 
-    private ArrayList getMostExpensiveListing()
-    {
+    private ArrayList getMostExpensiveListing() {
         airbnbIT = listings.iterator();
         long toCompare = 0;
         AirbnbListing mostExpensiveListing = listings.get(0);
         mostExpensiveListings = new ArrayList<>();
-        while(airbnbIT.hasNext()){
+        while (airbnbIT.hasNext()) {
             AirbnbListing toTest = airbnbIT.next();
             long temp = toTest.getPrice();
-            if(temp > toCompare){
+            if (temp > toCompare) {
                 toCompare = temp;
                 mostExpensiveListing = toTest;
                 mostExpensiveListings.add(mostExpensiveListing);
-            } else if(temp == toCompare){
+            } else if (temp == toCompare) {
                 mostExpensiveListing = toTest;
                 mostExpensiveListings.add(mostExpensiveListing);
             }
@@ -162,60 +162,62 @@ public class StatsPanel extends Panel
         return mostExpensiveListings;
     }
 
-    private String getMostPropertyOwner(){
+    private String getMostPropertyOwner() {
         ownerIT = listings.iterator();
         long numberOfProperties = 0;
         String ownerName = "Homer Simpson";
         String ownerID = "123456789";
         AirbnbListing currentListing;
-        while(ownerIT.hasNext()){
+        while (ownerIT.hasNext()) {
             currentListing = ownerIT.next();
             long toCompare = currentListing.getCalculatedHostListingsCount();
-            if(toCompare > numberOfProperties){
+            if (toCompare > numberOfProperties) {
                 numberOfProperties = toCompare;
                 ownerName = currentListing.getHost_name();
                 ownerID = currentListing.getHost_id();
-            } else if(toCompare == numberOfProperties){
-                if(!ownerName.equals(currentListing.getHost_name())){
+            } else if (toCompare == numberOfProperties) {
+                if (!ownerName.equals(currentListing.getHost_name())) {
                     ownerName += currentListing.getHost_name();
                 }
             }
         }
-        // System.out.println(ownerName + "/" + ownerID + "/" + numberOfProperties); //debugging line remove later
         return "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + numberOfProperties;
     }
 
-    private String getMostPropertyBorough(){
+    private String getMostPropertyBorough() {
         ArrayList<String> temp = new ArrayList<>();
         String sBoroughToReturn = "yeet";
         long lBoroughToReturn = 0;
         for (Borough borough : boroughs) {
-            long boroughToCompare = borough.getNumberOfListings(0,100000);
-            if(boroughToCompare > lBoroughToReturn){
+            long boroughToCompare = borough.getNumberOfListings(0, 100000);
+            if (boroughToCompare > lBoroughToReturn) {
                 lBoroughToReturn = boroughToCompare;
                 sBoroughToReturn = borough.getName();
-            } else if(boroughToCompare == lBoroughToReturn){ sBoroughToReturn += borough.getName(); }
+            } else if (boroughToCompare == lBoroughToReturn) {
+                sBoroughToReturn += borough.getName();
+            }
         }
         //System.out.println(sBoroughToReturn); //debugging line remove later
         return sBoroughToReturn;
     }
 
-    private ArrayList getClosestProperties(){
-        double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
-        double latitude = 51.4613; double longitude = -0.3037; // default values - could set to whatever but look them up first
+    private ArrayList getClosestProperties() {
+        double latitudeOfCentre = 51.50853;
+        double longitudeOfCentre = -0.12574;
+        double latitude = 51.4613;
+        double longitude = -0.3037;
         double delta = 0;
         closestListings = new ArrayList<>();
-        for(AirbnbListing listing: listings){
+        for (AirbnbListing listing : listings) {
             latitude = listing.getLatitude();
             longitude = listing.getLongitude();
             double latDelta = latitudeOfCentre - latitude;
             double longDelta = longitudeOfCentre - longitude;
             double deltaToCompare = Math.abs(latDelta) + Math.abs(longDelta);
-            if(deltaToCompare > delta || deltaToCompare == delta){
+            if (deltaToCompare > delta || deltaToCompare == delta) {
                 closestListings.add(listing);
             }
         }
         return closestListings;
     }
-
 }
