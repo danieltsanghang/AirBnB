@@ -105,7 +105,7 @@ BorderPane > HBox    {
     -fx-background-color: #272727;
     -fx-alignment: Center;
     -fx-padding: 7,7,7,7;
-    -fx-spacing: 450;
+    -fx-spacing: 240;
 }
 #navBarProperty {
     -fx-background-color: #272727;
@@ -132,8 +132,19 @@ BorderPane > BorderPane > GridPane > VBox   {
     -fx-background-color: #272727;
 }
 /*stat panel bg*/
-BorderPane > BorderPane > GridPane    {
-    -fx-background-color: #404040;
+#statBox  > VBox > Label{
+    -fx-text-fill: white;
+}
+#statBox  > VBox {
+    -fx-alignment: center;
+}
+#statBox {
+    -fx-padding: 7;
+    -fx-alignment: center;
+}
+#statBox:hover {
+    -fx-background-color: #ff9a8a;
+    -fx-effect: dropshadow(gaussian, #1f1f1f,30,0,0,3);
 }
 
 /*for borough window top text*/
@@ -166,7 +177,7 @@ BorderPane > BorderPane > VBox   {
 }
 
 #circle:hover {
-    -fx-effect: dropshadow(gaussian,#090a0c,30,0,0,3);
+    -fx-effect: dropshadow(gaussian,#1f1f1f,10,0,0,3);
 }
 #circle > #circleBG:hover {
     -fx-fill: #ff9a8a;

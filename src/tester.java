@@ -3,14 +3,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 public class tester extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
-        UserPanel panel = new UserPanel();
+    public void start(Stage stage) throws IOException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
+        GoogleMapPanel panel = new GoogleMapPanel();
 
-        Scene scene = new Scene(panel.getPanel(0, 0));
+        Scene scene = new Scene(panel.start(51.4613, -0.3037));
         stage.setScene(scene);
         stage.show();
     }

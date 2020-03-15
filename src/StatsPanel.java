@@ -30,13 +30,13 @@ public class StatsPanel extends Panel {
 
     private void loadStatType() {
         statsType.add("Average Reviews per Property");
-        statsType.add("Total Number of Available Properties");
+        statsType.add("Total Available Properties");
         statsType.add("Number of Entire Homes");
         statsType.add("Most Expensive Borough");
-        statsType.add("addition 1");
-        statsType.add("addition 2");
-        statsType.add("addition 3");
-        statsType.add("addition 4");
+        statsType.add("Most Expensive Listing");
+        statsType.add("Owner who owns the most properties");
+        statsType.add("Borough with the most properties");
+        statsType.add("Closest property to the city centre");
     }
 
     private void loadStats() {
@@ -44,10 +44,10 @@ public class StatsPanel extends Panel {
         stats.add(getTotalAvailableProperties());
         stats.add(getNumberOfEntireHomes());
         stats.add(getMostExpensiveBorough());
-        stats.add("value 1");
-        stats.add("value 2");
-        stats.add("value 3");
-        stats.add("value 4");
+        stats.add(getMostExpensiveListing());
+        stats.add(getMostPropertyOwner());
+        stats.add(getMostPropertyBorough());
+        stats.add(getClosestProperties());
     }
 
     @Override
@@ -65,22 +65,35 @@ public class StatsPanel extends Panel {
         for (int col = 0; col < 2; col++) {
             for (int row = 0; row < 2; row++) {
                 VBox vbox = new VBox();
+
                 vbox.setPadding(new Insets(10));
-                vbox.setSpacing(69);
+                vbox.setSpacing(35);
 
-                Label statName = new Label(statsType.get(col * 2 + row));
+                ArrayList<String> flipStats = new ArrayList<>();
+                flipStats.add(statsType.get(col * 2 + row));
+                flipStats.add(statsType.get(col * 2 + row + 4));
+                flipStats.add(stats.get(col * 2 + row));
+                flipStats.add(stats.get(col * 2 + row + 4));
+
+                Label statName = new Label(flipStats.get(0));
                 statName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-
-                Label stat = new Label(stats.get(col * 2 + row));
+                Label stat = new Label(flipStats.get(2));
                 stat.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                Pane spacer = new Pane();
 
-                vbox.getChildren().addAll(statName, stat);
-
-                HBox hbox = new HBox(10);
                 Button backButton = new Button("<");
+                backButton.setPrefSize(20,120);
                 Button forwardButton = new Button(">");
-                hbox.getChildren().addAll(backButton, vbox, forwardButton);
+                forwardButton.setPrefSize(20,120);
+                navButton(flipStats, statName, stat, backButton);
+                navButton(flipStats, statName, stat, forwardButton);
 
+                vbox.getChildren().addAll(statName, stat,spacer);
+                HBox hbox = new HBox(10);
+                hbox.setId("statBox");
+                hbox.getChildren().addAll(backButton, vbox, forwardButton);
+                vbox.setPrefSize(320,150);
+//                hbox.setPrefWidth(400);
                 gridPane.add(hbox, col, row);
             }
         }
@@ -91,6 +104,23 @@ public class StatsPanel extends Panel {
         gridPane.setAlignment(Pos.CENTER);
         mainPane.getStylesheets().add("darkMode.css");
         return mainPane;
+    }
+
+    private void navButton(ArrayList<String> flipStats, Label statName, Label stat, Button b) {
+        b.setOnMouseClicked(e -> {
+            String currentTitle;
+            String currentData;
+            if (statName.getText().equals(flipStats.get(0))) {
+                currentTitle = flipStats.get(1);
+                currentData = flipStats.get(3);
+            }
+            else {
+                currentTitle = flipStats.get(0);
+                currentData = flipStats.get(2);
+            }
+            statName.setText(currentTitle);
+            stat.setText(currentData);
+        });
     }
 
     private String getAverageReviews() {
@@ -141,25 +171,26 @@ public class StatsPanel extends Panel {
         return mostExpensive;
     }
 
-    private ArrayList getMostExpensiveListing() {
+    private String getMostExpensiveListing() {
         airbnbIT = listings.iterator();
         long toCompare = 0;
         AirbnbListing mostExpensiveListing = listings.get(0);
-        mostExpensiveListings = new ArrayList<>();
         while (airbnbIT.hasNext()) {
             AirbnbListing toTest = airbnbIT.next();
             long temp = toTest.getPrice();
             if (temp > toCompare) {
                 toCompare = temp;
                 mostExpensiveListing = toTest;
-                mostExpensiveListings.add(mostExpensiveListing);
             } else if (temp == toCompare) {
                 mostExpensiveListing = toTest;
-                mostExpensiveListings.add(mostExpensiveListing);
             }
         }
-        //System.out.println(mostExpensiveListing); //debugging line remove later
-        return mostExpensiveListings;
+        String toReturn = ("Listing Title: " + mostExpensiveListing.getName() + "\n");
+        toReturn += ("Listing ID: " + mostExpensiveListing.getId() + "\n");
+        toReturn += ("Host ID: " + mostExpensiveListing.getHost_id() + "\n");
+        toReturn += ("Price: " + mostExpensiveListing.getPrice() + "/night" + "\n");
+        toReturn += ("Minimum nights: " + mostExpensiveListing.getMinimumNights() + "\n");
+        return toReturn;
     }
 
     private String getMostPropertyOwner() {
@@ -188,24 +219,30 @@ public class StatsPanel extends Panel {
         ArrayList<String> temp = new ArrayList<>();
         String sBoroughToReturn = "yeet";
         long lBoroughToReturn = 0;
+        int i = 0;
         for (Borough borough : boroughs) {
             long boroughToCompare = borough.getNumberOfListings(0, 100000);
             if (boroughToCompare > lBoroughToReturn) {
                 lBoroughToReturn = boroughToCompare;
                 sBoroughToReturn = borough.getName();
             } else if (boroughToCompare == lBoroughToReturn) {
-                sBoroughToReturn += borough.getName();
+                sBoroughToReturn += ", " + borough.getName();
+                i++;
             }
         }
         //System.out.println(sBoroughToReturn); //debugging line remove later
-        return sBoroughToReturn;
+        String toReturn = "fhk";
+        if(i == 0) {
+            toReturn = ("Borough Name: " + sBoroughToReturn);
+        } else{
+            toReturn = ("Borough Names: " + sBoroughToReturn);
+        }
+        return toReturn;
     }
 
-    private ArrayList getClosestProperties() {
-        double latitudeOfCentre = 51.50853;
-        double longitudeOfCentre = -0.12574;
-        double latitude = 51.4613;
-        double longitude = -0.3037;
+    private String getClosestProperties() {
+        double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
+        double latitude = 51.4613; double longitude = -0.3037; // default numbers - look this up before changing!
         double delta = 0;
         closestListings = new ArrayList<>();
         for (AirbnbListing listing : listings) {
@@ -218,6 +255,17 @@ public class StatsPanel extends Panel {
                 closestListings.add(listing);
             }
         }
-        return closestListings;
+
+        int i = 0;
+        String toReturn = "";//"its a me, luirio";
+        while (i < closestListings.size()){
+            AirbnbListing thisListing = closestListings.get(i);
+            toReturn += "Property Title: " + thisListing.getName() + "\n";
+            toReturn += "Borough: " + thisListing.getNeighbourhood() + "\n";
+            toReturn += "Property ID: " + thisListing.getId() + "\n";
+            toReturn += "Host Name: " + thisListing.getHost_name() + "\n";
+            toReturn += "\n";
+        }
+        return toReturn;
     }
 }
