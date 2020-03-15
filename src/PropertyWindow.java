@@ -3,19 +3,24 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.Label;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+
 import java.util.ArrayList;
 
 public class PropertyWindow{
 
+    private Button left;
+    private Button right;
+
+    private BorderPane navigation;
     private BorderPane popUpPane;
 
     private AirbnbListing property;
+
     private ArrayList<AirbnbListing> listings;
 
     private FavouriteDataLoader favouriteDataLoader;
@@ -29,14 +34,14 @@ public class PropertyWindow{
 
     public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
 
-        File filledHeartImageFile = new File("icons/filledHeart.png");
-        Image filledHeartImage = new Image(filledHeartImageFile.toURI().toString());
-        filledHeart = new ImageView(filledHeartImage);
+        left = new Button("Left");
+        right = new Button("Right");
 
-        File emptyHeartImageFile = new File("icons/emptyHeart.png");
-        Image emptyHeartImage = new Image(emptyHeartImageFile.toURI().toString());
-        emptyHeart = new ImageView(emptyHeartImage);
+        navigation = new BorderPane();
+        navigation.setLeft(left);
+        navigation.setRight(right);
 
+        popUpPane = new BorderPane();
         this.property = property;
         this.listings = list;
         this.position = pos;
@@ -48,28 +53,20 @@ public class PropertyWindow{
 
         favouriteDataLoader = favDataLoader;
 
-        popUpPane = new BorderPane();
         buildWindow();
+
     }
 
     private void buildWindow() {
+//        navigation.setLeft(left);
+//        navigation.setRight(right);
         Pane content = loadContent(property);
-
-        HBox navigation = new HBox();
-
-        Button left = new Button("Left");
-        Button right = new Button("Right");
-
-        navigation.getChildren().addAll(left, right);
-
         popUpPane.setBottom(navigation);
         popUpPane.setCenter(content);
-
         left.setOnMouseClicked(e -> {
             if (position != 0) {
                 position--;
                 property = listings.get(position);
-                checkIsFavourite(property);
                 popUpPane.setCenter(loadContent(property));
             }
         });
@@ -78,7 +75,6 @@ public class PropertyWindow{
             if (position != listings.size()) {
                 position++;
                 property = listings.get(position);
-                checkIsFavourite(property);
                 popUpPane.setCenter(loadContent(property));
             }
         });
@@ -145,11 +141,8 @@ public class PropertyWindow{
             right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
         } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
             e.printStackTrace();
-        }
-        pane.getChildren().addAll(googleMapPane, right);
-        return pane;
     }
-
+      
     public Pane getPane() {
         return popUpPane;
     }

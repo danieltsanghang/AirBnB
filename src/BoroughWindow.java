@@ -19,7 +19,8 @@ public class BoroughWindow{
 
     private ArrayList<String> sortBy;
     private ArrayList<AirbnbListing> sortedListings;
-
+    private ArrayList<ArrayList<AirbnbListing>> pages = new ArrayList<>();
+    private int position;
     private Sorter sorter;
 
     private String boroughSelection;
@@ -80,7 +81,9 @@ public class BoroughWindow{
         reviewsBox.setId("boroughBox");
         propertyLaunch.setId("boroughBox");
 
-        hostBox.setAlignment(Pos.CENTER_RIGHT);
+        content.setPadding(new Insets(0,0,1,20));
+        content.setAlignment(Pos.CENTER);
+        hostBox.setAlignment(Pos.CENTER);
         reviewsBox.setAlignment(Pos.CENTER);
         priceBox.setAlignment(Pos.CENTER);
         minStayBox.setAlignment(Pos.CENTER);
@@ -93,6 +96,8 @@ public class BoroughWindow{
 
     private void buildWindow(){
         Label sortLabel = new Label("Sort by");
+        Button previous = new Button("Previous");
+        Button next = new Button("Next");
         ComboBox<String> sortBox = new ComboBox();
         sortBox.getItems().addAll(sortBy);
         sortBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -102,9 +107,31 @@ public class BoroughWindow{
                         if (t1.equals(sortBy)) {
                             Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
                             refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
-                            loadBoxes(sortedListings);
+                            toPages(sortedListings);
+                            loadBoxes(pages.get(0));
+                            position = 0;
                         }
                     }
+                }
+            }
+        });
+
+        next.setOnMouseClicked(e -> {
+            if(position < pages.size() - 1) {
+                if (pages.get(position + 1) != null) {
+                    position++;
+                    refreshVBox(hostBox, priceBox, minStayBox, reviewsBox, propertyLaunch);
+                    loadBoxes(pages.get(position));
+                }
+            }
+        });
+
+        previous.setOnMouseClicked(e -> {
+            if(position != 0) {
+                if (pages.get(position - 1) != null) {
+                    position--;
+                    refreshVBox(hostBox, priceBox, minStayBox, reviewsBox, propertyLaunch);
+                    loadBoxes(pages.get(position));
                 }
             }
         });
@@ -112,13 +139,35 @@ public class BoroughWindow{
         content.setSpacing(15);
         content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
         scrollBar.setContent(content);
-
+        scrollBar.setPadding(new Insets(3));
+        HBox botBar = new HBox();
+        botBar.setId("navBarBorough");
+        botBar.getChildren().addAll(previous, next);
         HBox topBar = new HBox();
         topBar.getChildren().addAll(sortLabel,sortBox);
 
         popUpPane.setTop(topBar);
         popUpPane.setCenter(scrollBar);
-        loadBoxes(sortedListings);
+        popUpPane.setBottom(botBar);
+        toPages(sortedListings);
+        loadBoxes(pages.get(0));
+    }
+
+    private  void toPages (ArrayList<AirbnbListing> sortedListings)   {
+        pages.clear();
+        ArrayList<AirbnbListing> currentList = new ArrayList<>();
+        currentList.addAll(sortedListings);
+        int pageNumber = (int) Math.ceil(currentList.size() / 25.0);
+        for (;pageNumber > 0;pageNumber--) {
+            ArrayList<AirbnbListing> page = new ArrayList<>();
+            for (int i = 0; i < 25; i++) {
+                if(!currentList.isEmpty() && currentList.size() >= 1) {
+                    page.add(currentList.get(0));
+                    currentList.remove(0);
+                }
+            }
+            pages.add(page);
+        }
     }
 
     private void loadBoxes(ArrayList<AirbnbListing> sortedListings) {
@@ -159,8 +208,8 @@ public class BoroughWindow{
     }
 
     public Pane getPane() {
-        popUpPane.setMinWidth(560);
-        popUpPane.setMaxHeight(500);
+        popUpPane.setMinWidth(700);
+        popUpPane.setMaxHeight(550);
         return popUpPane;
     }
 
