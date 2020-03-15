@@ -202,10 +202,8 @@ public class StatsPanel extends Panel {
     }
 
     private ArrayList getClosestProperties() {
-        double latitudeOfCentre = 51.50853;
-        double longitudeOfCentre = -0.12574;
-        double latitude = 51.4613;
-        double longitude = -0.3037;
+        double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
+        double latitude = 51.4613; double longitude = -0.3037; // default numbers - look this up before changing!
         double delta = 0;
         closestListings = new ArrayList<>();
         for (AirbnbListing listing : listings) {
