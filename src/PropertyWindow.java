@@ -1,10 +1,7 @@
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 
 import java.io.File;
@@ -20,19 +17,17 @@ public class PropertyWindow{
 
     private AirbnbListing property;
     private ArrayList<AirbnbListing> listings;
-    private ArrayList<AirbnbListing> favourites;
+
+    private FavouriteDataLoader favouriteDataLoader;
 
     private int position;
-
-    private boolean login;
-    private Account user;
 
     private ImageView filledHeart;
     private ImageView emptyHeart;
     private Button favBtn;
     private boolean isFav;
 
-    public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, int pos, Account user) {
+    public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
 
         File filledHeartImageFile = new File("icons/filledHeart.png");
         Image filledHeartImage = new Image(filledHeartImageFile.toURI().toString());
@@ -45,17 +40,13 @@ public class PropertyWindow{
         this.property = property;
         this.listings = list;
         this.position = pos;
-        this.login = (user != null);
-        this.user = user;
 
         favBtn = new Button();
         favBtn.setMaxHeight(40);
         favBtn.setGraphic(emptyHeart);
         isFav = false;
-        if (this.login) {
-            this.favourites = user.getFavourites();
-            checkIsFavourite(property);
-        }
+
+        favouriteDataLoader = favDataLoader;
 
         popUpPane = new BorderPane();
         buildWindow();
@@ -91,13 +82,14 @@ public class PropertyWindow{
                 popUpPane.setCenter(loadContent(property));
             }
         });
+        checkIsFavourite(property);
         popUpPane.setMinSize(500,300);
     }
 
     private void checkIsFavourite(AirbnbListing property) {
         isFav = false;
         favBtn.setGraphic(emptyHeart);
-        for (AirbnbListing listing : favourites) {
+        for (AirbnbListing listing : favouriteDataLoader.getFavourites(listings)) {
             if (listing.getId().equals(property.getId())) {
                 isFav = true;
             }
@@ -116,32 +108,23 @@ public class PropertyWindow{
         GoogleMapPanel gog = new GoogleMapPanel();
 
         favBtn.setOnAction(e -> {
-            if (login) {
-                if (!isFav) {
-                    try {
-                        user.newFavourite(property);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    favBtn.setGraphic(filledHeart);
+            if (!isFav) {
+                try {
+                    favouriteDataLoader.newFavourite(property.getId());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-                else {
-                    try {
-                        user.removeFavourite(property);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    favBtn.setGraphic(emptyHeart);
-                }
-                isFav = !isFav;
+                favBtn.setGraphic(filledHeart);
             }
             else {
-                Alert loginRequired = new Alert(Alert.AlertType.INFORMATION);
-                loginRequired.setTitle("Login Required");
-                loginRequired.setHeaderText("An account is required to favourite properties.");
-                loginRequired.setContentText("Please head to login page to login or create an account.");
-                loginRequired.showAndWait();
+                try {
+                    favouriteDataLoader.removeFavourite(property.getId());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                favBtn.setGraphic(emptyHeart);
             }
+            isFav = !isFav;
         });
 
         contentGrid.getStyleClass().add("contentGrid");
@@ -160,13 +143,7 @@ public class PropertyWindow{
         right.setCenter(contentGrid);
         try {
             right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
             e.printStackTrace();
         }
         pane.getChildren().addAll(googleMapPane, right);

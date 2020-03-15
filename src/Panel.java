@@ -4,41 +4,38 @@ import java.util.HashMap;
 
 import javafx.scene.layout.*;
 
-public abstract class Panel extends Pane
-{
+public abstract class Panel extends Pane {
     // CSV loader of Airbnb data
     private AirbnbDataLoader dataLoader;
     // CSV loader of borough data
     private BoroughDataLoader boroughLoader;
-    // CSV loader of account data
-    protected AccountDataLoader accountLoader;
+    // CSV loader of favourite data
+    protected FavouriteDataLoader favouritesLoader;
 
     // Full list of Airbnb listings in the CSV file
     protected ArrayList<AirbnbListing> listings;
     // Full list of boroughs in London
     protected ArrayList<Borough> boroughs;
-    // Full list of created accounts in the system
-    protected ArrayList<Account> accounts;
-    // A HashMap storing usernames of accounts paired with their favourite properties
-    protected HashMap<String, ArrayList<AirbnbListing>> favourites;
+    // List of favourites
+    protected ArrayList<String> favouriteID;
 
-    public Panel () throws IOException {
+    public Panel() throws IOException {
         // Create new CSV loaders
         dataLoader = new AirbnbDataLoader();
         boroughLoader = new BoroughDataLoader();
-        accountLoader = new AccountDataLoader();
+        favouritesLoader = new FavouriteDataLoader();
 
         // Load data into the lists created above.
         listings = dataLoader.load();
         boroughs = boroughLoader.load();
-        accounts = accountLoader.loadAccounts();
-        favourites = accountLoader.loadFavourites(listings);
+        favouriteID = favouritesLoader.loadFavourites();
 
         loadListingsIntoBorough();
     }
 
     /**
      * Abstract method overrided in every class that extends Panel
+     *
      * @param minPrice Selected minimum price for filtering
      * @param maxPrice Selected maximum price for filtering
      * @return The Pane of each Panel
@@ -53,8 +50,7 @@ public abstract class Panel extends Pane
      * This method matches every listing to its own borough and
      * loads it in.
      */
-    public void loadListingsIntoBorough()
-    {
+    public void loadListingsIntoBorough() {
         for (AirbnbListing listing : listings) {
             for (Borough borough : boroughs) {
                 if (listing.getNeighbourhood().equals(borough.getName())) {
