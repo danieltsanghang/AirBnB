@@ -153,11 +153,7 @@ public class PropertyWindow {
 
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-        try {
-            right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
-        } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
-            e.printStackTrace();
-        }
+        right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
 
         pane.getChildren().addAll(googleMapPane, right);
 
