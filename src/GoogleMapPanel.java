@@ -6,12 +6,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import java.net.URL;
+
+import java.net.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;  // JDK 1.8 only - older versions may need to use Apache Commons or similar.
@@ -25,7 +24,7 @@ public class GoogleMapPanel
 {
 
     public String API_KEY = "AIzaSyAYSnY8BF9kfmVKe-DMTlGMBhvK4KtBjgI";
-    public static String urlString = "https://www.google.com/maps?layer=c&cbll=51.5071707,-0.1274402&cbp=,300,,,0";
+    public static String urlString = "";
     private static byte[] key;
 
 
@@ -47,11 +46,12 @@ public class GoogleMapPanel
 //        locationURL = URLStart;
 
         urlString = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location=" + latitude + "," + longitude +
-                "&fov=80&heading=70&pitch=0&key=" + API_KEY;
+                "&fov=360&heading=100&pitch=0&key=" + API_KEY;
 
-        String urlToUse = signURL();
+        //String urlToUse = signURL();
+        //URLEncoder.encode(urlToUse, "UTF-8");
 
-        streetViewEngine.load(urlToUse);
+        streetViewEngine.load(urlString);
 
 
         Pane thisIsAPane = new Pane();
@@ -103,52 +103,3 @@ public class GoogleMapPanel
     }
 
 }
-
-
-
-//    public Pane getGog(){
-//        Pane thisIsAPane = new Pane();
-//        Object o = streetView;
-//        thisIsAPane.getChildren().add((Node) o);
-//        return thisIsAPane;
-//    }
-
-//    public void loadLocation(String latitude, String longitude){
-//
-//    }
-
-
-//    public MapViewOptions mapOption;
-//    public MapView mapView;
-
-//        mapOption = new MapViewOptions();
-//        mapOption.streetViewLayout().setSize(100);
-//        mapOption.streetViewLayout().setPosition(StreetViewLayout.Position.BOTTOM); // doesn't matter since it's taking up 100% of the screen space
-//        mapView = new MapView(mapOption);
-//        mapView.setOnMapReadyHandler(new MapReadyHandler() {
-//            @Override
-//            public void onMapReady(MapStatus mapStatus) {
-//                // check map loaded properly
-//                if(mapStatus == MapStatus.MAP_STATUS_OK){
-//                    Map map = mapView.getMap();
-//                    MapOptions mapOptions = new MapOptions();
-//                    map.setOptions(mapOptions);
-//                    map.setCenter(new LatLng(latitude, longitude));
-//
-//                    StreetViewPanoramaOptions streetViewPanOptions = new StreetViewPanoramaOptions();
-//                    StreetViewAddressControlOptions streetViewAddressOptions = new StreetViewAddressControlOptions();
-//                    streetViewAddressOptions.setPosition(ControlPosition.TOP_LEFT);
-//                    streetViewPanOptions.setAddressControlOptions(streetViewAddressOptions);
-//                    mapView.getPanorama().setOptions(streetViewPanOptions);
-//                    mapView.getPanorama().setPosition(map.getCenter());
-//                    StreetViewPov streetViewPov = new StreetViewPov();
-//                    streetViewPov.setHeading(0);
-//                    streetViewPov.setPitch(0);
-//
-//                    mapView.getPanorama().setPov(streetViewPov);
-//                }
-//            }
-//        });
-//         Pane thisIsAPane = new Pane();
-//        thisIsAPane.getChildren().add(mapView);
-//        return thisIsAPane;
