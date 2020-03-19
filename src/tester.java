@@ -13,7 +13,7 @@ public class tester extends Application {
     public void start(Stage stage) throws IOException, NoSuchAlgorithmException, InvalidKeyException, URISyntaxException {
         GoogleMapPanel panel = new GoogleMapPanel();
 
-        Scene scene = new Scene(panel.start(51.4613, -0.3037));
+        Scene scene = new Scene(panel.start(51.4613, -0.3037,0.1,0.1));
         stage.setScene(scene);
         stage.show();
     }

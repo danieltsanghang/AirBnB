@@ -39,7 +39,7 @@ public class GoogleMapPanel
 
     }
 
-    public Pane start(Double latitude, Double longitude) throws URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, IOException {
+    public Pane start(Double latitude, Double longitude, Double height, Double width) throws URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, IOException {
 
 //        String URLStart = "https://www.google.com/maps?layer=c&cbll=";
 //        URLStart += latitude + "," + longitude + "&cbp=,0,,,0";
@@ -56,6 +56,8 @@ public class GoogleMapPanel
 
         Pane thisIsAPane = new Pane();
         Object svObject = streetView;
+        ((Node) svObject).maxHeight(height); ((Node) svObject).minHeight(height);
+        ((Node) svObject).maxWidth(width);   ((Node) svObject).minWidth(width);
         thisIsAPane.getChildren().add((Node) svObject);
         return thisIsAPane;
 

@@ -105,7 +105,6 @@ public class PropertyWindow {
     private Pane loadContent(AirbnbListing property) {
 
         HBox pane = new HBox();
-        Pane googleMapPane = new Pane();
         BorderPane right = new BorderPane();
         GridPane contentGrid = new GridPane();
         GoogleMapPanel gog = new GoogleMapPanel();
@@ -154,12 +153,11 @@ public class PropertyWindow {
         right.setTop(favBtn);
         right.setCenter(contentGrid);
         try {
-            right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
+            pane.getChildren().add(gog.start(property.getLatitude(), property.getLongitude(), 600.0,200.0));
         } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
             e.printStackTrace();
         }
-
-        pane.getChildren().addAll(googleMapPane, right);
+        pane.getChildren().add(right);
 
         return pane;
     }
