@@ -5,13 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import java.awt.Panel;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -22,7 +22,8 @@ public class GoogleMapPanel
     // Default URL String
     public static String urlString = "";
     // ArrayList to hold all WebEngines that are loaded when generating a 360 degree image from static street view
-    private ArrayList<WebEngine> streetViewPanels;
+    private ArrayList<Pane> streetViewPanels;
+    private ArrayList<String> streetViewURLs;
 
     // Declaring variables
     public WebEngine streetViewEngine;
@@ -54,15 +55,25 @@ public class GoogleMapPanel
         int preferredWidth = (int) streetView.getPrefWidth();
         int preferredHeight = (int) streetView.getPrefHeight();
 
+        streetViewURLs = new ArrayList<>();
         // While loop to load new instances of WebEngines every 60 degrees
         while(heading < 360) {
             // Producing a unique link for each location, dimension, and heading
             urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
                     latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
             heading += 60;
-            // Loading and storing the
-            streetViewEngine.load(urlString);
-            streetViewPanels.add(streetViewEngine);
+            streetViewURLs.add(urlString);
+        }
+
+        int i = 0;
+
+        while(i < streetViewURLs.size()){
+            // Loading and storing the unique street view urls
+            streetViewEngine.load(streetViewURLs.get(i));
+            Pane test = new Pane();
+            test.getChildren().addAll(streetView);
+            streetViewPanels.add(test);
+            i++;
         }
 
         // Making the background transparent
