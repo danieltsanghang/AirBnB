@@ -18,6 +18,7 @@ public class StatsPanel extends Panel {
     private ArrayList<String> statsType= new ArrayList<>();
     //Create an array list that stores statistics
     private ArrayList<String> stats= new ArrayList<>();
+
     //Create two iterators that store airbnb listings
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> ownerIT;
@@ -64,14 +65,11 @@ public class StatsPanel extends Panel {
 
         loadStatType();
         loadStats();
-        getMostPropertyOwner();
-        getMostPropertyBorough();
-        getMostExpensiveListing();
 
+        //Create a grid pane for the statistics panel
         for (int col = 0; col < 2; col++) {
             for (int row = 0; row < 2; row++) {
 
-                //Create a new VBox and set the padding and spacing accordingly
                 VBox vbox = new VBox();
                 vbox.setPadding(new Insets(10));
                 vbox.setSpacing(35);
@@ -83,7 +81,7 @@ public class StatsPanel extends Panel {
                 flipStats.add(stats.get(col * 2 + row));
                 flipStats.add(stats.get(col * 2 + row + 4));
 
-                //Create a label for
+                //Create a label for the first statistics in glip statistics
                 Label statName = new Label(flipStats.get(0));
                 statName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
@@ -94,12 +92,12 @@ public class StatsPanel extends Panel {
                 //Create a new pane for
                 Pane spacer = new Pane();
 
-                //Create new button for
+                //Create new button for flipping the previous statistics label
                 Button backButton = new Button("<");
                 backButton.setPrefSize(30,120);
 
 
-                //Create new button for
+                //Create new button for flipping the next statistics label
                 Button forwardButton = new Button(">");
                 forwardButton.setPrefSize(30,120);
 
@@ -126,7 +124,10 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @param flipStats for
+     * @param statName
+     * @param stat
+     * @param b
      */
     private void navButton(ArrayList<String> flipStats, Label statName, Label stat, Button b) {
         b.setOnMouseClicked(e -> {
@@ -146,7 +147,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of the average reviews
      */
     private String getAverageReviews() {
         int number = 0;
@@ -157,7 +158,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of the total available number of properties
      */
     private String getTotalAvailableProperties() {
         int number = 0;
@@ -170,7 +171,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of thenumber of homes in the borough
      */
     private String getNumberOfEntireHomes() {
         int number = 0;
@@ -183,7 +184,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of the most expensive borough
      */
     private String getMostExpensiveBorough() {
         HashMap<String, Double> averages = new HashMap<>();
@@ -206,7 +207,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of the most expensive listing
      */
     private String getMostExpensiveListing() {
         airbnbIT = listings.iterator();
@@ -231,7 +232,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return the string of the owner who own most properties
      */
     private String getMostPropertyOwner() {
         ownerIT = listings.iterator();
@@ -256,7 +257,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * return the string of the borough name that has most properties
      */
     private String getMostPropertyBorough() {
         ArrayList<String> temp = new ArrayList<>();
@@ -273,7 +274,7 @@ public class StatsPanel extends Panel {
                 i++;
             }
         }
-        //System.out.println(sBoroughToReturn); //debugging line remove later
+
         String toReturn = "fhk";
         if(i == 0) {
             toReturn = ("Borough Name: " + sBoroughToReturn);
@@ -284,7 +285,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @return string
      */
     private String getClosestToCheapest() {
         String returnString = "rainbow road";
@@ -302,7 +303,9 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * @param lon for the property's longitude
+     * @param lat for the property's latitude
+     * @return the distance from Centre
      */
     private double getDistance(double lon, double lat) {
         double latitudeOfCentre = 51.50853;
@@ -312,7 +315,7 @@ public class StatsPanel extends Panel {
         double dLong = Math.toRadians(lon - longitudeOfCentre);
         double dLat = Math.toRadians(lat - latitudeOfCentre);
 
-        // Haversine Formula of calculating distance with longitudes and latitudes
+        //Haversine Formula of calculating distance with longitudes and latitudes
         double step1 = Math.sin(dLat / 2) * Math.sin(dLat / 2);
         double step2 = Math.cos(Math.toRadians(latitudeOfCentre)) * Math.cos(Math.toRadians(lat));
         double step3 = Math.sin(dLong / 2) * Math.sin(dLong / 2);
