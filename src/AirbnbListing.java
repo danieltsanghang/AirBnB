@@ -85,63 +85,107 @@ public class AirbnbListing
         this.calculatedHostListingsCount = calculatedHostListingsCount;
         this.availability365 = availability365;
     }
-
+    /**
+     * @return the id of the individual property
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @return the name of the individual property
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the host id of the individual property
+     */
     public String getHost_id() {
         return host_id;
     }
 
+    /**
+     * @return the host name of the individual property
+     */
     public String getHost_name() {
         return host_name;
     }
 
+    /**
+     * @return the neighbourhood of the individual property
+     */
     public String getNeighbourhood() {
         return neighbourhood;
     }
 
+    /**
+     * @return the latitude of the individual property
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * @return the longitude of the individual property
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * @return the room type of the individual property
+     */
     public String getRoom_type() {
         return room_type;
     }
 
+    /**
+     * @return the price of the individual property
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * @return the minimum nights of the individual property
+     */
     public int getMinimumNights() {
         return minimumNights;
     }
 
+    /**
+     * @return the number of reviews of the individual property
+     */
     public int getNumberOfReviews() {
         return numberOfReviews;
     }
 
+    /**
+     * @return the last review of the individual property
+     */
     public String getLastReview() {
         return lastReview;
     }
 
+    /**
+     * @return the reviews per month of the individual property
+     */
     public double getReviewsPerMonth() {
         return reviewsPerMonth;
     }
 
+    /**
+     * @return the calculated number of host listings of the individual property
+     */
     public int getCalculatedHostListingsCount() {
         return calculatedHostListingsCount;
     }
 
+    /**
+     * @return the total number of days in the year that is available of the property
+     */
     public int getAvailability365() {
         return availability365;
     }
@@ -149,6 +193,7 @@ public class AirbnbListing
     @Override
     public String toString()
     {
+        //return a string of statement that includes all the details of the property
         return "AirbnbListing{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +

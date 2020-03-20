@@ -65,8 +65,6 @@ public class PropertyWindow {
     }
 
     private void buildWindow() {
-//        navigation.setLeft(left);
-//        navigation.setRight(right);
         Pane content = loadContent(property);
         popUpPane.setBottom(navigation);
         popUpPane.setCenter(content);
