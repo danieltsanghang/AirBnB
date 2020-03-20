@@ -9,7 +9,6 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.lang.Math;
 
@@ -17,10 +16,9 @@ import java.lang.Math;
 public class StatsPanel extends Panel {
     private ArrayList<String> statsType;
     private ArrayList<String> stats;
+    private ArrayList<Integer> shownStats;
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> ownerIT;
-    private ArrayList<AirbnbListing> mostExpensiveListings;
-    private ArrayList<AirbnbListing> closestListings;
 
     public StatsPanel() throws IOException {
         super();
@@ -47,7 +45,7 @@ public class StatsPanel extends Panel {
         stats.add(getMostExpensiveListing());
         stats.add(getMostPropertyOwner());
         stats.add(getMostPropertyBorough());
-        stats.add(getClosestProperties());
+        stats.add(getClosestToCheapest());
     }
 
     @Override
@@ -82,9 +80,9 @@ public class StatsPanel extends Panel {
                 Pane spacer = new Pane();
 
                 Button backButton = new Button("<");
-                backButton.setPrefSize(20,120);
+                backButton.setPrefSize(30,120);
                 Button forwardButton = new Button(">");
-                forwardButton.setPrefSize(20,120);
+                forwardButton.setPrefSize(30,120);
                 navButton(flipStats, statName, stat, backButton);
                 navButton(flipStats, statName, stat, forwardButton);
 
@@ -240,32 +238,35 @@ public class StatsPanel extends Panel {
         return toReturn;
     }
 
-    private String getClosestProperties() {
-        double latitudeOfCentre = 51.50853; double longitudeOfCentre = -0.12574;
-        double latitude = 51.4613; double longitude = -0.3037; // default numbers - look this up before changing!
-        double delta = 0;
-        closestListings = new ArrayList<>();
+    private String getClosestToCheapest() {
+        String returnString = "rainbow road";
+        double diff = 0;
         for (AirbnbListing listing : listings) {
-            latitude = listing.getLatitude();
-            longitude = listing.getLongitude();
-            double latDelta = latitudeOfCentre - latitude;
-            double longDelta = longitudeOfCentre - longitude;
-            double deltaToCompare = Math.abs(latDelta) + Math.abs(longDelta);
-            if (deltaToCompare > delta || deltaToCompare == delta) {
-                closestListings.add(listing);
+            double currentDistance = getDistance(listing.getLongitude(), listing.getLatitude());
+            double currentRatio = (listing.getPrice() * listing.getMinimumNights()) / currentDistance;
+            double currentDiff = Math.abs(currentRatio - 1);
+            if (diff == 0 || diff > currentDiff) {
+                diff = currentDiff;
+                returnString = listing.getName() + "\nby: " + listing.getHost_name();
             }
         }
+        return returnString;
+    }
 
-        int i = 0;
-        String toReturn = "";//"its a me, luirio";
-        while (i < closestListings.size()){
-            AirbnbListing thisListing = closestListings.get(i);
-            toReturn += "Property Title: " + thisListing.getName() + "\n";
-            toReturn += "Borough: " + thisListing.getNeighbourhood() + "\n";
-            toReturn += "Property ID: " + thisListing.getId() + "\n";
-            toReturn += "Host Name: " + thisListing.getHost_name() + "\n";
-            toReturn += "\n";
-        }
-        return toReturn;
+    private double getDistance(double lon, double lat) {
+        double latitudeOfCentre = 51.50853;
+        double longitudeOfCentre = -0.12574;
+        double radiusOfEarth = 6371;
+
+        double dLong = Math.toRadians(lon - longitudeOfCentre);
+        double dLat = Math.toRadians(lat - latitudeOfCentre);
+
+        // Haversine Formula of calculating distance with longitudes and latitudes
+        double step1 = Math.sin(dLat / 2) * Math.sin(dLat / 2);
+        double step2 = Math.cos(Math.toRadians(latitudeOfCentre)) * Math.cos(Math.toRadians(lat));
+        double step3 = Math.sin(dLong / 2) * Math.sin(dLong / 2);
+        double step4 = step1 + step2 * step3;
+
+        return radiusOfEarth * 2 * Math.atan2(Math.sqrt(step4), Math.sqrt(1 - step4)) * 1000;
     }
 }

@@ -65,8 +65,6 @@ public class PropertyWindow {
     }
 
     private void buildWindow() {
-//        navigation.setLeft(left);
-//        navigation.setRight(right);
         Pane content = loadContent(property);
         popUpPane.setBottom(navigation);
         popUpPane.setCenter(content);
@@ -105,7 +103,6 @@ public class PropertyWindow {
     private Pane loadContent(AirbnbListing property) {
 
         HBox pane = new HBox();
-        Pane googleMapPane = new Pane();
         BorderPane right = new BorderPane();
         GridPane contentGrid = new GridPane();
         GoogleMapPanel gog = new GoogleMapPanel();
