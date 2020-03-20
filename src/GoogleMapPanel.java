@@ -1,18 +1,11 @@
 import com.sun.javafx.webkit.Accessor;
 import com.sun.webkit.WebPage;
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
-import java.awt.Panel;
-import java.net.*;
 import java.util.ArrayList;
 
 public class GoogleMapPanel
@@ -27,7 +20,8 @@ public class GoogleMapPanel
     // Declaring variables
     public WebEngine streetViewEngine;
     public WebView streetView;
-
+    public int preferredWidth;
+    public int preferredHeight;
     //streetViewURLs goes from index 0 to index 5 (0 degrees to 300 degrees)
     public int index = 0;
 
@@ -43,6 +37,8 @@ public class GoogleMapPanel
         // Links WebEngine to the WebView
         streetViewEngine = streetView.getEngine();
 
+        preferredWidth = (int) streetView.getPrefWidth();
+        preferredHeight = (int) streetView.getPrefHeight();
         // Create an array to store the urls generated
         streetViewURLs = new ArrayList<>();
     }
@@ -55,21 +51,7 @@ public class GoogleMapPanel
      * @return pane that contains the street view image(s) and buttons to switch between the images
      */
     public Pane start(Double latitude, Double longitude){
-        // Sets initial heading to North
-        int heading = 0;
-        // Gets the preferred dimensions of the WebView panel
-        int preferredWidth = (int) streetView.getPrefWidth();
-        int preferredHeight = (int) streetView.getPrefHeight();
-
-
-        // While loop to load new instances of WebEngines every 60 degrees
-        while(heading < 360) {
-            // Producing a unique link for each location, dimension, and heading
-            urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
-                    latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
-            heading += 60;
-            streetViewURLs.add(urlString);
-        }
+        getViews(latitude, longitude);
 
         streetViewEngine.load(streetViewURLs.get(index));
         // Making the background transparent
@@ -79,14 +61,48 @@ public class GoogleMapPanel
         //Making the buttons
         Button backButton = new Button("<");
         backButton.setPrefSize(20,preferredHeight);
+        backButton.setOnAction(this::backAction);
         Button forwardButton = new Button(">");
         forwardButton.setPrefSize(20,preferredHeight);
+        forwardButton.setOnAction(this::forwardAction);
 
         // Adding buttons into a hbox with the StreetView window
         HBox streetViewBox = new HBox();
         streetViewBox.getChildren().addAll(backButton, streetView, forwardButton);
 
         return streetViewBox;
+    }
+
+    private void getViews(Double latitude, Double longitude)   {
+        // Sets initial heading to North
+        int heading = 0;
+
+        // While loop to load new instances of WebEngines every 60 degrees
+        while(heading < 360) {
+            // Producing a unique link for each location, dimension, and heading
+            urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
+                    latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
+            heading += 60;
+            streetViewURLs.add(urlString);
+        }
+    }
+    private void backAction(ActionEvent event) {
+        if(index - 1 > 0)   {
+            index--;
+        }
+        else    {
+            index = streetViewURLs.size() - 1;
+        }
+        updateStreetViewImage(index);
+    }
+    private void forwardAction(ActionEvent event) {
+        if(index + 1 < streetViewURLs.size())   {
+            index++;
+        }
+        else    {
+            index = 0;
+        }
+        updateStreetViewImage(index);
     }
 
     public void updateStreetViewImage(int index){
