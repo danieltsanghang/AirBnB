@@ -25,6 +25,7 @@ public class ApplicationWindow extends Application
 {
     //Create the root pane for the application window
     private BorderPane root= new  BorderPane();
+
     //Create combobox of the minimum price and maximum price desired by the user
     private ComboBox<String> minComboBox = new ComboBox();
     private ComboBox<String> maxComboBox = new ComboBox();
