@@ -84,12 +84,12 @@ public class BoroughWindow{
         launchLabel.setText("Click to learn more");
         propertyLaunch.getChildren().add(launchLabel);
 
-        //
+        //Set the id of the objects for later csv editing
         hostBox.setId("boroughBox");    priceBox.setId("boroughBox");
         minStayBox.setId("boroughBox"); reviewsBox.setId("boroughBox");
         propertyLaunch.setId("boroughBox");
 
-        //
+        //Set the padding and alignment of the objects displayed
         content.setPadding(new Insets(0,0,1,20));
         content.setAlignment(Pos.CENTER);       hostBox.setAlignment(Pos.CENTER);
         reviewsBox.setAlignment(Pos.CENTER);    priceBox.setAlignment(Pos.CENTER);

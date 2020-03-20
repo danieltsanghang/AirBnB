@@ -14,8 +14,8 @@ public class WelcomePanel extends Panel
 
     public WelcomePanel() throws IOException {
         super();
-        // Loads the welcome screen based on the provided URL
-        // Converts File to ImageView using Image
+        //Loads the welcome screen based on the provided URL
+        //Converts File to ImageView using Image
         File file = new File("img/welcome-screen.png");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
