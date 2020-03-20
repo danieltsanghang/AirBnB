@@ -1,107 +1,95 @@
+import com.sun.javafx.webkit.Accessor;
+import com.sun.webkit.WebPage;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import java.awt.Panel;
 import java.net.*;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;  // JDK 1.8 only - older versions may need to use Apache Commons or similar.
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class GoogleMapPanel
 {
-
+    // Unique API key for Google's static street view API
     public String API_KEY = "AIzaSyAYSnY8BF9kfmVKe-DMTlGMBhvK4KtBjgI";
+    // Default URL String
     public static String urlString = "";
-    private static byte[] key;
+    // ArrayList to hold all WebEngines that are loaded when generating a 360 degree image from static street view
+    private ArrayList<String> streetViewURLs;
 
-
+    // Declaring variables
     public WebEngine streetViewEngine;
     public WebView streetView;
 
+    //streetViewURLs goes from index 0 to index 5 (0 degrees to 300 degrees)
+    public int index = 0;
 
+
+    /**
+     * Initiates the class by creating a new WebView object and a new WebEngine object
+     */
     public GoogleMapPanel(){
+        // Creates a new WebView
         streetView = new WebView();
+        // Creates a new WebEngine
         streetViewEngine = new WebEngine();
+        // Links WebEngine to the WebView
         streetViewEngine = streetView.getEngine();
 
+        // Create an array to store the urls generated
+        streetViewURLs = new ArrayList<>();
     }
 
-    public Pane start(Double latitude, Double longitude, Double height, Double width) throws URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, IOException {
+    /**
+     * Loads the static web view api into specific locations of the properties that the user
+     * wants to look at.
+     * @param latitude latitudinal location of the property that the user wants to look at
+     * @param longitude longitudinal location of the property that the user wants to look at
+     * @return pane that contains the street view image(s) and buttons to switch between the images
+     */
+    public Pane start(Double latitude, Double longitude){
+        // Sets initial heading to North
+        int heading = 0;
+        // Gets the preferred dimensions of the WebView panel
+        int preferredWidth = (int) streetView.getPrefWidth();
+        int preferredHeight = (int) streetView.getPrefHeight();
 
-//        String URLStart = "https://www.google.com/maps?layer=c&cbll=";
-//        URLStart += latitude + "," + longitude + "&cbp=,0,,,0";
-//        locationURL = URLStart;
 
-        urlString = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location=" + latitude + "," + longitude +
-                "&fov=360&heading=100&pitch=0&key=" + API_KEY;
-
-        //String urlToUse = signURL();
-        //URLEncoder.encode(urlToUse, "UTF-8");
-
-        streetViewEngine.load(urlString);
-
-
-        Pane thisIsAPane = new Pane();
-        Object svObject = streetView;
-        ((Node) svObject).maxHeight(height); ((Node) svObject).minHeight(height);
-        ((Node) svObject).maxWidth(width);   ((Node) svObject).minWidth(width);
-        thisIsAPane.getChildren().add((Node) svObject);
-        return thisIsAPane;
-
-    }
-
-    public String signURL() throws IOException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException{
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        URL url = new URL(urlString);
-
-        urlSigner signer = new urlSigner(API_KEY);
-        String digitalSignature = urlSigner.signRequest(url.getPath(), url.getQuery());
-        System.out.println((url.getProtocol() + "://" + url.getHost() + digitalSignature));
-        return (url.getProtocol() + "://" + url.getHost() + digitalSignature);
-    }
-
-    public static class urlSigner{
-
-        private static byte[] key;
-        public urlSigner(String keyString) throws IOException
-        {
-            keyString = keyString.replace('-', '+');
-            keyString = keyString.replace('_', '/');
-
-            this.key = Base64.getDecoder().decode(keyString);
+        // While loop to load new instances of WebEngines every 60 degrees
+        while(heading < 360) {
+            // Producing a unique link for each location, dimension, and heading
+            urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
+                    latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
+            heading += 60;
+            streetViewURLs.add(urlString);
         }
 
-        public static String signRequest(String path, String query) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, URISyntaxException{
-            String URL = path + "?" + query;
+        streetViewEngine.load(streetViewURLs.get(index));
+        // Making the background transparent
+        WebPage webPage = Accessor.getPageFor(streetViewEngine);
+        webPage.setBackgroundColor(0);
 
-            SecretKeySpec sha1KEY = new SecretKeySpec(key, "HmacSHA1");
+        //Making the buttons
+        Button backButton = new Button("<");
+        backButton.setPrefSize(20,preferredHeight);
+        Button forwardButton = new Button(">");
+        forwardButton.setPrefSize(20,preferredHeight);
 
-            Mac mac = Mac.getInstance("HmacSHA1");
-            mac.init(sha1KEY);
+        // Adding buttons into a hbox with the StreetView window
+        HBox streetViewBox = new HBox();
+        streetViewBox.getChildren().addAll(backButton, streetView, forwardButton);
 
-            byte[] significantBytes = mac.doFinal(URL.getBytes());
-
-            String signatureURL = Base64.getEncoder().encodeToString(significantBytes);
-
-            signatureURL = signatureURL.replace('+', '-');
-            signatureURL = signatureURL.replace('/', '_');
-
-            return URL + "&signature=" + signatureURL;
-        }
+        return streetViewBox;
     }
 
+    public void updateStreetViewImage(int index){
+        streetViewEngine.load(streetViewURLs.get(index));
+    }
 }
