@@ -89,6 +89,10 @@ public class GoogleMapPanel
         return streetViewBox;
     }
 
+    /**
+     * Method to update the streetview image displayed on the panel.
+     * @param index is used to load the selected street view image
+     */
     public void updateStreetViewImage(int index){
         streetViewEngine.load(streetViewURLs.get(index));
     }
