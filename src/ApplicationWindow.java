@@ -63,10 +63,9 @@ public class ApplicationWindow extends Application
     public void init() {
         // Loads the splash screen image based on the provided URL
         // Converts File to ImageView using Image
-        File splashScreenImageFile = new File("img/splash-screen.png");
+        File splashScreenImageFile = new File("img/splashscreen.psd");
         Image splashScreenImage = new Image(splashScreenImageFile.toURI().toString());
         ImageView splashScreen = new ImageView(splashScreenImage);
-
         //Create a new progress indicator named loadProgress
         //Create a new label for load text
         //Style the label with
