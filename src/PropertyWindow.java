@@ -150,12 +150,9 @@ public class PropertyWindow {
 
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-        try {
-            pane.getChildren().add(gog.start(property.getLatitude(), property.getLongitude(), 600.0,200.0));
-        } catch (URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | IOException e) {
-            e.printStackTrace();
-        }
-        pane.getChildren().add(right);
+        right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
+
+        pane.getChildren().addAll(googleMapPane, right);
 
         return pane;
     }
