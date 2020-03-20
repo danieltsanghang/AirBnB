@@ -1,3 +1,4 @@
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,7 +32,7 @@ public class WelcomePanel extends Panel
         // Adds image to Welcome Pane
         welcomePane.getChildren().add(imageView);
         // Resize Welcome Pane based on the image's size
-        this.setMinSize(image.getWidth(),image.getHeight());
+        this.setMaxSize(image.getWidth(),image.getHeight());
         // Return Welcome Pane
         return welcomePane;
     }
