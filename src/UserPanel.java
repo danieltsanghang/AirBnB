@@ -11,8 +11,9 @@ import java.util.Comparator;
 
 public class UserPanel extends Panel
 {
+    //Whether the selected property is favourite
     private boolean favSelected;
-
+    //Load Sorter
     private Sorter sorter;
 
     public UserPanel() throws IOException
