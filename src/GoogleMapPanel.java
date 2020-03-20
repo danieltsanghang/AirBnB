@@ -22,21 +22,29 @@ public class GoogleMapPanel
     // Default URL String
     public static String urlString = "";
     // ArrayList to hold all WebEngines that are loaded when generating a 360 degree image from static street view
-    private ArrayList<Pane> streetViewPanels;
     private ArrayList<String> streetViewURLs;
 
     // Declaring variables
     public WebEngine streetViewEngine;
     public WebView streetView;
 
+    //streetViewURLs goes from index 0 to index 5 (0 degrees to 300 degrees)
+    public int index = 0;
+
 
     /**
      * Initiates the class by creating a new WebView object and a new WebEngine object
      */
     public GoogleMapPanel(){
+        // Creates a new WebView
         streetView = new WebView();
+        // Creates a new WebEngine
         streetViewEngine = new WebEngine();
+        // Links WebEngine to the WebView
         streetViewEngine = streetView.getEngine();
+
+        // Create an array to store the urls generated
+        streetViewURLs = new ArrayList<>();
     }
 
     /**
@@ -49,13 +57,11 @@ public class GoogleMapPanel
     public Pane start(Double latitude, Double longitude){
         // Sets initial heading to North
         int heading = 0;
-        // Creates an ArrayList to store the WebEngines loaded
-        streetViewPanels = new ArrayList<>();
         // Gets the preferred dimensions of the WebView panel
         int preferredWidth = (int) streetView.getPrefWidth();
         int preferredHeight = (int) streetView.getPrefHeight();
 
-        streetViewURLs = new ArrayList<>();
+
         // While loop to load new instances of WebEngines every 60 degrees
         while(heading < 360) {
             // Producing a unique link for each location, dimension, and heading
@@ -65,22 +71,10 @@ public class GoogleMapPanel
             streetViewURLs.add(urlString);
         }
 
-        int i = 0;
-
-        while(i < streetViewURLs.size()){
-            // Loading and storing the unique street view urls
-            streetViewEngine.load(streetViewURLs.get(i));
-            Pane test = new Pane();
-            test.getChildren().addAll(streetView);
-            streetViewPanels.add(test);
-            i++;
-        }
-
+        streetViewEngine.load(streetViewURLs.get(index));
         // Making the background transparent
         WebPage webPage = Accessor.getPageFor(streetViewEngine);
         webPage.setBackgroundColor(0);
-
-        int index = 0; //streetViewPanels goes from index 0 to index 5 (0 degrees to 300 degrees)
 
         //Making the buttons
         Button backButton = new Button("<");
@@ -93,5 +87,9 @@ public class GoogleMapPanel
         streetViewBox.getChildren().addAll(backButton, streetView, forwardButton);
 
         return streetViewBox;
+    }
+
+    public void updateStreetViewImage(int index){
+        streetViewEngine.load(streetViewURLs.get(index));
     }
 }
