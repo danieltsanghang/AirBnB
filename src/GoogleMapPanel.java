@@ -82,26 +82,19 @@ public class GoogleMapPanel
             // Producing a unique link for each location, dimension, and heading
             urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
                     latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
-            heading += 60;
+            // heading is used to control how many streetview static images there are to form the 360 degree image
+            heading += 30;
             streetViewURLs.add(urlString);
         }
     }
     private void backAction(ActionEvent event) {
-        if(index - 1 > 0)   {
-            index--;
-        }
-        else    {
-            index = streetViewURLs.size() - 1;
-        }
+        if(index - 1 > 0)   { index--; }
+        else    { index = streetViewURLs.size() - 1; }
         updateStreetViewImage(index);
     }
     private void forwardAction(ActionEvent event) {
-        if(index + 1 < streetViewURLs.size())   {
-            index++;
-        }
-        else    {
-            index = 0;
-        }
+        if(index + 1 < streetViewURLs.size())   { index++; }
+        else    { index = 0; }
         updateStreetViewImage(index);
     }
 
