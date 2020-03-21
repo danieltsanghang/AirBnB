@@ -148,11 +148,11 @@ public class PropertyWindow {
         contentGrid.add(new Label("Host Listings:"), 0, 9);
         contentGrid.add(new Label(property.getCalculatedHostListingsCount() + ""), 1, 9);
 
+        //Set the top, center of the right panel
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-        right.setLeft(gog.start(property.getLatitude(), property.getLongitude()));
 
-        pane.getChildren().addAll(googleMapPane, right);
+        pane.getChildren().addAll(gog.start(property.getLatitude(), property.getLongitude()), right);
 
         return pane;
     }
