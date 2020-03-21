@@ -82,7 +82,7 @@ public class GoogleMapPanel
             // Producing a unique link for each location, dimension, and heading
             urlString = "https://maps.googleapis.com/maps/api/streetview?size=" + preferredWidth + "x" + preferredHeight + "&scale=4&location=" +
                     latitude + "," + longitude + "&fov=120&heading=" + heading + "&pitch=0&radius=600&key=" + API_KEY;
-            heading += 30;
+            heading += 60;
             streetViewURLs.add(urlString);
         }
     }

@@ -338,9 +338,12 @@ public class ApplicationWindow extends Application
         Scene scene = new Scene(propertyWindow.getPane());
         scene.getStylesheets().add("darkMode.css");
         Stage propertyWindowStage = new Stage();
+
         //Set the title of the stage
         propertyWindowStage.setTitle("");
+
         propertyWindowStage.setScene(scene);
+
         //Set the height and width of the stage which cannot be resized later
         propertyWindowStage.setMinHeight(propertyWindow.getPane().getMinHeight());
         propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());
