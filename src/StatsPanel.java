@@ -91,12 +91,11 @@ public class StatsPanel extends Panel {
                 hbox.setId("statBox");
                 hbox.getChildren().addAll(backButton, vbox, forwardButton);
                 vbox.setPrefSize(320,150);
-//                hbox.setPrefWidth(400);
                 gridPane.add(hbox, col, row);
             }
         }
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
 
         mainPane.setCenter(gridPane);
         gridPane.setAlignment(Pos.CENTER);
