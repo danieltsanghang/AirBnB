@@ -121,6 +121,11 @@ public class StatsPanel extends Panel {
         return mainPane;
     }
 
+    /**
+     * @param flipStats for
+     * @param statName
+     * @param stat
+     * @param b
      */
     private void navButton(ArrayList<String> flipStats, Label statName, Label stat, Button b) {
         b.setOnMouseClicked(e -> {
