@@ -98,7 +98,7 @@ BorderPane > HBox    {
     -fx-background-color: #272727;
     -fx-alignment: Center;
     -fx-padding: 7,7,7,7;
-    -fx-spacing: 725;
+    -fx-spacing: 710;
     /*-fx-effect: innershadow(gaussian, #3b3b3b,4,0.1,0,2);*/
 }
 #navBarBorough {
@@ -143,7 +143,7 @@ BorderPane > BorderPane > GridPane > VBox   {
     -fx-alignment: center;
 }
 #statBox:hover {
-    -fx-background-color: #ff9a8a;
+    -fx-background-color: #f15c61;
     -fx-effect: dropshadow(gaussian, #1f1f1f,30,0,0,3);
 }
 
@@ -180,5 +180,5 @@ BorderPane > BorderPane > VBox   {
     -fx-effect: dropshadow(gaussian,#1f1f1f,10,0,0,3);
 }
 #circle > #circleBG:hover {
-    -fx-fill: #ff9a8a;
+    -fx-fill: #f15c61;
 }
