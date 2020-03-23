@@ -112,10 +112,8 @@ public class StatsPanel extends Panel {
                 gridPane.add(hbox, col, row);
             }
         }
-
-        //Set the gridpane's vertical and horizontal gap
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
 
         mainPane.setCenter(gridPane);
         gridPane.setAlignment(Pos.CENTER);
