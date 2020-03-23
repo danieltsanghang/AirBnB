@@ -2,6 +2,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -86,26 +87,28 @@ public class ApplicationWindow extends Application
 
     @Override
     public void start(final Stage initStage) throws FileNotFoundException {
-        Task<ArrayList<Panel>> createPanels = new Task<ArrayList<Panel>>() {
+        Task<ArrayList<Panel>> createPanels = new Task<>() {
             @Override
             protected ArrayList<Panel> call() throws InterruptedException, IOException {
+                AirbnbDataLoader dataLoader = new AirbnbDataLoader();
+                ArrayList<AirbnbListing> master = dataLoader.load();
                 //Create an array list panels to store all the panels
                 ArrayList<Panel> panels = new ArrayList<>();
 
                 //Update the Message with Map Panel
                 //Create and add a map panel in to the array list panels
                 updateMessage("Loading Map Panel ...");
-                panels.add(new MapPanel());
+                panels.add(new MapPanel(master));
 
                 //Update the Message with Statistics Panel
                 //Create and add a statistics panel in to the array list panels
-                updateMessage("Loading Stats Panel");
-                panels.add(new StatsPanel());
+                updateMessage("Loading Stats Panel ...");
+                panels.add(new StatsPanel(master));
 
                 //Update the Message with User Panel
                 //Create and add a user panel in to the array list panels
-                updateMessage("Loading Account Panel");
-                panels.add(new UserPanel());
+                updateMessage("Loading Account Panel ...");
+                panels.add(new UserPanel(master));
 
                 //Update the Message with application starting
                 //Pause for three hundred milli seconds
@@ -135,53 +138,52 @@ public class ApplicationWindow extends Application
         maxComboBox.setVisibleRowCount(3);
 
         //Subsequent acts followed if a value of the minimum price combo box is chosen
-        minComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                if(t1 != null)  {
-                    //Set the minimum price desired by the user as the chosen value after converting the chosen value
-                    //from string to integer
-                    minPrice = Integer.parseInt(t1);
+        minComboBox.valueProperty().addListener((ov, oldTerm, newTerm) -> {
+            if(newTerm != null)  {
+                //Set the minimum price desired by the user as the chosen value after converting the chosen value
+                //from string to integer
+                minPrice = Integer.parseInt(newTerm);
 
-                    //If the maximum price is  selected and the maximum price selected is larger than the minimum price
-                    //selected, set the center panel as the first panel of the array list panels
-                    if (isMaxSelected && maxPrice > minPrice) {
-                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
-                    }
-                    // The minimum price is selected
-                    isMinSelected = true;
+                //If the maximum price is  selected and the maximum price selected is larger than the minimum price
+                //selected, set the center panel as the first panel of the array list panels
+                if (isMaxSelected && maxPrice > minPrice) {
+                    centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                 }
-                else {
-                    //Set the center panel as a new welcome panel
-                    centerPanel = welcome.getPanel(0,0);
-                }
-                //Reset the center panel of the root of application window
-                root.setCenter(centerPanel);
+                // The minimum price is selected
+                isMinSelected = true;
             }
+            else {
+                //Set the center panel as a new welcome panel
+                centerPanel = welcome.getPanel(0,0);
+            }
+            //Reset the center panel of the root of application window
+            paneFade(root.getCenter(),1,0);
+            root.setCenter(centerPanel);
+            paneFade(root.getCenter(),0,1);
         });
 
         //Subsequent acts followed if a value of the minimum price combo box is chosen
-        maxComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                if(t1 != null)  {
-                    //Set the maximum price desired by the user as the chosen value after converting the chosen value
-                    //from string to integer
-                    int max = Integer.parseInt(t1);
-                    maxPrice = max;
-                    //If the minimum price is  selected and the maximum price selected is larger than the minimum price
-                    //selected, set the center panel as the first panel of the array list panels
-                    if (isMinSelected && maxPrice > minPrice) {
-                        centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
-                    }
-                    // The maximum price is selected
-                    isMaxSelected = true;
+        maxComboBox.valueProperty().addListener((ov, oldTerm, newTerm) -> {
+            if(newTerm != null)  {
+                //Set the maximum price desired by the user as the chosen value after converting the chosen value
+                //from string to integer
+                maxPrice = Integer.parseInt(newTerm);
+                //If the minimum price is  selected and the maximum price selected is larger than the minimum price
+                //selected, set the center panel as the first panel of the array list panels
+                if (isMinSelected && maxPrice > minPrice) {
+                    centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                 }
-                else{
-                    //Set the center panel as a new welcome panel
-                    centerPanel = welcome.getPanel(0,0);
-                }
-                //Reset the center panel of the root of application window
-                root.setCenter(centerPanel);
+                // The maximum price is selected
+                isMaxSelected = true;
             }
+            else{
+                //Set the center panel as a new welcome panel
+                centerPanel = welcome.getPanel(0,0);
+            }
+            //Reset the center panel of the root of application window
+            paneFade(root.getCenter(),1,0);
+            root.setCenter(centerPanel);
+            paneFade(root.getCenter(),0,1);
         });
         //Set the center panel as a new welcome panel
         centerPanel = welcome.getPanel(0,0);
@@ -264,19 +266,21 @@ public class ApplicationWindow extends Application
             //Set count as the current position of array list panels plus one of the remainder of three
             count = (count + 1) % 3;
             //Create a fade transition for root's center
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(100), root.getCenter());
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.play();
+            paneFade(root.getCenter(), 1, 0);
             //Set the root center with the panel of the count position
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
             //Create a fade transition for root's center
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(100), root.getCenter());
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.play();
+            paneFade(root.getCenter(), 0, 1);
         }
     }
+
+    private void paneFade(Node root, int i, int i2) {
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(100), root);
+        fadeOut.setFromValue(i);
+        fadeOut.setToValue(i2);
+        fadeOut.play();
+    }
+
     //Subsequent acts if the back button is clicked
     private void backButtonClick(ActionEvent event) {
         if (isMinSelected && isMaxSelected) {
@@ -290,17 +294,11 @@ public class ApplicationWindow extends Application
             }
 
             //Create a fade transition for root's center
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(100),root.getCenter());
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.play();
+            paneFade(root.getCenter(), 1, 0);
             //Set the root center with the panel of the count position
             root.setCenter(panels.get(count).getPanel(minPrice, maxPrice));
             //Create a fade transition for root's center
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(100),root.getCenter());
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.play();
+            paneFade(root.getCenter(), 0, 1);
         }
     }
     /**

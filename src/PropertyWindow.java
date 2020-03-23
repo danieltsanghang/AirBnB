@@ -118,6 +118,7 @@ public class PropertyWindow {
         for (AirbnbListing listing : favouriteDataLoader.getFavourites(listings)) {
             if (listing.getId().equals(property.getId())) {
                 isFav = true;
+                break;
             }
         }
 

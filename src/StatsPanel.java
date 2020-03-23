@@ -23,8 +23,8 @@ public class StatsPanel extends Panel {
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> ownerIT;
 
-    public StatsPanel() throws IOException {
-        super();
+    public StatsPanel(ArrayList<AirbnbListing> loadedListings) throws IOException {
+        super(loadedListings);
     }
 
     /**
@@ -273,7 +273,7 @@ public class StatsPanel extends Panel {
             }
         }
 
-        String toReturn = "fhk";
+        String toReturn;
         if(i == 0) {
             toReturn = ("Borough Name: " + sBoroughToReturn);
         } else{

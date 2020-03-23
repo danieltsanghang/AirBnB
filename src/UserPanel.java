@@ -16,9 +16,9 @@ public class UserPanel extends Panel
     //Create a sorter
     private Sorter sorter = new Sorter();
 
-    public UserPanel() throws IOException
+    public UserPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
     {
-        super();
+        super(loadedListings);
     }
 
     /**
@@ -38,12 +38,9 @@ public class UserPanel extends Panel
         TextField search = new TextField();
 
         //Search
-        search.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1 != null) {
-                    displayPane.setContent(updateFavDisplay(t1));
-                }
+        search.textProperty().addListener((observableValue, s, t1) -> {
+            if (t1 != null) {
+                displayPane.setContent(updateFavDisplay(t1));
             }
         });
 
@@ -108,7 +105,7 @@ public class UserPanel extends Panel
             sortedListings = listings;
         }
 
-        Collections.sort(sortedListings, new byName());
+        sortedListings.sort(new byName());
 
         for (AirbnbListing listing : sortedListings) {
             if (listing.getName().startsWith(startingFilter)) {
@@ -123,7 +120,7 @@ public class UserPanel extends Panel
                 Button viewButton = new Button();
 
                 //Set the subsequent acts when the view button is clicked
-                viewButton.setOnAction(e -> { ;
+                viewButton.setOnAction(e -> {
                     ApplicationWindow.triggerPropertyWindow(listing, finalSortedListings, finalPos);
                 });
 

@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WelcomePanel extends Panel
 {
@@ -13,7 +14,7 @@ public class WelcomePanel extends Panel
     private ImageView imageView;
 
     public WelcomePanel() throws IOException {
-        super();
+        super(null);
         //Loads the welcome screen based on the provided URL
         //Converts File to ImageView using Image
         File file = new File("img/welcome-screen.png");

@@ -27,7 +27,7 @@ public class Sorter
     /**
      * Comparator that sorts by ascending number of views
      */
-    private class byAscendingReviews implements Comparator<AirbnbListing> {
+    private static class byAscendingReviews implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o1.getNumberOfReviews() - o2.getNumberOfReviews();
@@ -37,7 +37,7 @@ public class Sorter
     /**
      * Comparator that sorts by descending number of views
      */
-    private class byDescendingReviews implements Comparator<AirbnbListing> {
+    private static class byDescendingReviews implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o2.getNumberOfReviews() - o1.getNumberOfReviews();
@@ -47,7 +47,7 @@ public class Sorter
     /**
      * Comparator that sorts by ascending price
      */
-    private class byAscendingPrice implements Comparator<AirbnbListing> {
+    private static class byAscendingPrice implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o1.getPrice() - o2.getPrice();
@@ -57,7 +57,7 @@ public class Sorter
     /**
      * Comparator that sorts by descending price
      */
-    private class byDescendingPrice implements Comparator<AirbnbListing> {
+    private static class byDescendingPrice implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o2.getPrice() - o1.getPrice();
@@ -67,7 +67,7 @@ public class Sorter
     /**
      * Comparator that sorts by host name in alphabetical order
      */
-    private class byAscendingHostName implements Comparator<AirbnbListing> {
+    private static class byAscendingHostName implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o1.getHost_name().compareTo(o2.getHost_name());
@@ -77,7 +77,7 @@ public class Sorter
     /**
      * Comparator that sorts by host name in reverse alphabetical order
      */
-    private class byDescendingHostName implements Comparator<AirbnbListing> {
+    private static class byDescendingHostName implements Comparator<AirbnbListing> {
         @Override
         public int compare(AirbnbListing o1, AirbnbListing o2) {
             return o2.getHost_name().compareTo(o1.getHost_name());
