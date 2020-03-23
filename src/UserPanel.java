@@ -13,8 +13,6 @@ public class UserPanel extends Panel
 {
     //Create a boolean to check Whether the selected property is favourite
     private boolean favSelected = true;
-    //Create a sorter
-    private Sorter sorter = new Sorter();
 
     public UserPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
     {
@@ -81,7 +79,6 @@ public class UserPanel extends Panel
         //Add the top bar, button box and display pane into the return pane
         VBox returnPane = new VBox();
         returnPane.getChildren().addAll(topBar, buttonHBox, displayPane);
-
         //return the return pane
         return returnPane;
     }
@@ -101,6 +98,7 @@ public class UserPanel extends Panel
         if (favSelected) {
             sortedListings = favouritesLoader.getFavourites(listings);
         }
+
         else {
             sortedListings = listings;
         }
@@ -117,7 +115,7 @@ public class UserPanel extends Panel
                 final ArrayList<AirbnbListing> finalSortedListings = sortedListings;
 
                 //Create a button viewButton to view tha marked favourites
-                Button viewButton = new Button();
+                Button viewButton = new Button("View");
 
                 //Set the subsequent acts when the view button is clicked
                 viewButton.setOnAction(e -> {
@@ -133,6 +131,7 @@ public class UserPanel extends Panel
                 grid.add(new Label(listing.getId()),1, 1);
                 grid.add(viewButton, 1, 2);
 
+                grid.getStyleClass().add("style.css");
                 //Add the grid to the content pane
                 content.getChildren().add(grid);
 

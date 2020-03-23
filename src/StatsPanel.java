@@ -28,7 +28,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add the strings of the description of the statistics to Stats type array list
+     * Add the strings of the description of the statistics to Stats type array list
      */
     private void loadStatType() {
         statsType.add("Average Reviews per Property");
@@ -42,7 +42,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * Add respective statistics data into statistics
      */
     private void loadStats() {
         stats.add(getAverageReviews());

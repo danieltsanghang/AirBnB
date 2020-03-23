@@ -63,3 +63,8 @@
     -fx-background-color: transparent;
     -fx-font-size: 30;
 }
+
+.label{
+    -fx-text-fill: white;
+    -fx-vgap: 10;
+}
