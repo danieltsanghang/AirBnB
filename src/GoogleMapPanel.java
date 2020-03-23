@@ -57,11 +57,9 @@ public class GoogleMapPanel
      * @return pane that contains the street view image(s) and buttons to switch between the images
      */
     public Pane start(Double latitude, Double longitude){
-
         getViews(latitude, longitude);
 
         streetViewEngine.load(streetViewURLs.get(index));
-      
         // Making the background transparent
         WebPage webPage = Accessor.getPageFor(streetViewEngine);
         webPage.setBackgroundColor(0);
@@ -76,9 +74,7 @@ public class GoogleMapPanel
 
         // Adding buttons into a horizontal box with the StreetView window
         HBox streetViewBox = new HBox();
-        streetViewBox.getChildren().addAll(backButton, streetViewPanels.get(0), forwardButton);
-
-        Pane test = streetViewPanels.get(0);
+        streetViewBox.getChildren().addAll(backButton, streetView, forwardButton);
 
         // Returns the horizontal box containing the WebView and the two buttons used to navigate in the view.
         return streetViewBox;
