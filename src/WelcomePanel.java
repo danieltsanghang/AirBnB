@@ -1,9 +1,11 @@
+import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WelcomePanel extends Panel
 {
@@ -12,9 +14,9 @@ public class WelcomePanel extends Panel
     private ImageView imageView;
 
     public WelcomePanel() throws IOException {
-        super();
-        // Loads the welcome screen based on the provided URL
-        // Converts File to ImageView using Image
+        super(null);
+        //Loads the welcome screen based on the provided URL
+        //Converts File to ImageView using Image
         File file = new File("img/welcome-screen.png");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
@@ -31,7 +33,7 @@ public class WelcomePanel extends Panel
         // Adds image to Welcome Pane
         welcomePane.getChildren().add(imageView);
         // Resize Welcome Pane based on the image's size
-        this.setMinSize(image.getWidth(),image.getHeight());
+        this.setMaxSize(image.getWidth(),image.getHeight());
         // Return Welcome Pane
         return welcomePane;
     }

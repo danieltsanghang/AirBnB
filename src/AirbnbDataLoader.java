@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import com.opencsv.CSVReader;
+import org.apache.commons.lang3.time.StopWatch;
+
 import java.net.URISyntaxException;
 
 public class AirbnbDataLoader
@@ -13,8 +15,7 @@ public class AirbnbDataLoader
      */
     public ArrayList<AirbnbListing> load()
     {
-        System.out.print("Begin loading Airbnb london dataset...");
-        ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
+        ArrayList<AirbnbListing> listings = new ArrayList<>();
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -49,7 +50,6 @@ public class AirbnbDataLoader
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-        System.out.println("Success! Number of loaded records: " + listings.size());
         return listings;
     }
 
