@@ -111,23 +111,21 @@ public class BoroughWindow{
         sortBox.getItems().addAll(sortBy);
 
         //Subsequent actions to be made when a sorting method is chosen on sort box by the user
-        sortBox.valueProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue ov, String t, String t1) {
-                if (t1 != null) {
-                    for (String sortBy : sortBy){
-                        if (t1.equals(sortBy)) {
-                            //Sort the listings correspondingly to the assigned method
-                            Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
-                            //Refresh the Vbox after the selection
-                            refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
-                            //Convert the sorted listings into pages
-                            toPages(sortedListings);
-                            //Convert the first pages into smaller boxes
-                            loadBoxes(pages.get(0));
-                            position = 0;
-                            //Set the text of the page mark
-                            pageNumber.setText("Page 1 of " + pages.size());
-                        }
+        sortBox.valueProperty().addListener((ov, oldTerm, newTerm) -> {
+            if (newTerm != null) {
+                for (String sortBy : sortBy){
+                    if (newTerm.equals(sortBy)) {
+                        //Sort the listings correspondingly to the assigned method
+                        sortedListings.sort(sorter.getSoringMethod(sortBy));
+                        //Refresh the Vbox after the selection
+                        refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
+                        //Convert the sorted listings into pages
+                        toPages(sortedListings);
+                        //Convert the first pages into smaller boxes
+                        loadBoxes(pages.get(0));
+                        position = 0;
+                        //Set the text of the page mark
+                        pageNumber.setText("Page 1 of " + pages.size());
                     }
                 }
             }
@@ -199,13 +197,12 @@ public class BoroughWindow{
      */
     private  void toPages (ArrayList<AirbnbListing> sortedListings)   {
         pages.clear();
-        ArrayList<AirbnbListing> currentList = new ArrayList<>();
-        currentList.addAll(sortedListings);
+        ArrayList<AirbnbListing> currentList = new ArrayList<>(sortedListings);
         int pageNumber = (int) Math.ceil(currentList.size() / 25.0);
         for (;pageNumber > 0;pageNumber--) {
             ArrayList<AirbnbListing> page = new ArrayList<>();
             for (int i = 0; i < 25; i++) {
-                if(!currentList.isEmpty() && currentList.size() >= 1) {
+                if(!currentList.isEmpty()) {
                     page.add(currentList.get(0));
                     currentList.remove(0);
                 }

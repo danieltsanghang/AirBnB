@@ -23,12 +23,12 @@ public class StatsPanel extends Panel {
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> ownerIT;
 
-    public StatsPanel() throws IOException {
-        super();
+    public StatsPanel(ArrayList<AirbnbListing> loadedListings) throws IOException {
+        super(loadedListings);
     }
 
     /**
-     * add the strings of the description of the statistics to Stats type array list
+     * Add the strings of the description of the statistics to Stats type array list
      */
     private void loadStatType() {
         statsType.add("Average Reviews per Property");
@@ -42,7 +42,7 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * add respective statistics data into statistics
+     * Add respective statistics data into statistics
      */
     private void loadStats() {
         stats.add(getAverageReviews());
@@ -95,8 +95,6 @@ public class StatsPanel extends Panel {
                 //Create new button for flipping the previous statistics label
                 Button backButton = new Button("<");
                 backButton.setPrefSize(30,120);
-
-
                 //Create new button for flipping the next statistics label
                 Button forwardButton = new Button(">");
                 forwardButton.setPrefSize(30,120);
@@ -273,7 +271,7 @@ public class StatsPanel extends Panel {
             }
         }
 
-        String toReturn = "fhk";
+        String toReturn;
         if(i == 0) {
             toReturn = ("Borough Name: " + sBoroughToReturn);
         } else{
@@ -313,7 +311,7 @@ public class StatsPanel extends Panel {
         double dLong = Math.toRadians(lon - longitudeOfCentre);
         double dLat = Math.toRadians(lat - latitudeOfCentre);
 
-        //Haversine Formula of calculating distance with longitudes and latitudes
+        // Haversine Formula of calculating distance with longitudes and latitudes
         double step1 = Math.sin(dLat / 2) * Math.sin(dLat / 2);
         double step2 = Math.cos(Math.toRadians(latitudeOfCentre)) * Math.cos(Math.toRadians(lat));
         double step3 = Math.sin(dLong / 2) * Math.sin(dLong / 2);

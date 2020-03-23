@@ -13,12 +13,10 @@ public class UserPanel extends Panel
 {
     //Create a boolean to check Whether the selected property is favourite
     private boolean favSelected = true;
-    //Create a sorter
-    private Sorter sorter = new Sorter();
 
-    public UserPanel() throws IOException
+    public UserPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
     {
-        super();
+        super(loadedListings);
     }
 
     /**
@@ -38,12 +36,9 @@ public class UserPanel extends Panel
         TextField search = new TextField();
 
         //Search
-        search.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1 != null) {
-                    displayPane.setContent(updateFavDisplay(t1));
-                }
+        search.textProperty().addListener((observableValue, s, t1) -> {
+            if (t1 != null) {
+                displayPane.setContent(updateFavDisplay(t1));
             }
         });
 
@@ -84,7 +79,6 @@ public class UserPanel extends Panel
         //Add the top bar, button box and display pane into the return pane
         VBox returnPane = new VBox();
         returnPane.getChildren().addAll(topBar, buttonHBox, displayPane);
-
         //return the return pane
         return returnPane;
     }
@@ -104,11 +98,12 @@ public class UserPanel extends Panel
         if (favSelected) {
             sortedListings = favouritesLoader.getFavourites(listings);
         }
+
         else {
             sortedListings = listings;
         }
 
-        Collections.sort(sortedListings, new byName());
+        sortedListings.sort(new byName());
 
         for (AirbnbListing listing : sortedListings) {
             if (listing.getName().startsWith(startingFilter)) {
@@ -120,10 +115,10 @@ public class UserPanel extends Panel
                 final ArrayList<AirbnbListing> finalSortedListings = sortedListings;
 
                 //Create a button viewButton to view tha marked favourites
-                Button viewButton = new Button();
+                Button viewButton = new Button("View");
 
                 //Set the subsequent acts when the view button is clicked
-                viewButton.setOnAction(e -> { ;
+                viewButton.setOnAction(e -> {
                     ApplicationWindow.triggerPropertyWindow(listing, finalSortedListings, finalPos);
                 });
 
@@ -136,6 +131,7 @@ public class UserPanel extends Panel
                 grid.add(new Label(listing.getId()),1, 1);
                 grid.add(viewButton, 1, 2);
 
+                grid.getStyleClass().add("style.css");
                 //Add the grid to the content pane
                 content.getChildren().add(grid);
 

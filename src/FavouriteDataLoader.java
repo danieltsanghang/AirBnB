@@ -76,7 +76,7 @@ public class FavouriteDataLoader
                 CSVWriter.DEFAULT_SEPARATOR,
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END);
+                CSVWriter.DEFAULT_LINE_END)
         ) {
             // Write the labels into favourite.csv
             favouriteWriter.writeNext(favouritesCSVheader);
@@ -105,7 +105,7 @@ public class FavouriteDataLoader
                 CSVWriter.DEFAULT_SEPARATOR,
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END);
+                CSVWriter.DEFAULT_LINE_END)
         ) {
             // Write the labels into favourite.csv
             favouriteWriter.writeNext(favouritesCSVheader);
