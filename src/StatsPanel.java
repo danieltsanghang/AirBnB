@@ -95,8 +95,6 @@ public class StatsPanel extends Panel {
                 //Create new button for flipping the previous statistics label
                 Button backButton = new Button("<");
                 backButton.setPrefSize(30,120);
-
-
                 //Create new button for flipping the next statistics label
                 Button forwardButton = new Button(">");
                 forwardButton.setPrefSize(30,120);
@@ -313,7 +311,7 @@ public class StatsPanel extends Panel {
         double dLong = Math.toRadians(lon - longitudeOfCentre);
         double dLat = Math.toRadians(lat - latitudeOfCentre);
 
-        //Haversine Formula of calculating distance with longitudes and latitudes
+        // Haversine Formula of calculating distance with longitudes and latitudes
         double step1 = Math.sin(dLat / 2) * Math.sin(dLat / 2);
         double step2 = Math.cos(Math.toRadians(latitudeOfCentre)) * Math.cos(Math.toRadians(lat));
         double step3 = Math.sin(dLong / 2) * Math.sin(dLong / 2);
