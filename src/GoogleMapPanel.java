@@ -70,11 +70,11 @@ public class GoogleMapPanel
         while(i < streetViewURLs.size()){
             // Loading and storing the unique street view urls
             streetViewEngine.load(streetViewURLs.get(i));
-            Pane test = new Pane();
-            test.getChildren().addAll(streetView);
-            streetViewPanels.add(test);
+            streetViewPanels.add(new Pane(streetView));
             i++;
         }
+
+        System.out.println(streetViewPanels.size());
 
         // Making the background transparent
         WebPage webPage = Accessor.getPageFor(streetViewEngine);
@@ -90,8 +90,10 @@ public class GoogleMapPanel
 
         // Adding buttons into a hbox with the StreetView window
         HBox streetViewBox = new HBox();
-        streetViewBox.getChildren().addAll(backButton, streetView, forwardButton);
+        streetViewBox.getChildren().addAll(backButton, streetViewPanels.get(0), forwardButton);
 
-        return streetViewBox;
+        Pane test = streetViewPanels.get(0);
+
+        return test;
     }
 }
