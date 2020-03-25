@@ -10,12 +10,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.concurrent.*;
+import javafx.util.Duration;
 
 import java.io.File;
-
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ChangeListener;
-import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 
@@ -102,7 +99,7 @@ public class ApplicationWindow extends Application
 
                 //Update the Message with Statistics Panel
                 //Create and add a statistics panel in to the array list panels
-                updateMessage("Loading Stats Panel ...");
+                updateMessage("Loading Stats Panel  ...");
                 panels.add(new StatsPanel(master));
 
                 //Update the Message with User Panel
