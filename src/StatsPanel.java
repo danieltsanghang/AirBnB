@@ -83,11 +83,11 @@ public class StatsPanel extends Panel {
 
                 //Create a label for the first statistics in glip statistics
                 Label statName = new Label(flipStats.get(0));
-                statName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                statName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
                 //Create a label for
                 Label stat = new Label(flipStats.get(2));
-                stat.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                stat.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
 
                 //Create a new pane for
                 Pane spacer = new Pane();
@@ -106,7 +106,7 @@ public class StatsPanel extends Panel {
                 HBox hbox = new HBox(10);
                 hbox.setId("statBox");
                 hbox.getChildren().addAll(backButton, vbox, forwardButton);
-                vbox.setPrefSize(320,150);
+                vbox.setPrefSize(320,200);
                 gridPane.add(hbox, col, row);
             }
         }
@@ -249,7 +249,7 @@ public class StatsPanel extends Panel {
                 }
             }
         }
-        return "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + numberOfProperties;
+        return "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + "Number of properties: " + numberOfProperties;
     }
 
     /**
@@ -265,6 +265,7 @@ public class StatsPanel extends Panel {
             if (boroughToCompare > lBoroughToReturn) {
                 lBoroughToReturn = boroughToCompare;
                 sBoroughToReturn = borough.getName();
+                i = 0;
             } else if (boroughToCompare == lBoroughToReturn) {
                 sBoroughToReturn += ", " + borough.getName();
                 i++;
@@ -292,7 +293,7 @@ public class StatsPanel extends Panel {
             double currentDiff = Math.abs(currentRatio - 1);
             if (diff == 0 || diff > currentDiff) {
                 diff = currentDiff;
-                returnString = listing.getName() + "\nby: " + listing.getHost_name();
+                returnString = "Listing Title: " + listing.getName() + "\nListing ID: " + listing.getId() + "\nHost Name: " + listing.getHost_name() + "\nHost ID: " + listing.getHost_id();
             }
         }
         return returnString;
