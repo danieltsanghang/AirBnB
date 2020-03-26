@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ public abstract class Panel extends Pane {
     // List of favourites
     protected ArrayList<String> favouriteID;
 
-    public Panel(ArrayList<AirbnbListing> loadedListings) throws IOException {
+    public Panel(ArrayList<AirbnbListing> loadedListings) throws IOException, URISyntaxException {
         // Create new CSV loaders
         BoroughDataLoader boroughLoader = new BoroughDataLoader();
 

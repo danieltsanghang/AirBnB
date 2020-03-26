@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class ApplicationWindow extends Application
@@ -53,9 +54,19 @@ public class ApplicationWindow extends Application
     //Create an integer that counts which panels in the array list to be displayed
     private int count = 0;
     // Create a Favourite Data Loader
-    private static FavouriteDataLoader favouriteDataLoader = new FavouriteDataLoader();
+    private static FavouriteDataLoader favouriteDataLoader;
 
-    public ApplicationWindow() throws IOException {
+    static {
+        try {
+            favouriteDataLoader = new FavouriteDataLoader();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ApplicationWindow() throws IOException, URISyntaxException {
     }
 
     @Override
@@ -86,7 +97,7 @@ public class ApplicationWindow extends Application
     public void start(final Stage initStage) throws FileNotFoundException {
         Task<ArrayList<Panel>> createPanels = new Task<>() {
             @Override
-            protected ArrayList<Panel> call() throws InterruptedException, IOException {
+            protected ArrayList<Panel> call() throws InterruptedException, IOException, URISyntaxException {
                 AirbnbDataLoader dataLoader = new AirbnbDataLoader();
                 ArrayList<AirbnbListing> master = dataLoader.load();
                 //Create an array list panels to store all the panels

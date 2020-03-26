@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class WelcomePanel extends Panel
@@ -13,7 +14,7 @@ public class WelcomePanel extends Panel
     private Image image;
     private ImageView imageView;
 
-    public WelcomePanel() throws IOException {
+    public WelcomePanel() throws IOException, URISyntaxException {
         super(null);
         //Loads the welcome screen based on the provided URL
         //Converts File to ImageView using Image

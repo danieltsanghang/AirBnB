@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -14,15 +11,24 @@ public class FavouriteDataLoader
     // The first row (labels) in favourite.csv
     private static final String[] favouritesCSVheader = {"Listing ID"};
 
+    // URL for csv
+    private URL url;
+    // CSV reader
+    private CSVReader reader;
+
     // A HashMap username and its matching list of favourite listings in pairs
     private ArrayList<String> favouriteID;
     private ArrayList<AirbnbListing> favouriteListings;
 
-    public FavouriteDataLoader()
-    {
+    // Checker to prevent double loads
+    private boolean loaded;
+
+    public FavouriteDataLoader() throws URISyntaxException, FileNotFoundException {
         favouriteID = new ArrayList<>();
         loadFavourites();
         favouriteListings = new ArrayList<>();
+        url = getClass().getResource("favourites.csv");
+        reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
     }
 
     /**
@@ -31,16 +37,16 @@ public class FavouriteDataLoader
      */
     public ArrayList<String> loadFavourites()
     {
-        try{
-            URL url = getClass().getResource("favourites.csv");
-            CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
-            String [] line;
+        favouriteID.clear();
+        try {
+            String[] line;
             //skip the first row (column headers)
             reader.readNext();
             while ((line = reader.readNext()) != null) {
+                System.out.println("FUCK YOU");
                 favouriteID.add(line[0]);
             }
-        } catch(IOException | URISyntaxException e){
+        } catch (IOException e) {
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
@@ -52,6 +58,13 @@ public class FavouriteDataLoader
      */
     public ArrayList<AirbnbListing> getFavourites(ArrayList<AirbnbListing> listings) {
         favouriteListings.clear();
+        favouriteID = loadFavourites();
+
+        for (String id : favouriteID) {
+            System.out.print(id + " ");
+        }
+        System.out.println("");
+
         for (AirbnbListing listing : listings) {
             for (String id : favouriteID) {
                 if (listing.getId().equals(id)) {
@@ -87,6 +100,12 @@ public class FavouriteDataLoader
                 favouriteWriter.writeNext(line);
             }
         }
+
+        ArrayList<String> temp = loadFavourites();
+        for (String toPrint : temp) {
+            System.out.print(toPrint + " ");
+        }
+        System.out.println("add debug, fuck you");
     }
 
     /**
@@ -118,5 +137,11 @@ public class FavouriteDataLoader
                 }
             }
         }
+
+        ArrayList<String> temp = loadFavourites();
+        for (String toPrint : temp) {
+            System.out.print(toPrint + " ");
+        }
+        System.out.println("remove debug, fuck you");
     }
 }
