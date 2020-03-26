@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 import javafx.geometry.Insets;
@@ -24,7 +23,7 @@ public class StatsPanel extends Panel {
     private Iterator<AirbnbListing> airbnbIT;
     private Iterator<AirbnbListing> ownerIT;
 
-    public StatsPanel(ArrayList<AirbnbListing> loadedListings) throws IOException, URISyntaxException {
+    public StatsPanel(ArrayList<AirbnbListing> loadedListings) throws IOException {
         super(loadedListings);
     }
 

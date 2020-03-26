@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -15,7 +14,8 @@ public class MapPanel extends Panel
     // Horizontal shift factor the circles
     private double hShift;
 
-    public MapPanel(ArrayList<AirbnbListing> loadedListings) throws IOException, URISyntaxException {
+    public MapPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
+    {
         super(loadedListings);
         // Define scaling and shifting values
         scale = 0.55;

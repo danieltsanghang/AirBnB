@@ -10,14 +10,16 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.concurrent.*;
-import javafx.util.Duration;
 
 import java.io.File;
+
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
+import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class ApplicationWindow extends Application
@@ -54,19 +56,9 @@ public class ApplicationWindow extends Application
     //Create an integer that counts which panels in the array list to be displayed
     private int count = 0;
     // Create a Favourite Data Loader
-    private static FavouriteDataLoader favouriteDataLoader;
+    private static FavouriteDataLoader favouriteDataLoader = new FavouriteDataLoader();
 
-    static {
-        try {
-            favouriteDataLoader = new FavouriteDataLoader();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ApplicationWindow() throws IOException, URISyntaxException {
+    public ApplicationWindow() throws IOException {
     }
 
     @Override
@@ -97,7 +89,7 @@ public class ApplicationWindow extends Application
     public void start(final Stage initStage) throws FileNotFoundException {
         Task<ArrayList<Panel>> createPanels = new Task<>() {
             @Override
-            protected ArrayList<Panel> call() throws InterruptedException, IOException, URISyntaxException {
+            protected ArrayList<Panel> call() throws InterruptedException, IOException {
                 AirbnbDataLoader dataLoader = new AirbnbDataLoader();
                 ArrayList<AirbnbListing> master = dataLoader.load();
                 //Create an array list panels to store all the panels
@@ -110,7 +102,7 @@ public class ApplicationWindow extends Application
 
                 //Update the Message with Statistics Panel
                 //Create and add a statistics panel in to the array list panels
-                updateMessage("Loading Stats Panel  ...");
+                updateMessage("Loading Stats Panel ...");
                 panels.add(new StatsPanel(master));
 
                 //Update the Message with User Panel

@@ -1,10 +1,12 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class UserPanel extends Panel
@@ -12,7 +14,8 @@ public class UserPanel extends Panel
     //Create a boolean to check Whether the selected property is favourite
     private boolean favSelected = true;
 
-    public UserPanel(ArrayList<AirbnbListing> loadedListings) throws IOException, URISyntaxException {
+    public UserPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
+    {
         super(loadedListings);
     }
 
@@ -44,7 +47,6 @@ public class UserPanel extends Panel
         Button refresh = new Button("Refresh");
         refresh.setOnAction(e -> {
             displayPane.setContent(updateFavDisplay(""));
-            System.out.println("refresh");
         });
 
         //Create button for favourite selection
@@ -90,12 +92,13 @@ public class UserPanel extends Panel
         VBox content = new VBox();
         //Create an array list that stores the sorted listing
         ArrayList<AirbnbListing> sortedListings;
-        //Create a position to check
+        //Create a position to chec
         int position = 0;
 
         if (favSelected) {
             sortedListings = favouritesLoader.getFavourites(listings);
         }
+
         else {
             sortedListings = listings;
         }
