@@ -41,13 +41,13 @@ public class PropertyWindow {
 
     public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
 
-        //Loads the filled heeart image based on the provided URL
+        //Loads the filled heart image based on the provided URL
         //Converts File to ImageView using Image
         File filledHeartFile = new File ("icons/filledHeart.png");
         Image filledHeartImage = new Image(filledHeartFile.toURI().toString());
         filledHeart = new ImageView(filledHeartImage);
 
-        //Loads the empty heeart image based on the provided URL
+        //Loads the empty heart image based on the provided URL
         //Converts File to ImageView using Image
         File emptyHeartFile = new File ("icons/emptyHeart.png");
         Image emptyHeartImage = new Image(emptyHeartFile.toURI().toString());

@@ -120,10 +120,10 @@ public class StatsPanel extends Panel {
     }
 
     /**
-     * @param flipStats for
-     * @param statName
-     * @param stat
-     * @param b
+     * @param flipStats for the list of strings which are basically content to be displayed on the label
+     * @param statName for the name of the statistics label
+     * @param stat for the statistics label to be displayed
+     * @param b for setting the backward/forward button
      */
     private void navButton(ArrayList<String> flipStats, Label statName, Label stat, Button b) {
         b.setOnMouseClicked(e -> {
