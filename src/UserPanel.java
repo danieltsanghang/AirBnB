@@ -1,5 +1,7 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
@@ -34,7 +36,10 @@ public class UserPanel extends Panel
 
         //Create a new text field for searching
         TextField search = new TextField();
-
+        search.setPromptText("Search for property name..");
+        search.setId("searchField");
+        search.setMaxWidth(500);
+        search.setMinWidth(500);
         //Search
         search.textProperty().addListener((observableValue, s, t1) -> {
             if (t1 != null) {
@@ -68,18 +73,16 @@ public class UserPanel extends Panel
         //Create Hbox for top bar
         //Add search and refresh buttons into the top bar
         HBox topBar = new HBox();
-        topBar.getChildren().addAll(search, refresh);
-
-        //Create Hbox for button bar
-        //Add favourtie selected and allselected button into the button box
-        HBox buttonHBox = new HBox();
-        buttonHBox.getChildren().addAll(favouriteSelect, allSelect);
+        topBar.getChildren().addAll(search, refresh, favouriteSelect, allSelect);
+        topBar.setId("userTop");
 
         //Create Vbox for return pane
         //Add the top bar, button box and display pane into the return pane
         VBox returnPane = new VBox();
-        returnPane.getChildren().addAll(topBar, buttonHBox, displayPane);
-        returnPane.getStyleClass().add("userPanelVBox");
+        returnPane.setSpacing(3);
+        returnPane.getChildren().addAll(topBar, displayPane);
+        returnPane.setId("user");
+        returnPane.getStylesheets().add("darkMode.css");
         //return the return pane
         return returnPane;
     }
@@ -91,9 +94,11 @@ public class UserPanel extends Panel
     {
         //Create a Vbox for storing the content
         VBox content = new VBox();
+        content.setAlignment(Pos.TOP_CENTER);
+        content.setSpacing(20);
         //Create an array list that stores the sorted listing
         ArrayList<AirbnbListing> sortedListings;
-        //Create a position to chec
+        //Create a position to check
         int position = 0;
 
         if (favSelected) {
@@ -117,24 +122,28 @@ public class UserPanel extends Panel
 
                 //Create a button viewButton to view tha marked favourites
                 Button viewButton = new Button("View");
-
+                viewButton.setMinWidth(50);
+                viewButton.setMaxWidth(50);
+                viewButton.setAlignment(Pos.CENTER);
                 //Set the subsequent acts when the view button is clicked
                 viewButton.setOnAction(e -> {
                     ApplicationWindow.triggerPropertyWindow(listing, finalSortedListings, finalPos);
                 });
-
-                //Create a gridpane that stores the name, id and the view button of the property
+                //Create a borderPane that stores the grid and button
+                BorderPane alignBox = new BorderPane();
+                alignBox.setMinWidth(450);
+                alignBox.setMaxWidth(450);
+                alignBox.setId("statBox");
+                //Create a gridpane that stores the name and id
                 GridPane grid = new GridPane();
                 grid.add(new Label("Name: "), 0, 0);
-                grid.add(new Label("ID"), 0, 1);
-                grid.add(new Label("Click to View: "), 0, 2);
+                grid.add(new Label("ID: "), 0, 1);
                 grid.add(new Label(listing.getName()),1, 0);
                 grid.add(new Label(listing.getId()),1, 1);
-                grid.add(viewButton, 1, 2);
-
-                grid.getStyleClass().add("userPanelGrid");
-                //Add the grid to the content pane
-                content.getChildren().add(grid);
+                grid.getStylesheets().add("styles.css");
+                alignBox.setLeft(grid);
+                alignBox.setRight(viewButton);
+                content.getChildren().add(alignBox);
 
                 if (position > 100) {
                     //return the content pane if position is larger than one hundred

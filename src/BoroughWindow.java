@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.geometry.Insets;
@@ -9,8 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 
 public class BoroughWindow{
 
@@ -66,7 +64,7 @@ public class BoroughWindow{
 
         //Create a label which is the title of the price box and add it to the price box
         Label price_title = new Label();
-        price_title.setText("Price per night ($)");
+        price_title.setText("Price per night (£)");
         priceBox.getChildren().add(price_title);
 
         //Create a label which is the title of the minimum number of days to stay box and add it to its  box
