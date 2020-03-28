@@ -79,6 +79,7 @@ public class UserPanel extends Panel
         //Add the top bar, button box and display pane into the return pane
         VBox returnPane = new VBox();
         returnPane.getChildren().addAll(topBar, buttonHBox, displayPane);
+        returnPane.getStyleClass().add("userPanelVBox");
         //return the return pane
         return returnPane;
     }
@@ -131,7 +132,7 @@ public class UserPanel extends Panel
                 grid.add(new Label(listing.getId()),1, 1);
                 grid.add(viewButton, 1, 2);
 
-                grid.getStyleClass().add("style.css");
+                grid.getStyleClass().add("userPanelGrid");
                 //Add the grid to the content pane
                 content.getChildren().add(grid);
 

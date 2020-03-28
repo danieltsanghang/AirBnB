@@ -97,7 +97,7 @@ public class MapPanel extends Panel
             mapPane.getChildren().add(stack);
         }
         // Add Stylesheet
-        mapPane.getStylesheets().add("darkMode.css");
+        mapPane.getStylesheets().add("styles.css");
         return mapPane;
     }
 }
