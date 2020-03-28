@@ -151,7 +151,7 @@ public class ApplicationWindow extends Application
                 // A valid minimum price is selected
                 isMinSelected = true;
 
-                if (maxPrice < minPrice) {
+                if (isMaxSelected && maxPrice < minPrice) {
                     Alert invalid = new Alert(Alert.AlertType.INFORMATION);
                     invalid.setTitle("Information Dialog");
                     invalid.setHeaderText("Look, an Information Dialog");
@@ -190,7 +190,7 @@ public class ApplicationWindow extends Application
                 // The maximum price is selected
                 isMaxSelected = true;
 
-                if (maxPrice < minPrice) {
+                if (isMaxSelected && maxPrice < minPrice) {
                     Alert invalid = new Alert(Alert.AlertType.INFORMATION);
                     invalid.setTitle("Information Dialog");
                     invalid.setHeaderText("Look, an Information Dialog");
