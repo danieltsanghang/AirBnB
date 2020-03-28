@@ -2,12 +2,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class FavouriteDataLoader
@@ -30,8 +27,9 @@ public class FavouriteDataLoader
     {
         favouriteID.clear();
         try{
-            URL url = getClass().getResource("favourites.csv");
-            reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
+            File file = new File("favourites.csv");
+            FileReader fileReader = new FileReader(file);
+            reader = new CSVReader(fileReader);
             String [] line;
             //skip the first row (column headers)
             reader.readNext();
@@ -39,14 +37,10 @@ public class FavouriteDataLoader
                 favouriteID.add(line[0]);
             }
             reader.close();
-        } catch(IOException | URISyntaxException e){
+        } catch(IOException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-        for (String id : favouriteID) {
-            System.out.print(id + " ");
-        }
-        System.out.println("get favourite executed");
         return favouriteID;
     }
 
@@ -59,10 +53,6 @@ public class FavouriteDataLoader
     {
         favouriteID.add(listingID);
         updateCSV(favouriteID);
-        for (String id : getFavourites()) {
-            System.out.print(id + " ");
-        }
-        System.out.println("debug after insertion");
     }
 
     /**
@@ -74,18 +64,18 @@ public class FavouriteDataLoader
     {
         favouriteID.remove(listingID);
         updateCSV(favouriteID);
-        for (String id : getFavourites()) {
-            System.out.print(id + " ");
-        }
-        System.out.println("debug after removal");
     }
 
+    /**
+     * Updates the csv with the updated list
+     * @param list updated list
+     */
     private void updateCSV(ArrayList<String> list) {
 
         String[] line = new String[1];
 
         try (CSVWriter favouriteWriter = new CSVWriter(
-                new FileWriter("src/favourites.csv"),
+                new FileWriter("favourites.csv"),
                 CSVWriter.DEFAULT_SEPARATOR,
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,

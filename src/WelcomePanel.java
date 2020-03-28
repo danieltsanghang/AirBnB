@@ -1,11 +1,9 @@
-import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class WelcomePanel extends Panel
 {
