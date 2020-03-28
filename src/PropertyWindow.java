@@ -5,9 +5,6 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Label;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
