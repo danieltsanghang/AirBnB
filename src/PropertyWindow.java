@@ -5,9 +5,6 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Label;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
@@ -93,7 +90,7 @@ public class PropertyWindow {
 
         //Set the subsequent acts when the right button is clicked
         right.setOnMouseClicked(e -> {
-            if (position != listings.size()) {
+            if (position != 24) {
                 //Increment the position by 1
                 position++;
                 //get the listing of the new position
@@ -193,7 +190,8 @@ public class PropertyWindow {
         //Set the top, center of the right panel
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-
+        right.setMaxWidth(300);
+        right.setMinWidth(300);
         pane.getChildren().addAll(gog.start(property.getLatitude(), property.getLongitude()), right);
 
 
