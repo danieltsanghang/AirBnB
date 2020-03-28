@@ -31,6 +31,7 @@ public class FavouriteDataLoader
      */
     public ArrayList<String> loadFavourites()
     {
+        favouriteID.clear();
         try{
             URL url = getClass().getResource("favourites.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -118,5 +119,9 @@ public class FavouriteDataLoader
                 }
             }
         }
+    }
+
+    private void updateCSV(ArrayList<String> list) {
+
     }
 }
