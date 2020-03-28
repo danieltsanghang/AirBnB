@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -15,51 +16,38 @@ public class FavouriteDataLoader
     private static final String[] favouritesCSVheader = {"Listing ID"};
 
     // A HashMap username and its matching list of favourite listings in pairs
-    private ArrayList<String> favouriteID;
-    private ArrayList<AirbnbListing> favouriteListings;
+    private ArrayList<String> favouriteID = new ArrayList<>();
 
-    public FavouriteDataLoader()
-    {
-        favouriteID = new ArrayList<>();
-        loadFavourites();
-        favouriteListings = new ArrayList<>();
-    }
+    private CSVReader reader;
+
+    public FavouriteDataLoader(){}
 
     /**
      * Reads favourites.csv and loads every favourited entry into an ArrayList
      * @return A filled ArrayList
      */
-    public ArrayList<String> loadFavourites()
+    public ArrayList<String> getFavourites()
     {
+        favouriteID.clear();
         try{
             URL url = getClass().getResource("favourites.csv");
-            CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
+            reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
             String [] line;
             //skip the first row (column headers)
             reader.readNext();
             while ((line = reader.readNext()) != null) {
                 favouriteID.add(line[0]);
             }
+            reader.close();
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-        return favouriteID;
-    }
-
-    /**
-     * @return An ArrayList of IDs that are favourites of the user
-     */
-    public ArrayList<AirbnbListing> getFavourites(ArrayList<AirbnbListing> listings) {
-        favouriteListings.clear();
-        for (AirbnbListing listing : listings) {
-            for (String id : favouriteID) {
-                if (listing.getId().equals(id)) {
-                    favouriteListings.add(listing);
-                }
-            }
+        for (String id : favouriteID) {
+            System.out.print(id + " ");
         }
-        return favouriteListings;
+        System.out.println("get favourite executed");
+        return favouriteID;
     }
 
     /**
@@ -67,26 +55,14 @@ public class FavouriteDataLoader
      * @param listingID The ID of the listing to be added
      * @throws IOException Unable to write into csv
      */
-    public void newFavourite(String listingID) throws IOException
+    public void newFavourite(String listingID)
     {
         favouriteID.add(listingID);
-
-        try (CSVWriter favouriteWriter = new CSVWriter(
-                new FileWriter("src/favourites.csv"),
-                CSVWriter.DEFAULT_SEPARATOR,
-                CSVWriter.NO_QUOTE_CHARACTER,
-                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END)
-        ) {
-            // Write the labels into favourite.csv
-            favouriteWriter.writeNext(favouritesCSVheader);
-            // Write the existing favourite id back into favourite.csv
-            for (String id : favouriteID) {
-                String[] line = new String[1];
-                line[0] = id;
-                favouriteWriter.writeNext(line);
-            }
+        updateCSV(favouriteID);
+        for (String id : getFavourites()) {
+            System.out.print(id + " ");
         }
+        System.out.println("debug after insertion");
     }
 
     /**
@@ -94,11 +70,19 @@ public class FavouriteDataLoader
      * @param listingID The ID of the listing to be removed
      * @throws IOException Unable to write into csv
      */
-    public void removeFavourite(String listingID) throws IOException
+    public void removeFavourite(String listingID)
     {
-        String[] line = new String[1];
-
         favouriteID.remove(listingID);
+        updateCSV(favouriteID);
+        for (String id : getFavourites()) {
+            System.out.print(id + " ");
+        }
+        System.out.println("debug after removal");
+    }
+
+    private void updateCSV(ArrayList<String> list) {
+
+        String[] line = new String[1];
 
         try (CSVWriter favouriteWriter = new CSVWriter(
                 new FileWriter("src/favourites.csv"),
@@ -110,13 +94,12 @@ public class FavouriteDataLoader
             // Write the labels into favourite.csv
             favouriteWriter.writeNext(favouritesCSVheader);
             // Write the existing favourite id back into favourite.csv
-            for (String id : favouriteID) {
+            for (String id : list) {
                 line[0] = id;
-                // Write only if id does not match
-                if (!id.equals(listingID)) {
-                    favouriteWriter.writeNext(line);
-                }
+                favouriteWriter.writeNext(line);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

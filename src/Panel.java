@@ -5,15 +5,10 @@ import java.util.HashMap;
 import javafx.scene.layout.*;
 
 public abstract class Panel extends Pane {
-    // CSV loader of favourite data
-    protected FavouriteDataLoader favouritesLoader = new FavouriteDataLoader();
-
     // Full list of Airbnb listings in the CSV file
     protected ArrayList<AirbnbListing> listings;
     // Full list of boroughs in London
     protected ArrayList<Borough> boroughs;
-    // List of favourites
-    protected ArrayList<String> favouriteID;
 
     public Panel(ArrayList<AirbnbListing> loadedListings) throws IOException {
         // Create new CSV loaders
@@ -22,7 +17,6 @@ public abstract class Panel extends Pane {
         // Load data into the lists created above.
         listings = loadedListings;
         boroughs = boroughLoader.load();
-        favouriteID = favouritesLoader.loadFavourites();
 
         loadListingsIntoBorough();
     }

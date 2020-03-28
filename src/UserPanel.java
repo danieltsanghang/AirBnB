@@ -97,14 +97,22 @@ public class UserPanel extends Panel
         content.setAlignment(Pos.TOP_CENTER);
         content.setSpacing(20);
         //Create an array list that stores the sorted listing
-        ArrayList<AirbnbListing> sortedListings;
+        ArrayList<AirbnbListing> sortedListings = new ArrayList<>();
         //Create a position to check
         int position = 0;
 
         if (favSelected) {
-            sortedListings = favouritesLoader.getFavourites(listings);
+            FavouriteDataLoader favLoader = new FavouriteDataLoader();
+            ArrayList<String> idList = favLoader.getFavourites();
+            System.out.println("from updateFavDisplay : user panel");
+            for (AirbnbListing listing : listings) {
+                for (String id : idList) {
+                    if (id.equals(listing.getId())) {
+                        sortedListings.add(listing);
+                    }
+                }
+            }
         }
-
         else {
             sortedListings = listings;
         }

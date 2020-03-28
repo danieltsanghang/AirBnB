@@ -32,7 +32,6 @@ public class BoroughDataLoader {
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-        System.out.println("borough loader working");
         return boroughs;
     }
 }
