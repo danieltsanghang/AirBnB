@@ -1,6 +1,3 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -8,7 +5,6 @@ import javafx.scene.layout.*;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class UserPanel extends Panel
@@ -104,7 +100,6 @@ public class UserPanel extends Panel
         if (favSelected) {
             FavouriteDataLoader favLoader = new FavouriteDataLoader();
             ArrayList<String> idList = favLoader.getFavourites();
-            System.out.println("from updateFavDisplay : user panel");
             for (AirbnbListing listing : listings) {
                 for (String id : idList) {
                     if (id.equals(listing.getId())) {

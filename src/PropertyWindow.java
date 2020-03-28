@@ -4,7 +4,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.control.Label;
 import java.io.File;
-import java.io.IOException;
 
 import java.util.ArrayList;
 
@@ -106,7 +105,6 @@ public class PropertyWindow {
         favBtn.setGraphic(emptyHeart);
 
         ArrayList<String> favID = favouriteDataLoader.getFavourites();
-        System.out.println("from checkIsFav : prop");
         //Check whether the listing is marked by the user as favourite
         for (String id : favID) {
             if (id.equals(property.getId())) {
