@@ -366,7 +366,7 @@ public class ApplicationWindow extends Application
         propertyWindowStage.setTitle("");
 
         propertyWindowStage.setScene(scene);
-
+        propertyWindowStage.setResizable(false);
         //Set the height and width of the stage which cannot be resized later
         propertyWindowStage.setMinHeight(propertyWindow.getPane().getMinHeight());
         propertyWindowStage.setMinWidth(propertyWindow.getPane().getMinWidth());

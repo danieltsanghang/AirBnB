@@ -93,7 +93,7 @@ public class PropertyWindow {
 
         //Set the subsequent acts when the right button is clicked
         right.setOnMouseClicked(e -> {
-            if (position != listings.size()) {
+            if (position != 24) {
                 //Increment the position by 1
                 position++;
                 //get the listing of the new position
@@ -193,7 +193,8 @@ public class PropertyWindow {
         //Set the top, center of the right panel
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-
+        right.setMaxWidth(300);
+        right.setMinWidth(300);
         pane.getChildren().addAll(gog.start(property.getLatitude(), property.getLongitude()), right);
 
 
