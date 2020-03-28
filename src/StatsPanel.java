@@ -150,7 +150,9 @@ public class StatsPanel extends Panel {
         for (AirbnbListing listing : listings) {
             number += listing.getNumberOfReviews();
         }
-        return (number / listings.size()) + "";
+        String toReturn = "";
+        toReturn = (number / listings.size()) + " reviews";
+        return toReturn;
     }
 
     /**
@@ -163,7 +165,9 @@ public class StatsPanel extends Panel {
                 number++;
             }
         }
-        return number + "";
+        String toReturn;
+        toReturn = number + " available properties in London";
+        return toReturn;
     }
 
     /**
@@ -176,7 +180,9 @@ public class StatsPanel extends Panel {
                 number++;
             }
         }
-        return number + "";
+        String toReturn;
+        toReturn = number + " entire homes/apartments";
+        return toReturn;
     }
 
     /**
@@ -284,7 +290,7 @@ public class StatsPanel extends Panel {
         } else{
             toReturn = ("Borough Names: " + sBoroughToReturn);
         }
-        toReturn += "\n" + "\n" + "\n";
+        toReturn += "\n" + "\n" + "\n" + "\n" + "\n";
         return toReturn;
     }
 
