@@ -83,11 +83,11 @@ public class StatsPanel extends Panel {
 
                 //Create a label for the first statistics in glip statistics
                 Label statName = new Label(flipStats.get(0));
-                statName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                statName.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
                 //Create a label for
                 Label stat = new Label(flipStats.get(2));
-                stat.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+                stat.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
 
                 //Create a new pane for
                 Pane spacer = new Pane();
@@ -222,8 +222,12 @@ public class StatsPanel extends Panel {
         String toReturn = ("Listing Title: " + mostExpensiveListing.getName() + "\n");
         toReturn += ("Listing ID: " + mostExpensiveListing.getId() + "\n");
         toReturn += ("Host ID: " + mostExpensiveListing.getHost_id() + "\n");
-        toReturn += ("Price: " + mostExpensiveListing.getPrice() + "/night" + "\n");
-        toReturn += ("Minimum nights: " + mostExpensiveListing.getMinimumNights() + "\n");
+        toReturn += ("Price: £" + mostExpensiveListing.getPrice() + "/night" + "\n");
+        if(mostExpensiveListing.getMinimumNights() == 1){
+            toReturn += ("Minimum nights: " + mostExpensiveListing.getMinimumNights() + " night");
+        } else {
+            toReturn += ("Minimum nights: " + mostExpensiveListing.getMinimumNights() + " nights");
+        }
         return toReturn;
     }
 
@@ -235,6 +239,7 @@ public class StatsPanel extends Panel {
         long numberOfProperties = 0;
         String ownerName = "Homer Simpson";
         String ownerID = "123456789";
+        String toReturn = "";
         AirbnbListing currentListing;
         while (ownerIT.hasNext()) {
             currentListing = ownerIT.next();
@@ -249,7 +254,8 @@ public class StatsPanel extends Panel {
                 }
             }
         }
-        return "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + "Number of properties: " + numberOfProperties;
+        toReturn = "Host Name: " + ownerName + "\n" + "Host ID: " + ownerID + "\n" + "Number of properties: " + numberOfProperties + "\n" + "\n";
+        return toReturn;
     }
 
     /**
@@ -278,6 +284,7 @@ public class StatsPanel extends Panel {
         } else{
             toReturn = ("Borough Names: " + sBoroughToReturn);
         }
+        toReturn += "\n" + "\n" + "\n";
         return toReturn;
     }
 
