@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 
 public abstract class Panel extends Pane {
     // CSV loader of favourite data
-    protected FavouriteDataLoader favouritesLoader= new FavouriteDataLoader();
+    protected FavouriteDataLoader favouritesLoader = new FavouriteDataLoader();
 
     // Full list of Airbnb listings in the CSV file
     protected ArrayList<AirbnbListing> listings;
