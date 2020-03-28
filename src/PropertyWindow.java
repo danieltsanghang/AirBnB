@@ -5,57 +5,64 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Label;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 
 public class PropertyWindow {
 
-    private Button left;
-    private Button right;
+    //Create two buttons that allow user to look through different properties in this window
+    private Button left = new Button("Left");
+    private Button right = new Button("Right");
 
-    private BorderPane navigation;
-    private BorderPane popUpPane;
+    //Creat two border pane navigation and popUpPane
+    private BorderPane navigationPane = new BorderPane();
+    private BorderPane popUpPane = new BorderPane();
 
-    private AirbnbListing property;
+    private AirbnbListing property ;
 
+    //Create an array list listings that store all  the airbnb listings
     private ArrayList<AirbnbListing> listings;
 
+    //Create a favourite data loader for loading and returning favourites selected by the user
     private FavouriteDataLoader favouriteDataLoader;
 
     private int position;
 
+    //Create two imageviews filled heart and empty heart for identifying whether the property is selected as favourite
     private ImageView filledHeart;
     private ImageView emptyHeart;
-    private Button favBtn;
+
+    //Create a button favBtn for the user to mark the property as favourite by the user
+    private Button favBtn = new Button();
     private boolean isFav;
 
     public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
 
+        //Loads the filled heart image based on the provided URL
+        //Converts File to ImageView using Image
         File filledHeartFile = new File ("icons/filledHeart.png");
         Image filledHeartImage = new Image(filledHeartFile.toURI().toString());
         filledHeart = new ImageView(filledHeartImage);
 
+        //Loads the empty heart image based on the provided URL
+        //Converts File to ImageView using Image
         File emptyHeartFile = new File ("icons/emptyHeart.png");
         Image emptyHeartImage = new Image(emptyHeartFile.toURI().toString());
         emptyHeart = new ImageView(emptyHeartImage);
 
-        left = new Button("Left");
-        right = new Button("Right");
+        //Set the left side of the navigation pane with the button left
+        navigationPane.setLeft(left);
+        //Set the right side of the navigation pane with the button left
+        navigationPane.setRight(right);
 
-        navigation = new BorderPane();
-        navigation.setLeft(left);
-        navigation.setRight(right);
-
-        popUpPane = new BorderPane();
         this.property = property;
         this.listings = list;
         this.position = pos;
 
-        favBtn = new Button();
+        //Set the maximum height of the favourite button
         favBtn.setMaxHeight(40);
+
+        //Set the favourite button as empty heart and set it as not favourite for now
         favBtn.setGraphic(emptyHeart);
         isFav = false;
 
@@ -66,20 +73,29 @@ public class PropertyWindow {
 
     private void buildWindow() {
         Pane content = loadContent(property);
-        popUpPane.setBottom(navigation);
+        popUpPane.setBottom(navigationPane);
         popUpPane.setCenter(content);
+
+        //Set the subsequent acts when the left button is clicked
         left.setOnMouseClicked(e -> {
             if (position != 0) {
+                //Decrement the position by 1
                 position--;
+                //get the listing of the new position
                 property = listings.get(position);
+                //set the new property as the pop up pane content
                 popUpPane.setCenter(loadContent(property));
             }
         });
 
+        //Set the subsequent acts when the right button is clicked
         right.setOnMouseClicked(e -> {
-            if (position != listings.size()) {
+            if (position != 24) {
+                //Increment the position by 1
                 position++;
+                //get the listing of the new position
                 property = listings.get(position);
+                //set the new property as the pop up pane content
                 popUpPane.setCenter(loadContent(property));
             }
         });
@@ -87,26 +103,44 @@ public class PropertyWindow {
         popUpPane.setMinSize(500, 300);
     }
 
+    /**
+     * @param property for checking whether the property is favourite
+     */
     private void checkIsFavourite(AirbnbListing property) {
         isFav = false;
+        //Set the favourite button as empty heart
         favBtn.setGraphic(emptyHeart);
+
+        //Check whether the listing is marked by the user as favourite
         for (AirbnbListing listing : favouriteDataLoader.getFavourites(listings)) {
             if (listing.getId().equals(property.getId())) {
                 isFav = true;
+                break;
             }
         }
+
+        //if it is favourite, set the favourite button as filled heart
         if (isFav) {
             favBtn.setGraphic(filledHeart);
         }
     }
 
+    /**
+     * @param property for later filtering
+     * @return pane
+     */
     private Pane loadContent(AirbnbListing property) {
 
+        //Create a HBox
         HBox pane = new HBox();
+        //Create a border pane
         BorderPane right = new BorderPane();
+        //Create a content Grid
         GridPane contentGrid = new GridPane();
+        //Create a googleMapPanel
         GoogleMapPanel gog = new GoogleMapPanel();
 
+        //Set the subsequent acts when the favourite button is clicked
         favBtn.setOnAction(e -> {
             if (!isFav) {
                 try {
@@ -114,18 +148,23 @@ public class PropertyWindow {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                //Set the favourite button with filled heart
                 favBtn.setGraphic(filledHeart);
-            } else {
+            }
+            else {
                 try {
                     favouriteDataLoader.removeFavourite(property.getId());
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                //Set the favourite button with filled heart
                 favBtn.setGraphic(emptyHeart);
             }
+            //Reverse whether the property is favourite
             isFav = !isFav;
         });
 
+        //Add labels and corresponding values of the property's attributes
         contentGrid.getStyleClass().add("contentGrid");
         contentGrid.add(new Label("Host Name:"), 0, 0);
         contentGrid.add(new Label(property.getHost_name()), 1, 0);
@@ -151,14 +190,18 @@ public class PropertyWindow {
         //Set the top, center of the right panel
         right.setTop(favBtn);
         right.setCenter(contentGrid);
-
+        right.setMaxWidth(300);
+        right.setMinWidth(300);
         pane.getChildren().addAll(gog.start(property.getLatitude(), property.getLongitude()), right);
+
 
         return pane;
     }
 
+    /**
+     * @return popUpPane
+     */
     public Pane getPane() {
         return popUpPane;
     }
 }
-

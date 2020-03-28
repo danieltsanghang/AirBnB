@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.geometry.Insets;
@@ -9,8 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 
 public class BoroughWindow{
 
@@ -66,7 +64,7 @@ public class BoroughWindow{
 
         //Create a label which is the title of the price box and add it to the price box
         Label price_title = new Label();
-        price_title.setText("Price per night ($)");
+        price_title.setText("Price per night (£)");
         priceBox.getChildren().add(price_title);
 
         //Create a label which is the title of the minimum number of days to stay box and add it to its  box
@@ -84,12 +82,12 @@ public class BoroughWindow{
         launchLabel.setText("Click to learn more");
         propertyLaunch.getChildren().add(launchLabel);
 
-        //
+        //Set the id of the objects for later csv editing
         hostBox.setId("boroughBox");    priceBox.setId("boroughBox");
         minStayBox.setId("boroughBox"); reviewsBox.setId("boroughBox");
         propertyLaunch.setId("boroughBox");
 
-        //
+        //Set the padding and alignment of the objects displayed
         content.setPadding(new Insets(0,0,1,20));
         content.setAlignment(Pos.CENTER);       hostBox.setAlignment(Pos.CENTER);
         reviewsBox.setAlignment(Pos.CENTER);    priceBox.setAlignment(Pos.CENTER);
@@ -111,23 +109,21 @@ public class BoroughWindow{
         sortBox.getItems().addAll(sortBy);
 
         //Subsequent actions to be made when a sorting method is chosen on sort box by the user
-        sortBox.valueProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue ov, String t, String t1) {
-                if (t1 != null) {
-                    for (String sortBy : sortBy){
-                        if (t1.equals(sortBy)) {
-                            //Sort the listings correspondingly to the assigned method
-                            Collections.sort(sortedListings, sorter.getSoringMethod(sortBy));
-                            //Refresh the Vbox after the selection
-                            refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
-                            //Convert the sorted listings into pages
-                            toPages(sortedListings);
-                            //Convert the first pages into smaller boxes
-                            loadBoxes(pages.get(0));
-                            position = 0;
-                            //Set the text of the page mark
-                            pageNumber.setText("Page 1 of " + pages.size());
-                        }
+        sortBox.valueProperty().addListener((ov, oldTerm, newTerm) -> {
+            if (newTerm != null) {
+                for (String sortBy : sortBy){
+                    if (newTerm.equals(sortBy)) {
+                        //Sort the listings correspondingly to the assigned method
+                        sortedListings.sort(sorter.getSoringMethod(sortBy));
+                        //Refresh the Vbox after the selection
+                        refreshVBox(hostBox,priceBox,minStayBox,reviewsBox,propertyLaunch);
+                        //Convert the sorted listings into pages
+                        toPages(sortedListings);
+                        //Convert the first pages into smaller boxes
+                        loadBoxes(pages.get(0));
+                        position = 0;
+                        //Set the text of the page mark
+                        pageNumber.setText("Page 1 of " + pages.size());
                     }
                 }
             }
@@ -199,13 +195,12 @@ public class BoroughWindow{
      */
     private  void toPages (ArrayList<AirbnbListing> sortedListings)   {
         pages.clear();
-        ArrayList<AirbnbListing> currentList = new ArrayList<>();
-        currentList.addAll(sortedListings);
+        ArrayList<AirbnbListing> currentList = new ArrayList<>(sortedListings);
         int pageNumber = (int) Math.ceil(currentList.size() / 25.0);
         for (;pageNumber > 0;pageNumber--) {
             ArrayList<AirbnbListing> page = new ArrayList<>();
             for (int i = 0; i < 25; i++) {
-                if(!currentList.isEmpty() && currentList.size() >= 1) {
+                if(!currentList.isEmpty()) {
                     page.add(currentList.get(0));
                     currentList.remove(0);
                 }

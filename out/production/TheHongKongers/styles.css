@@ -1,65 +1,198 @@
+/* Splash Screen Styling*/
 .overlayPane {
     -fx-alignment: bottom-center;
     -fx-padding: 10;
     -fx-spacing: 60;
 }
 
-.loginVBox {
-    -fx-alignment: bottom-center;
-    -fx-padding: 10;
-    -fx-spacing: 20;
+/* progress circle in splash screen */
+.progress-indicator {
+    -fx-progress-color: white;
 }
 
-.inputBox {
-    -fx-max-width: 300;
+/* white texts */
+.whiteText {
+    -fx-text-fill: white;
 }
 
-.loginSpacing {
-    -fx-max-height: 70;
-    -fx-min-height: 70;
+.createAccountGrid .label {
+    -fx-text-fill: white;
 }
 
-.createAccountGrid {
+/*comboBox skin*/
+.combo-box  {
+    -fx-background-color: #434343;
+}
+.combo-box:hover    {
+    -fx-background-color: #4d4d4d;
+}
+/*comboBox bg*/
+.combo-box  .list-cell {
+    -fx-background-color: #595959;
+    -fx-text-fill: white;
+}
+
+/*comboBox and scrollPane scroll bars bg*/
+.scroll-bar  {
+    -fx-background-color: #595959;
+}
+/*comboBox and scrollPane scroll bars THUMBS*/
+.scroll-bar .thumb {
+    -fx-background-color : #454545;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+/*comboBox and scrollPane scroll bars THUMBS over effects*/
+.scroll-bar .thumb:hover {
+    -fx-background-color : #636363;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+
+.scroll-bar .increment-button   {
+    -fx-background-color: #454545;
+
+}
+.scroll-bar .increment-button:hover   {
+    -fx-background-color: #636363;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 0em;
+}
+.scroll-bar .decrement-button   {
+    -fx-background-color: #454545;
+}
+.scroll-bar .decrement-button:hover   {
+    -fx-background-color: #636363;
+}
+/*all buttons*/
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: #595959;
+    /*-fx-padding: 7,7,7,7; doesnt work */
+}
+.button:hover   {
+    -fx-background-color: #636363;
+}
+
+.cell {
+    -fx-max-height: 30;
+    -fx-min-height: 30;
+}
+
+.cell .label {
+    -fx-text-fill: white;
+}
+
+.boroughWindow {
     -fx-alignment: center;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
 }
 
-.profileHBox {
+.contentGrid .label {
+    -fx-text-fill: white;
+}
+
+/*main window top and bot*/
+BorderPane > HBox    {
+    -fx-background-color: #272727;
+    -fx-alignment: Center_right;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 10;
+}
+
+#navBarMain {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 710;
+    /*-fx-effect: innershadow(gaussian, #3b3b3b,4,0.1,0,2);*/
+}
+#navBarBorough {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 240;
+}
+#navBarProperty {
+    -fx-background-color: #272727;
+    -fx-alignment: Center;
+    -fx-padding: 7,7,7,7;
+    -fx-spacing: 410;
+}
+
+/*main window top and bot Labels*/
+BorderPane > HBox > Label {
+    -fx-text-fill: white;
+}
+/*bg color across the board*/
+BorderPane  {
+    -fx-background-color: #404040;
+}
+
+/*for statPanel Labels*/
+BorderPane > BorderPane > GridPane > VBox > Label   {
+    -fx-text-fill: white;
+}
+/*stat panel blocks bg*/
+BorderPane > BorderPane > GridPane > VBox   {
+    -fx-background-color: #272727;
+}
+/*stat panel bg*/
+#statBox  > VBox > Label{
+    -fx-text-fill: white;
+}
+#statBox  > VBox {
     -fx-alignment: center;
-    -fx-spacing: 60;
 }
-
-.profileVBox {
+#statBox {
+    -fx-padding: 7;
     -fx-alignment: center;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
+}
+#statBox:hover {
+    -fx-background-color: #f15c61;
+    -fx-effect: dropshadow(gaussian, #1f1f1f,30,0,0,3);
 }
 
-.scrollPaneVox {
+/*for borough window top text*/
+BorderPane > BorderPane > Label {
     -fx-text-fill: white;
     -fx-alignment: center;
+}
+
+/*borough window bg*/
+.scroll-pane  .viewport{
+    -fx-background-color: #404040;
+}
+.scroll-pane    {
+    -fx-fit-to-width: true;
+    -fx-background-color: #404040;
+}
+
+/*borough window main labels*/
+#boroughBox > Label   {
+    -fx-text-fill: white;
+}
+
+/*property window labels*/
+BorderPane > BorderPane > VBox > Label  {
+    -fx-text-fill: white;
+}
+/*property window bg*/
+BorderPane > BorderPane > VBox   {
+    -fx-background-color: #404040;
+}
+
+#circle:hover {
+    -fx-effect: dropshadow(gaussian,#1f1f1f,10,0,0,3);
+}
+#circle > #circleBG:hover {
+    -fx-fill: #f15c61;
+}
+
+/* User Panel */
+.userPanelVBox {
+    -fx-alignment: center;
+}
+
+.userPanelGrid {
     -fx-hgap: 20;
-    -fx-vgap: 10;
-}
-
-.accountLabel {
-    -fx-text-fill: white;
-    -fx-border-color: #090a0c;
-    -fx-border-radius: 5;
-    -fx-padding: 3 6 6 6;
-}
-
-
-
-
-.profileGrid {
-    -fx-alignment: center;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-}
-
-.escapeButton {
-    -fx-background-color: transparent;
-    -fx-font-size: 30;
 }

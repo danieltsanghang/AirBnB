@@ -12,7 +12,7 @@ public class BoroughDataLoader {
      * @return A Borough filled ArrayList
      */
     public ArrayList<Borough> load() {
-        ArrayList<Borough> boroughs = new ArrayList<Borough>();
+        ArrayList<Borough> boroughs = new ArrayList<>();
         try {
             URL url = getClass().getResource("boroughs-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -32,6 +32,7 @@ public class BoroughDataLoader {
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
+        System.out.println("borough loader working");
         return boroughs;
     }
 }

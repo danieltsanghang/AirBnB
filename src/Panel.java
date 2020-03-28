@@ -5,12 +5,8 @@ import java.util.HashMap;
 import javafx.scene.layout.*;
 
 public abstract class Panel extends Pane {
-    // CSV loader of Airbnb data
-    private AirbnbDataLoader dataLoader;
-    // CSV loader of borough data
-    private BoroughDataLoader boroughLoader;
     // CSV loader of favourite data
-    protected FavouriteDataLoader favouritesLoader;
+    protected FavouriteDataLoader favouritesLoader = new FavouriteDataLoader();
 
     // Full list of Airbnb listings in the CSV file
     protected ArrayList<AirbnbListing> listings;
@@ -19,14 +15,12 @@ public abstract class Panel extends Pane {
     // List of favourites
     protected ArrayList<String> favouriteID;
 
-    public Panel() throws IOException {
+    public Panel(ArrayList<AirbnbListing> loadedListings) throws IOException {
         // Create new CSV loaders
-        dataLoader = new AirbnbDataLoader();
-        boroughLoader = new BoroughDataLoader();
-        favouritesLoader = new FavouriteDataLoader();
+        BoroughDataLoader boroughLoader = new BoroughDataLoader();
 
         // Load data into the lists created above.
-        listings = dataLoader.load();
+        listings = loadedListings;
         boroughs = boroughLoader.load();
         favouriteID = favouritesLoader.loadFavourites();
 
@@ -51,11 +45,13 @@ public abstract class Panel extends Pane {
      * loads it in.
      */
     public void loadListingsIntoBorough() {
-        for (AirbnbListing listing : listings) {
-            for (Borough borough : boroughs) {
-                if (listing.getNeighbourhood().equals(borough.getName())) {
-                    // If the "neighbourhood" or borough matches
-                    borough.addListings(listing);
+        if (listings != null) {
+            for (AirbnbListing listing : listings) {
+                for (Borough borough : boroughs) {
+                    if (listing.getNeighbourhood().equals(borough.getName())) {
+                        // If the "neighbourhood" or borough matches
+                        borough.addListings(listing);
+                    }
                 }
             }
         }

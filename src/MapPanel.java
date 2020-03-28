@@ -14,9 +14,9 @@ public class MapPanel extends Panel
     // Horizontal shift factor the circles
     private double hShift;
 
-    public MapPanel() throws IOException
+    public MapPanel(ArrayList<AirbnbListing> loadedListings) throws IOException
     {
-        super();
+        super(loadedListings);
         // Define scaling and shifting values
         scale = 0.55;
         hShift = 100;
@@ -97,7 +97,7 @@ public class MapPanel extends Panel
             mapPane.getChildren().add(stack);
         }
         // Add Stylesheet
-        mapPane.getStylesheets().add("darkMode.css");
+        mapPane.getStylesheets().add("styles.css");
         return mapPane;
     }
 }
