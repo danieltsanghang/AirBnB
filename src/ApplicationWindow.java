@@ -13,8 +13,6 @@ import javafx.concurrent.*;
 
 import java.io.File;
 
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ChangeListener;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
@@ -149,8 +147,22 @@ public class ApplicationWindow extends Application
                 if (isMaxSelected && maxPrice > minPrice) {
                     centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                 }
-                // The minimum price is selected
+
+                // A valid minimum price is selected
                 isMinSelected = true;
+
+                if (maxPrice < minPrice) {
+                    Alert invalid = new Alert(Alert.AlertType.INFORMATION);
+                    invalid.setTitle("Information Dialog");
+                    invalid.setHeaderText("Look, an Information Dialog");
+                    invalid.setContentText("Please change to valid values");
+                    invalid.showAndWait();
+
+                    centerPanel = welcome.getPanel(0,0);
+
+                    // A non valid minimum price is selected
+                    isMinSelected = false;
+                }
             }
             else {
                 //Set the center panel as a new welcome panel
@@ -168,13 +180,28 @@ public class ApplicationWindow extends Application
                 //Set the maximum price desired by the user as the chosen value after converting the chosen value
                 //from string to integer
                 maxPrice = Integer.parseInt(newTerm);
+
                 //If the minimum price is  selected and the maximum price selected is larger than the minimum price
                 //selected, set the center panel as the first panel of the array list panels
                 if (isMinSelected && maxPrice > minPrice) {
                     centerPanel = panels.get(0).getPanel(minPrice,maxPrice);
                 }
+
                 // The maximum price is selected
                 isMaxSelected = true;
+
+                if (maxPrice < minPrice) {
+                    Alert invalid = new Alert(Alert.AlertType.INFORMATION);
+                    invalid.setTitle("Information Dialog");
+                    invalid.setHeaderText("Look, an Information Dialog");
+                    invalid.setContentText("Please change to valid values");
+                    invalid.showAndWait();
+
+                    centerPanel = welcome.getPanel(0,0);
+
+                    // A non valid minimum price is selected
+                    isMaxSelected = false;
+                }
             }
             else{
                 //Set the center panel as a new welcome panel
@@ -215,7 +242,6 @@ public class ApplicationWindow extends Application
         root.setCenter(centerPanel);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("darkMode.css");
         scene.getStylesheets().add("styles.css");
 
         Stage mainStage = new Stage(StageStyle.DECORATED);
@@ -251,7 +277,6 @@ public class ApplicationWindow extends Application
         });
 
         Scene splashScene = new Scene (splashLayout, Color.TRANSPARENT);
-        splashScene.getStylesheets().add("darkMode.css");
         splashScene.getStylesheets().add("styles.css");
         initStage.setScene(splashScene);
         initStage.initStyle(StageStyle.TRANSPARENT);
@@ -311,7 +336,7 @@ public class ApplicationWindow extends Application
 
         //Set a new scene from borough window pane
         Scene scene = new Scene(boroughWindow.getPane());
-        scene.getStylesheets().add("darkMode.css");
+        scene.getStylesheets().add("styles.css");
         Stage boroughWindowStage = new Stage();
         //Set the title of the stage
         boroughWindowStage.setTitle("Properties of " + boroughName );
@@ -334,7 +359,7 @@ public class ApplicationWindow extends Application
 
         //Set a new scene from borough window pane
         Scene scene = new Scene(propertyWindow.getPane());
-        scene.getStylesheets().add("darkMode.css");
+        scene.getStylesheets().add("styles.css");
         Stage propertyWindowStage = new Stage();
 
         //Set the title of the stage

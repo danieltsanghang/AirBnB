@@ -115,7 +115,7 @@ public class StatsPanel extends Panel {
 
         mainPane.setCenter(gridPane);
         gridPane.setAlignment(Pos.CENTER);
-        mainPane.getStylesheets().add("darkMode.css");
+        mainPane.getStylesheets().add("styles.css");
         return mainPane;
     }
 
