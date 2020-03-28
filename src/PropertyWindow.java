@@ -36,7 +36,7 @@ public class PropertyWindow {
     private Button favBtn = new Button();
     private boolean isFav;
 
-    public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, FavouriteDataLoader favDataLoader, int pos) {
+    public PropertyWindow(AirbnbListing property, ArrayList<AirbnbListing> list, int pos) {
 
         //Loads the filled heart image based on the provided URL
         //Converts File to ImageView using Image
@@ -66,7 +66,7 @@ public class PropertyWindow {
         favBtn.setGraphic(emptyHeart);
         isFav = false;
 
-        favouriteDataLoader = favDataLoader;
+        favouriteDataLoader = new FavouriteDataLoader();
 
         buildWindow();
     }
@@ -78,26 +78,20 @@ public class PropertyWindow {
 
         //Set the subsequent acts when the left button is clicked
         left.setOnMouseClicked(e -> {
-            if (position != 0) {
-                //Decrement the position by 1
-                position--;
-                //get the listing of the new position
-                property = listings.get(position);
-                //set the new property as the pop up pane content
-                popUpPane.setCenter(loadContent(property));
-            }
+            position = (position - 1) % listings.size();
+            //get the listing of the new position
+            property = listings.get(position);
+            //set the new property as the pop up pane content
+            popUpPane.setCenter(loadContent(property));
         });
 
         //Set the subsequent acts when the right button is clicked
         right.setOnMouseClicked(e -> {
-            if (position != 24) {
-                //Increment the position by 1
-                position++;
-                //get the listing of the new position
-                property = listings.get(position);
-                //set the new property as the pop up pane content
-                popUpPane.setCenter(loadContent(property));
-            }
+            position = (position + 1) % listings.size();
+            //get the listing of the new position
+            property = listings.get(position);
+            //set the new property as the pop up pane content
+            popUpPane.setCenter(loadContent(property));
         });
         checkIsFavourite(property);
         popUpPane.setMinSize(500, 300);
@@ -111,9 +105,11 @@ public class PropertyWindow {
         //Set the favourite button as empty heart
         favBtn.setGraphic(emptyHeart);
 
+        ArrayList<String> favID = favouriteDataLoader.getFavourites();
+        System.out.println("from checkIsFav : prop");
         //Check whether the listing is marked by the user as favourite
-        for (AirbnbListing listing : favouriteDataLoader.getFavourites(listings)) {
-            if (listing.getId().equals(property.getId())) {
+        for (String id : favID) {
+            if (id.equals(property.getId())) {
                 isFav = true;
                 break;
             }
@@ -143,20 +139,12 @@ public class PropertyWindow {
         //Set the subsequent acts when the favourite button is clicked
         favBtn.setOnAction(e -> {
             if (!isFav) {
-                try {
-                    favouriteDataLoader.newFavourite(property.getId());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                favouriteDataLoader.newFavourite(property.getId());
                 //Set the favourite button with filled heart
                 favBtn.setGraphic(filledHeart);
             }
             else {
-                try {
-                    favouriteDataLoader.removeFavourite(property.getId());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                favouriteDataLoader.removeFavourite(property.getId());
                 //Set the favourite button with filled heart
                 favBtn.setGraphic(emptyHeart);
             }

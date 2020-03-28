@@ -53,8 +53,6 @@ public class ApplicationWindow extends Application
     private ArrayList<Panel> panels;
     //Create an integer that counts which panels in the array list to be displayed
     private int count = 0;
-    // Create a Favourite Data Loader
-    private static FavouriteDataLoader favouriteDataLoader = new FavouriteDataLoader();
 
     public ApplicationWindow() throws IOException {
     }
@@ -355,7 +353,7 @@ public class ApplicationWindow extends Application
      */
     public static void triggerPropertyWindow (AirbnbListing property, ArrayList<AirbnbListing> list, int pos) {
         //Create a property window
-        PropertyWindow propertyWindow = new PropertyWindow(property, list, favouriteDataLoader,  pos);
+        PropertyWindow propertyWindow = new PropertyWindow(property, list,  pos);
 
         //Set a new scene from borough window pane
         Scene scene = new Scene(propertyWindow.getPane());
