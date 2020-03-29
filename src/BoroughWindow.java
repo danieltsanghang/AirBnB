@@ -82,16 +82,10 @@ public class BoroughWindow{
         launchLabel.setText("Click to learn more");
         propertyLaunch.getChildren().add(launchLabel);
 
-        //Set the id of the objects for later csv editing
+        //Set the id of the objects for later css editing
         hostBox.setId("boroughBox");    priceBox.setId("boroughBox");
         minStayBox.setId("boroughBox"); reviewsBox.setId("boroughBox");
-        propertyLaunch.setId("boroughBox");
-
-        //Set the padding and alignment of the objects displayed
-        content.setPadding(new Insets(0,0,1,20));
-        content.setAlignment(Pos.CENTER);       hostBox.setAlignment(Pos.CENTER);
-        reviewsBox.setAlignment(Pos.CENTER);    priceBox.setAlignment(Pos.CENTER);
-        minStayBox.setAlignment(Pos.CENTER);    propertyLaunch.setAlignment(Pos.CENTER);
+        propertyLaunch.setId("boroughBox"); content.setId("boroughWindow_main");
 
         buildWindow();
     }
@@ -167,7 +161,6 @@ public class BoroughWindow{
         //Convert the first page into smaller boxes
         loadBoxes(pages.get(0));
 
-        content.setSpacing(15);
         content.getChildren().addAll(hostBox,priceBox,minStayBox,reviewsBox, propertyLaunch);
         scrollBar.setContent(content);
         scrollBar.setPadding(new Insets(3));

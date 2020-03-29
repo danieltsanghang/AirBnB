@@ -34,8 +34,6 @@ public class UserPanel extends Panel
         TextField search = new TextField();
         search.setPromptText("Search for property name..");
         search.setId("searchField");
-        search.setMaxWidth(500);
-        search.setMinWidth(500);
         //Search
         search.textProperty().addListener((observableValue, s, t1) -> {
             if (t1 != null) {
@@ -60,7 +58,7 @@ public class UserPanel extends Panel
 
         //Create button for favourite selection
         //Set the subsequent acts when the button is clicked.
-        Button allSelect = new Button("Everything");
+        Button allSelect = new Button("History");
         allSelect.setOnAction(e -> {
             favSelected = false;
             displayPane.setContent(updateFavDisplay(""));
@@ -75,10 +73,10 @@ public class UserPanel extends Panel
         //Create Vbox for return pane
         //Add the top bar, button box and display pane into the return pane
         VBox returnPane = new VBox();
-        returnPane.setSpacing(3);
+//        returnPane.setSpacing(3);
         returnPane.getChildren().addAll(topBar, displayPane);
         returnPane.setId("user");
-        returnPane.getStylesheets().add("darkMode.css");
+        returnPane.getStylesheets().add("styles.css");
         //return the return pane
         return returnPane;
     }
@@ -90,8 +88,7 @@ public class UserPanel extends Panel
     {
         //Create a Vbox for storing the content
         VBox content = new VBox();
-        content.setAlignment(Pos.TOP_CENTER);
-        content.setSpacing(20);
+        content.setId("user_content");
         //Create an array list that stores the sorted listing
         ArrayList<AirbnbListing> sortedListings = new ArrayList<>();
         //Create a position to check
@@ -125,25 +122,21 @@ public class UserPanel extends Panel
 
                 //Create a button viewButton to view tha marked favourites
                 Button viewButton = new Button("View");
-                viewButton.setMinWidth(50);
-                viewButton.setMaxWidth(50);
-                viewButton.setAlignment(Pos.CENTER);
+                viewButton.setId("user_viewButton");
                 //Set the subsequent acts when the view button is clicked
                 viewButton.setOnAction(e -> {
                     ApplicationWindow.triggerPropertyWindow(listing, finalSortedListings, finalPos);
                 });
                 //Create a borderPane that stores the grid and button
                 BorderPane alignBox = new BorderPane();
-                alignBox.setMinWidth(450);
-                alignBox.setMaxWidth(450);
-                alignBox.setId("statBox");
+                alignBox.setId("favedListing");
                 //Create a gridpane that stores the name and id
                 GridPane grid = new GridPane();
                 grid.add(new Label("Name: "), 0, 0);
                 grid.add(new Label("ID: "), 0, 1);
                 grid.add(new Label(listing.getName()),1, 0);
                 grid.add(new Label(listing.getId()),1, 1);
-                grid.getStylesheets().add("styles.css");
+                grid.setId("userGrid");
                 alignBox.setLeft(grid);
                 alignBox.setRight(viewButton);
                 content.getChildren().add(alignBox);
