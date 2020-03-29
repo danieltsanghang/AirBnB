@@ -58,8 +58,8 @@ public class PropertyWindow {
         this.listings = list;
         this.position = pos;
 
-        //Set the maximum height of the favourite button
-        favBtn.setMaxHeight(40);
+        //Set the id of the favourite button for later css editing
+        favBtn.setId("favBtn");
 
         //Set the favourite button as empty heart and set it as not favourite for now
         favBtn.setGraphic(emptyHeart);

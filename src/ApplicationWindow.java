@@ -130,8 +130,8 @@ public class ApplicationWindow extends Application
         //Set the visible rows viewed by the user when choosing the minimum and maximum price as 3
         minComboBox.getItems().addAll(null, "0", "50", "100", "200", "500", "1000", "2000", "4000");
         maxComboBox.getItems().addAll( null, "50", "100", "200", "500", "1000", "2000", "4000", "7000");
-        minComboBox.setVisibleRowCount(3);
-        maxComboBox.setVisibleRowCount(3);
+        minComboBox.setVisibleRowCount(6);
+        maxComboBox.setVisibleRowCount(6);
 
         //Subsequent acts followed if a value of the minimum price combo box is chosen
         minComboBox.valueProperty().addListener((ov, oldTerm, newTerm) -> {

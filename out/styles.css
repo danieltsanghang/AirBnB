@@ -31,6 +31,12 @@
     -fx-background-color: #595959;
     -fx-text-fill: white;
 }
+.combo-box  .list-cell:hover {
+    -fx-background-color: #626262;
+}
+.combo-box  .list-cell:pressed {
+    -fx-background-color: #525252;
+}
 
 /*comboBox and scrollPane scroll bars bg*/
 .scroll-bar  {
@@ -68,7 +74,6 @@
 .button {
     -fx-text-fill: white;
     -fx-background-color: #595959;
-    /*-fx-padding: 7,7,7,7; doesnt work */
 }
 .button:hover   {
     -fx-background-color: #636363;
@@ -104,7 +109,6 @@ BorderPane > HBox    {
     -fx-alignment: Center;
     -fx-padding: 7,7,7,7;
     -fx-spacing: 710;
-    /*-fx-effect: innershadow(gaussian, #3b3b3b,4,0.1,0,2);*/
 }
 #navBarBorough {
     -fx-background-color: #272727;
@@ -167,6 +171,15 @@ BorderPane > BorderPane > Label {
     -fx-background-color: #404040;
 }
 
+#boroughWindow_main {
+    -fx-padding: 0,0,1,20;
+    -fx-alignment: center;
+    -fx-spacing: 15;
+}
+
+#boroughBox {
+    -fx-alignment: center;
+}
 /*borough window main labels*/
 #boroughBox > Label   {
     -fx-text-fill: white;
@@ -178,7 +191,30 @@ BorderPane > BorderPane > VBox > Label  {
 }
 /*property window bg*/
 BorderPane > BorderPane > VBox   {
-    -fx-background-color: #404040;
+    -fx-background-color: #232323;
+}
+
+#favBtn {
+    -fx-max-height: 50;
+    -fx-background-color: transparent;
+}
+
+#favBtn:hover {
+    -fx-background-color: transparent;
+}
+
+#user   {
+    -fx-padding: 7,0,7,7;
+    -fx-spacing: 7;
+    -fx-alignment: top_center;
+}
+
+#searchField    {
+    -fx-min-width: 500;
+    -fx-max-width: 500;
+    -fx-text-fill: white;
+    -fx-background-color: #363636;
+    -fx-highlight-fill: #c4c4c4;
 }
 
 #circle:hover {
@@ -188,11 +224,35 @@ BorderPane > BorderPane > VBox   {
     -fx-fill: #f15c61;
 }
 
-/* User Panel */
-.userPanelVBox {
+#userTop    {
+    -fx-spacing: 15;
+    /*-fx-background-color: #404040;*/
+    /*-fx-effect: dropshadow(gaussian,#1f1f1f,3,2,0,4);*/
+    -fx-alignment: top_center;
+}
+
+#user_viewButton {
+    -fx-max-width: 50;
+    -fx-min-width: 50;
+}
+
+#favedListing   {
+    -fx-max-width: 450;
+    -fx-min-width: 450;
+    -fx-padding: 7;
     -fx-alignment: center;
 }
 
-.userPanelGrid {
-    -fx-hgap: 20;
+#favedListing:hover {
+    -fx-background-color: #f15c61;
+    -fx-effect: dropshadow(gaussian, #1f1f1f,20,0,0,3);
+}
+
+#userGrid  > Label {
+    -fx-text-fill: white;
+}
+
+#user_content {
+    -fx-spacing: 20;
+    -fx-alignment: top_center;
 }
